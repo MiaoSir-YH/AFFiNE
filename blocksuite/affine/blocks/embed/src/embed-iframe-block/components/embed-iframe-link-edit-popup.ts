@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   DocModeProvider,
   TelemetryProvider,
@@ -89,7 +90,7 @@ export class EmbedIframeLinkEditPopup extends SignalWatcher(
     return html`
       <div class="embed-iframe-link-edit-popup">
         <div class="input-container">
-          <span class="input-label">Link</span>
+          <span class="input-label">${editorText('Link')}</span>
           <input
             class="link-input"
             type="text"

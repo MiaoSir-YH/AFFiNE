@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { toast } from '@blocksuite/affine-components/toast';
 import {
   copySelectedModelsCommand,
@@ -32,7 +33,7 @@ export const surfaceRefToolbarModuleConfig: ToolbarModuleConfig = {
     },
     {
       id: 'c.copy-surface-ref',
-      label: 'Copy',
+      label: editorText('Copy'),
       icon: CopyIcon(),
       run: ctx => {
         const surfaceRefBlock = ctx.getCurrentBlockByType(
@@ -82,7 +83,7 @@ export const surfaceRefToolbarModuleConfig: ToolbarModuleConfig = {
     },
     {
       id: 'g.surface-ref-deletion',
-      label: 'Delete',
+      label: editorText('Delete'),
       icon: DeleteIcon(),
       placement: ActionPlacement.More,
       variant: 'destructive',

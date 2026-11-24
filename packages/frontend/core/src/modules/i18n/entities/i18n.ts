@@ -7,6 +7,7 @@ import {
   type Language,
   SUPPORTED_LANGUAGES,
 } from '@affine/i18n';
+import { setEditorTextTranslator } from '@blocksuite/affine/shared/utils';
 import { effect, Entity, fromPromise, LiveData } from '@toeverything/infra';
 import { catchError, EMPTY, exhaustMap } from 'rxjs';
 
@@ -69,6 +70,7 @@ export class I18n extends Entity {
   }
 
   private applyDocumentLanguage(language: Language) {
+    setEditorTextTranslator(text => this.i18n.t(text, { defaultValue: text }));
     document.documentElement.lang = language;
     document.documentElement.dir = SUPPORTED_LANGUAGES[language]?.rtl
       ? 'rtl'

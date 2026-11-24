@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { selectBlock } from '@blocksuite/affine-block-note';
 import { CaptionedBlockComponent } from '@blocksuite/affine-components/caption';
 import { createLitPortal } from '@blocksuite/affine-components/portal';
@@ -51,7 +52,9 @@ export class LatexBlockComponent extends CaptionedBlockComponent<LatexBlockModel
 
         if (latex.length === 0) {
           render(
-            html`<span class="latex-block-empty-placeholder">Equation</span>`,
+            html`<span class="latex-block-empty-placeholder"
+              >${editorText('Equation')}</span
+            >`,
             katexContainer
           );
         } else {
@@ -65,7 +68,7 @@ export class LatexBlockComponent extends CaptionedBlockComponent<LatexBlockModel
             delete katexContainer['_$litPart$'];
             render(
               html`<span class="latex-block-error-placeholder"
-                >Error equation</span
+                >${editorText('Error equation')}</span
               >`,
               katexContainer
             );

@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import { CloseIcon } from '@blocksuite/icons/rc';
 import type {
   DialogContentProps,
@@ -342,7 +343,7 @@ export const ModalInner = forwardRef<HTMLDivElement, ModalProps>(
                     <IconButton
                       size="20"
                       className={clsx(styles.closeButton, closeButtonClassName)}
-                      aria-label="Close"
+                      aria-label={I18n.t('Close')}
                       data-testid="modal-close-button"
                       {...otherCloseButtonProps}
                     >

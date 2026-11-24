@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { LoadingIcon } from '@blocksuite/affine-components/icons';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
 import { EmbedIcon } from '@blocksuite/icons/lit';
@@ -173,7 +174,7 @@ export class EmbedIframeLoadingCard extends LitElement {
       <div class=${cardClasses} style=${cardStyle}>
         <div class="loading-content">
           <div class="loading-spinner">${LoadingIcon()}</div>
-          <div class="loading-text">Loading...</div>
+          <div class="loading-text">${editorText('Loading...')}</div>
         </div>
         <div class="loading-banner">
           <div class="icon-box">${EmbedIcon()}</div>

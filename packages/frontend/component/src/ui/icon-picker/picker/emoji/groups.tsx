@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import { RecentIcon } from '@blocksuite/icons/rc';
 import clsx from 'clsx';
 import {
@@ -181,7 +182,7 @@ export const EmojiGroups = memo(function EmojiGroups({
     return (
       <div className={styles.loadingWrapper}>
         <Loading size={16} />
-        <span style={{ marginLeft: 4 }}>Loading emojis...</span>
+        <span style={{ marginLeft: 4 }}>{I18n.t('Loading emojis...')}</span>
       </div>
     );
   }

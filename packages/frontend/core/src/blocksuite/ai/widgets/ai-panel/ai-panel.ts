@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import { ColorScheme } from '@blocksuite/affine/model';
 import {
   DocModeProvider,
@@ -301,7 +302,9 @@ export class AffineAIPanelWidget extends WidgetComponent {
     return notification
       .confirm({
         title: 'Stop generating',
-        message: 'AI is generating content. Do you want to stop generating?',
+        message: I18n.t(
+          'AI is generating content. Do you want to stop generating?'
+        ),
         cancelText: 'Cancel',
         confirmText: 'Stop',
         abort: this._abortController.signal,

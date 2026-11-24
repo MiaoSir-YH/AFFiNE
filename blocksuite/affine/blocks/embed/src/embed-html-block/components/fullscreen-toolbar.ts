@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   menu,
   popMenu,
@@ -75,7 +76,7 @@ export class EmbedHtmlFullscreenToolbar extends LitElement {
         items: [
           () =>
             html` <div class="settings-header">
-              <span>Settings</span>
+              <span>${editorText('Settings')}</span>
             </div>`,
           menu.group({
             name: 'thing',

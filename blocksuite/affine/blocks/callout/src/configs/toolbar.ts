@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   createPopup,
   popupTargetFromElement,
@@ -37,8 +38,8 @@ const colors = [
 
 const backgroundColorAction = {
   id: 'background-color',
-  label: 'Background Color',
-  tooltip: 'Change background color',
+  label: editorText('Background Color'),
+  tooltip: editorText('Change background color'),
   icon: PaletteIcon(),
   run() {
     // This will be handled by the content function
@@ -57,14 +58,14 @@ const backgroundColorAction = {
         .button=${html`
           <editor-icon-button
             aria-label="background"
-            .tooltip=${'Background Color'}
+            .tooltip=${editorText('Background Color')}
           >
             ${PaletteIcon()} ${EditorChevronDown}
           </editor-icon-button>
         `}
       >
         <div data-size="large" data-orientation="vertical">
-          <div class="highlight-heading">Background</div>
+          <div class="highlight-heading">${editorText('Background')}</div>
           ${repeat(colors, color => {
             const isDefault = color === 'default';
             const value = isDefault
@@ -95,8 +96,8 @@ const backgroundColorAction = {
 
 const iconPickerAction = {
   id: 'icon-picker',
-  label: 'Icon Picker',
-  tooltip: 'Change icon',
+  label: editorText('Icon Picker'),
+  tooltip: editorText('Change icon'),
   icon: SmileIcon(),
   run() {
     // This will be handled by the content function
@@ -175,7 +176,7 @@ const builtinToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'c.delete',
-      label: 'Delete',
+      label: editorText('Delete'),
       icon: DeleteIcon(),
       variant: 'destructive',
       run(ctx) {

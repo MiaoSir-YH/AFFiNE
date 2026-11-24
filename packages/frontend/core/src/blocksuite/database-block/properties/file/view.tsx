@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import { Popover, uniReactRoot } from '@affine/component';
 import { Button } from '@affine/component/ui/button';
 import { Menu, MenuItem } from '@affine/component/ui/menu';
@@ -462,7 +463,7 @@ const FileCellComponent: ForwardRefRenderFunction<
             className={styles.uploadButtonStyle}
           >
             <PlusIcon className={styles.iconPrimary} width={20} height={20} />
-            <span>Add a file or image</span>
+            <span>{I18n.t('Add a file or image')}</span>
           </div>
         </div>
       </div>

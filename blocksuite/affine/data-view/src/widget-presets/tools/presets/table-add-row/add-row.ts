@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
 import { IS_MOBILE } from '@blocksuite/global/env';
 import { PlusIcon } from '@blocksuite/icons/lit';
@@ -39,7 +40,9 @@ export class DataViewHeaderToolsAddRow extends WidgetBase {
       .text="${
         IS_MOBILE
           ? html`<span style="font-weight: 500">New</span>`
-          : html`<span style="font-weight: 500">New Record</span>`
+          : html`<span style="font-weight: 500"
+              >${editorText('New Record')}</span
+            >`
       }"
     >
     </data-view-component-button>`;

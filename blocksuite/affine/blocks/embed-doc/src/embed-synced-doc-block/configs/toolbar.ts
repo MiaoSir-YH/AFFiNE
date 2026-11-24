@@ -26,7 +26,11 @@ import {
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
 import type { AffineTextAttributes } from '@blocksuite/affine-shared/types';
-import { getBlockProps, matchModels } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  getBlockProps,
+  matchModels,
+} from '@blocksuite/affine-shared/utils';
 import { Bound } from '@blocksuite/global/gfx';
 import {
   CaptionIcon,
@@ -77,7 +81,7 @@ const openDocActions = [
   {
     mode: 'open-in-active-view',
     id: 'a.open-in-active-view',
-    label: 'Open this doc',
+    label: editorText('Open this doc'),
     icon: ExpandFullIcon(),
   },
 ] as const satisfies (Pick<ToolbarAction, 'id' | 'label' | 'icon'> & {
@@ -108,7 +112,10 @@ const openDocActionGroup = {
       <editor-menu-button
         .contentPadding="${'8px'}"
         .button=${html`
-          <editor-icon-button aria-label="Open doc" .tooltip=${'Open doc'}>
+          <editor-icon-button
+            aria-label=${editorText('Open doc')}
+            .tooltip=${editorText('Open doc')}
+          >
             ${OpenInNewIcon()} ${EditorChevronDown}
           </editor-icon-button>
         `}
@@ -140,7 +147,7 @@ const conversionsActionGroup = {
   actions: [
     {
       id: 'inline',
-      label: 'Inline view',
+      label: editorText('Inline view'),
       run(ctx) {
         const block = ctx.getCurrentBlockByType(EmbedSyncedDocBlockComponent);
         block?.convertToInline();
@@ -159,7 +166,7 @@ const conversionsActionGroup = {
     },
     {
       id: 'card',
-      label: 'Card view',
+      label: editorText('Card view'),
       run(ctx) {
         const block = ctx.getCurrentBlockByType(EmbedSyncedDocBlockComponent);
         if (isGfxBlockComponent(block)) {
@@ -181,7 +188,7 @@ const conversionsActionGroup = {
     },
     {
       id: 'embed',
-      label: 'Embed view',
+      label: editorText('Embed view'),
       disabled: true,
     },
   ],
@@ -207,7 +214,7 @@ const conversionsActionGroup = {
 
 const captionAction = {
   id: 'd.caption',
-  tooltip: 'Caption',
+  tooltip: editorText('Caption'),
   icon: CaptionIcon(),
   run(ctx) {
     const block = ctx.getCurrentBlockByType(EmbedSyncedDocBlockComponent);
@@ -231,7 +238,7 @@ const builtinToolbarConfig = {
       actions: [
         {
           id: 'copy',
-          label: 'Copy',
+          label: editorText('Copy'),
           icon: CopyIcon(),
           run(ctx) {
             const model = ctx.getCurrentModelByType(EmbedSyncedDocModel);
@@ -246,7 +253,7 @@ const builtinToolbarConfig = {
         },
         {
           id: 'duplicate',
-          label: 'Duplicate',
+          label: editorText('Duplicate'),
           icon: DuplicateIcon(),
           run(ctx) {
             const model = ctx.getCurrentModelByType(EmbedSyncedDocModel);
@@ -264,7 +271,7 @@ const builtinToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'c.delete',
-      label: 'Delete',
+      label: editorText('Delete'),
       icon: DeleteIcon(),
       variant: 'destructive',
       run(ctx) {
@@ -287,8 +294,8 @@ const builtinSurfaceToolbarConfig = {
     conversionsActionGroup,
     {
       id: 'b.insert-to-page',
-      label: 'Insert to page',
-      tooltip: 'Insert to page',
+      label: editorText('Insert to page'),
+      tooltip: editorText('Insert to page'),
       icon: InsertIntoPageIcon(),
       run: ctx => {
         const model = ctx.getCurrentModelByType(EmbedSyncedDocModel);
@@ -322,9 +329,10 @@ const builtinSurfaceToolbarConfig = {
     },
     {
       id: 'c.duplicate-as-note',
-      label: 'Duplicate as note',
-      tooltip:
-        'Duplicate as note to create an editable copy, the original remains unchanged.',
+      label: editorText('Duplicate as note'),
+      tooltip: editorText(
+        'Duplicate as note to create an editable copy, the original remains unchanged.'
+      ),
       icon: DuplicateIcon(),
       run: ctx => {
         const { gfx } = ctx;

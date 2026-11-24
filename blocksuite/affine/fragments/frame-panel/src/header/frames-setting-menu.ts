@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { EdgelessLegacySlotIdentifier } from '@blocksuite/affine-block-surface';
 import {
   DocModeProvider,
@@ -132,10 +133,10 @@ export class FramesSettingMenu extends WithDisposable(LitElement) {
       }}
     >
       <div class="frames-setting-menu-item">
-        <div class="setting-label">Preview Settings</div>
+        <div class="setting-label">${editorText('Preview Settings')}</div>
       </div>
       <div class="frames-setting-menu-item action">
-        <div class="action-label">Fill Screen</div>
+        <div class="action-label">${editorText('Fill Screen')}</div>
         <div class="toggle-button">
           <toggle-switch
             .on=${this.fillScreen}
@@ -147,10 +148,10 @@ export class FramesSettingMenu extends WithDisposable(LitElement) {
       <menu-divider></menu-divider>
 
       <div class="frames-setting-menu-item">
-        <div class="setting-label">Playback Settings</div>
+        <div class="setting-label">${editorText('Playback Settings')}</div>
       </div>
       <div class="frames-setting-menu-item action">
-        <div class="action-label">Dark background</div>
+        <div class="action-label">${editorText('Dark background')}</div>
         <div class="toggle-button">
           <toggle-switch
             .on=${this.blackBackground}
@@ -159,7 +160,7 @@ export class FramesSettingMenu extends WithDisposable(LitElement) {
         </div>
       </div>
       <div class="frames-setting-menu-item action">
-        <div class="action-label">Hide toolbar</div>
+        <div class="action-label">${editorText('Hide toolbar')}</div>
         <div class="toggle-button">
           <toggle-switch
             .on=${this.hideToolbar}

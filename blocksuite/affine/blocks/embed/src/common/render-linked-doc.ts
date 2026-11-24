@@ -7,7 +7,7 @@ import {
   ParagraphBlockModel,
 } from '@blocksuite/affine-model';
 import { NotificationProvider } from '@blocksuite/affine-shared/services';
-import { matchModels } from '@blocksuite/affine-shared/utils';
+import { editorText, matchModels } from '@blocksuite/affine-shared/utils';
 import type { BlockStdScope } from '@blocksuite/std';
 import {
   type BlockModel,
@@ -129,9 +129,9 @@ export function promptDocTitle(std: BlockStdScope, autofill?: string) {
   if (!notification) return Promise.resolve(undefined);
 
   return notification.prompt({
-    title: 'Create linked doc',
+    title: editorText('Create linked doc'),
     message: 'Enter a title for the new doc.',
-    placeholder: 'Untitled',
+    placeholder: editorText('Untitled'),
     autofill,
     confirmText: 'Confirm',
     cancelText: 'Cancel',

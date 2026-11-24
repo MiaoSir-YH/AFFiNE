@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { EdgelessLegacySlotIdentifier } from '@blocksuite/affine-block-surface';
 import { NoteBlockModel, NoteDisplayMode } from '@blocksuite/affine-model';
 import {
@@ -165,7 +166,7 @@ const builtinSurfaceToolbarConfig = {
     },
     {
       id: 'f.auto-height',
-      label: 'Size',
+      label: editorText('Size'),
       when(ctx) {
         const elements = ctx.getSurfaceModelsByType(NoteBlockModel);
         return (
@@ -183,11 +184,11 @@ const builtinSurfaceToolbarConfig = {
         const { collapse } = firstModel.props.edgeless$.value;
         const options: Pick<ToolbarAction, 'tooltip' | 'icon'> = collapse
           ? {
-              tooltip: 'Auto height',
+              tooltip: editorText('Auto height'),
               icon: AutoHeightIcon(),
             }
           : {
-              tooltip: 'Customized height',
+              tooltip: editorText('Customized height'),
               icon: CustomizedHeightIcon(),
             };
 
@@ -320,7 +321,7 @@ function setDisplayMode(
     actions: [
       {
         key: 'view-in-toc',
-        label: 'View in Toc',
+        label: editorText('View in Toc'),
         onClick: () => {
           const sidebar = ctx.std.getOptional(SidebarExtensionIdentifier);
           sidebar?.open('outline');

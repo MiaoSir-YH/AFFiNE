@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { insertLinkByQuickSearchCommand } from '@blocksuite/affine-block-bookmark';
 import { insertEmbedCard } from '@blocksuite/affine-block-embed';
 import { DefaultTool } from '@blocksuite/affine-block-surface';
@@ -83,7 +84,7 @@ export class EdgelessLinkToolButton extends QuickToolMixin(LitElement) {
     return html`<edgeless-tool-icon-button
       .iconContainerPadding="${6}"
       .tooltip="${html`<affine-tooltip-content-with-shortcut
-        data-tip="${'Link'}"
+        data-tip="${editorText('Link')}"
         data-shortcut="${'@'}"
       ></affine-tooltip-content-with-shortcut>`}"
       .tooltipOffset=${17}

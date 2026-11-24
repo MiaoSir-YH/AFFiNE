@@ -3,7 +3,7 @@ import {
   SettingRow,
   SettingWrapper,
 } from '@affine/component/setting-components';
-import { useI18n } from '@affine/i18n';
+import { I18n, useI18n } from '@affine/i18n';
 
 export const Preferences = () => {
   const t = useI18n();
@@ -19,7 +19,7 @@ export const Preferences = () => {
           'com.affine.settings.editorSettings.preferences.export.description'
         ]()}
       >
-        <Button>Export</Button>
+        <Button>{I18n.t('Export')}</Button>
       </SettingRow>
       <SettingRow
         name={t[
@@ -29,7 +29,7 @@ export const Preferences = () => {
           'com.affine.settings.editorSettings.preferences.import.description'
         ]()}
       >
-        <Button>Import</Button>
+        <Button>{I18n.t('Import')}</Button>
       </SettingRow>
     </SettingWrapper>
   );

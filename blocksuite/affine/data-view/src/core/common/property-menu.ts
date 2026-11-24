@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { menu } from '@blocksuite/affine-components/context-menu';
 import { html } from 'lit/static-html.js';
 
@@ -12,7 +13,7 @@ export const inputConfig = (property: Property) => {
       </div>
     `,
     initialValue: property.name$.value,
-    placeholder: 'Property name',
+    placeholder: editorText('Property name'),
     onBlur: text => {
       property.nameSet(text);
     },
@@ -22,7 +23,7 @@ export const typeConfig = (property: Property) => {
   return menu.group({
     items: [
       menu.subMenu({
-        name: 'Type',
+        name: editorText('Type'),
         hide: () => !property.typeCanSet,
         postfix: html` <div
           class="affine-database-column-type-icon"

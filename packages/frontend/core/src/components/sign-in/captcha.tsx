@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import { CaptchaService } from '@affine/core/modules/cloud';
 import { Turnstile } from '@marsidev/react-turnstile';
 import { useLiveData, useService } from '@toeverything/infra';
@@ -35,7 +36,7 @@ export const Captcha = () => {
   }
 
   if (isLoading || !provider) {
-    return <div className={style.captchaWrapper}>Loading...</div>;
+    return <div className={style.captchaWrapper}>{I18n.t('Loading...')}</div>;
   }
 
   if (verifyToken) {

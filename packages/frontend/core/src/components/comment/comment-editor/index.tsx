@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import { IconButton, notify, toast } from '@affine/component';
 import { LitDocEditor, type PageEditor } from '@affine/core/blocksuite/editors';
 import { SnapshotHelper } from '@affine/core/modules/comment/services/snapshot-helper';
@@ -267,7 +268,7 @@ export const CommentEditor = forwardRef<CommentEditorRef, CommentEditorProps>(
           } catch (e: any) {
             logger.error('uploadCommentAttachment failed', { error: e });
             notify.error({
-              title: 'Failed to upload attachment',
+              title: I18n.t('Failed to upload attachment'),
               message: e.message,
             });
             pending.localUrl && URL.revokeObjectURL(pending.localUrl);
@@ -410,7 +411,7 @@ export const CommentEditor = forwardRef<CommentEditorRef, CommentEditorProps>(
           ).catch(e => {
             console.error('Failed to download attachment', e);
             notify.error({
-              title: 'Failed to download attachment',
+              title: I18n.t('Failed to download attachment'),
               message: e.message,
             });
           });

@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   menu,
   popMenu,
@@ -243,7 +244,7 @@ export const popPropertiesSetting = (
     middleware,
     options: {
       title: {
-        text: 'Properties',
+        text: editorText('Properties'),
         onBack: props.onBack,
         onClose: props.onClose,
         postfix: () => {

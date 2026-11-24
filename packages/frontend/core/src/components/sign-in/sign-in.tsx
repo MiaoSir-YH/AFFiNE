@@ -15,7 +15,7 @@ import {
 } from '@affine/core/modules/cloud';
 import type { AuthSessionStatus } from '@affine/core/modules/cloud/entities/session';
 import { ServerDeploymentType } from '@affine/graphql';
-import { Trans, useI18n } from '@affine/i18n';
+import { I18n, Trans, useI18n } from '@affine/i18n';
 import {
   ArrowRightBigIcon,
   LocalWorkspaceIcon,
@@ -117,7 +117,7 @@ export const SignInStep = ({
         }));
       } else {
         notify.error({
-          title: 'Failed to sign in',
+          title: I18n.t('Failed to sign in'),
           message: 'This email is not available for sign in.',
         });
       }
@@ -126,7 +126,7 @@ export const SignInStep = ({
 
       // TODO(@eyhn): better error handling
       notify.error({
-        title: 'Failed to sign in',
+        title: I18n.t('Failed to sign in'),
         message: err.message,
       });
     }

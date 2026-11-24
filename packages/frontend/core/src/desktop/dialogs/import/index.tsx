@@ -23,7 +23,7 @@ import {
   WorkspaceService,
 } from '@affine/core/modules/workspace';
 import { DebugLogger } from '@affine/debug';
-import { useI18n } from '@affine/i18n';
+import { I18n, useI18n } from '@affine/i18n';
 import track from '@affine/track';
 import { openDirectory, openFilesWith } from '@blocksuite/affine/shared/utils';
 import type { Workspace } from '@blocksuite/affine/store';
@@ -122,7 +122,7 @@ function toImportErrorState(error: unknown): ImportErrorState {
   if (error instanceof DOMException && error.name === 'AbortError') {
     return {
       code: 'cancelled',
-      message: 'Import cancelled',
+      message: I18n.t('Import cancelled'),
       sourcePath,
     };
   }

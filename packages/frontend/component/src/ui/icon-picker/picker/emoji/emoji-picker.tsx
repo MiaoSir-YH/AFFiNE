@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import { SearchIcon } from '@blocksuite/icons/rc';
 import { cssVarV2 } from '@toeverything/theme/v2';
 import { type KeyboardEvent, useCallback, useState } from 'react';
@@ -60,7 +61,7 @@ export const EmojiPicker = ({
               />
             </div>
           }
-          placeholder="Filter..."
+          placeholder={I18n.t('Filter...')}
         />
         <Menu
           contentOptions={{

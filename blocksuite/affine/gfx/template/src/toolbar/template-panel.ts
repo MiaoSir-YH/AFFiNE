@@ -8,12 +8,13 @@ import {
   ThemeProvider,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   requestConnectedFrame,
   stopPropagation,
 } from '@blocksuite/affine-shared/utils';
 import { EdgelessDraggableElementController } from '@blocksuite/affine-widget-edgeless-toolbar';
 import type { Bound } from '@blocksuite/global/gfx';
-import { WithDisposable } from '@blocksuite/global/lit';
+import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import type { BlockComponent } from '@blocksuite/std';
 import { GfxControllerIdentifier } from '@blocksuite/std/gfx';
 import { baseTheme } from '@toeverything/theme';
@@ -32,7 +33,9 @@ function toSvgPreviewDataUrl(svg: string) {
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
-export class EdgelessTemplatePanel extends WithDisposable(LitElement) {
+export class EdgelessTemplatePanel extends SignalWatcher(
+  WithDisposable(LitElement)
+) {
   static override styles = css`
     :host {
       position: absolute;
@@ -330,9 +333,16 @@ export class EdgelessTemplatePanel extends WithDisposable(LitElement) {
   private _updateTemplates() {
     this._fetch(async state => {
       try {
-        const templates = this._searchKeyword
-          ? await EdgelessTemplatePanel.templates.search(this._searchKeyword)
-          : await EdgelessTemplatePanel.templates.list(this._currentCategory);
+        const keyword = this._searchKeyword.trim();
+        const matchingCategory = this._categories.find(
+          category =>
+            editorText(category).toLowerCase() === keyword.toLowerCase()
+        );
+        const manager = EdgelessTemplatePanel.templates;
+        const templates =
+          keyword && !matchingCategory
+            ? await manager.search(keyword)
+            : await manager.list(matchingCategory ?? this._currentCategory);
 
         if (state.canceled) return;
 
@@ -393,7 +403,7 @@ export class EdgelessTemplatePanel extends WithDisposable(LitElement) {
           <input
             class="search-input"
             type="text"
-            placeholder="Search file or anything..."
+            placeholder=${editorText('Search file or anything...')}
             @input=${this._updateSearchKeyword}
             @cut=${stopPropagation}
             @copy=${stopPropagation}
@@ -414,7 +424,7 @@ export class EdgelessTemplatePanel extends WithDisposable(LitElement) {
                   this._updateTemplates();
                 }}
               >
-                ${cate}
+                ${editorText(cate)}
               </div>`;
             }
           )}
@@ -462,7 +472,7 @@ export class EdgelessTemplatePanel extends WithDisposable(LitElement) {
                             style=${styleMap({
                               opacity: isBeingDragged ? '0' : '1',
                             })}
-                            data-hover-text="Add"
+                            data-hover-text=${editorText('Add')}
                             @mousedown=${(e: MouseEvent) =>
                               this.draggableController.onMouseDown(e, {
                                 data: template,
@@ -488,7 +498,7 @@ export class EdgelessTemplatePanel extends WithDisposable(LitElement) {
                                     .autoHide=${true}
                                     tip-position="top"
                                   >
-                                    ${template.name}
+                                    ${editorText(template.name)}
                                   </affine-tooltip>`
                                 : nothing
                             }

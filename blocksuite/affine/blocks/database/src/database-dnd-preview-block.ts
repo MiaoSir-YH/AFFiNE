@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { DatabaseBlockModel } from '@blocksuite/affine-model';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
 import { DatabaseListViewIcon } from '@blocksuite/icons/lit';
@@ -45,7 +46,7 @@ export class DatabaseDndPreviewBlockComponent extends BlockComponent<DatabaseBlo
     >
       <div class="database-preview-content">
         ${DatabaseListViewIcon({ width: '24px', height: '24px' })}
-        <span class="text">Database Block</span>
+        <span class="text">${editorText('Database Block')}</span>
       </div>
     </div>`;
   }

@@ -4,6 +4,7 @@ import {
 } from '@blocksuite/affine-shared/styles';
 import { unsafeCSSVar, unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
 import {
+  editorText,
   createButtonPopper,
   stopPropagation,
 } from '@blocksuite/affine-shared/utils';
@@ -130,7 +131,7 @@ export class ResourceStatus extends WithDisposable(LitElement) {
         }
       : {
           type: 'Download',
-          label: 'Reload',
+          label: editorText('Reload'),
         };
 
     return html`

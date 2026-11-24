@@ -26,7 +26,7 @@ import {
   type ToolbarModuleConfig,
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
-import { getBlockProps } from '@blocksuite/affine-shared/utils';
+import { editorText, getBlockProps } from '@blocksuite/affine-shared/utils';
 import { Bound } from '@blocksuite/global/gfx';
 import {
   CaptionIcon,
@@ -63,7 +63,7 @@ const previewAction = {
 
 const captionAction = {
   id: 'd.caption',
-  tooltip: 'Caption',
+  tooltip: editorText('Caption'),
   icon: CaptionIcon(),
   run(ctx) {
     const block = ctx.getCurrentBlockByType(BookmarkBlockComponent);
@@ -106,7 +106,7 @@ const builtinToolbarConfig = {
       actions: [
         {
           id: 'inline',
-          label: 'Inline view',
+          label: editorText('Inline view'),
           run(ctx) {
             const model = ctx.getCurrentModelByType(BookmarkBlockModel);
             if (!model) return;
@@ -139,12 +139,12 @@ const builtinToolbarConfig = {
         },
         {
           id: 'card',
-          label: 'Card view',
+          label: editorText('Card view'),
           disabled: true,
         },
         {
           id: 'embed',
-          label: 'Embed view',
+          label: editorText('Embed view'),
           disabled(ctx) {
             const model = ctx.getCurrentModelByType(BookmarkBlockModel);
             if (!model) return true;
@@ -247,11 +247,11 @@ const builtinToolbarConfig = {
       actions: [
         {
           id: 'horizontal',
-          label: 'Large horizontal style',
+          label: editorText('Large horizontal style'),
         },
         {
           id: 'list',
-          label: 'Small horizontal style',
+          label: editorText('Small horizontal style'),
         },
       ],
       content(ctx) {
@@ -294,7 +294,7 @@ const builtinToolbarConfig = {
       actions: [
         {
           id: 'copy',
-          label: 'Copy',
+          label: editorText('Copy'),
           icon: CopyIcon(),
           run(ctx) {
             const model = ctx.getCurrentModelByType(BookmarkBlockModel);
@@ -309,7 +309,7 @@ const builtinToolbarConfig = {
         },
         {
           id: 'duplicate',
-          label: 'Duplicate',
+          label: editorText('Duplicate'),
           icon: DuplicateIcon(),
           run(ctx) {
             const model = ctx.getCurrentModelByType(BookmarkBlockModel);
@@ -327,7 +327,7 @@ const builtinToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'b.refresh',
-      label: 'Reload',
+      label: editorText('Reload'),
       icon: ResetIcon(),
       run(ctx) {
         const block = ctx.getCurrentBlockByType(BookmarkBlockComponent);
@@ -337,7 +337,7 @@ const builtinToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'c.delete',
-      label: 'Delete',
+      label: editorText('Delete'),
       icon: DeleteIcon(),
       variant: 'destructive',
       run(ctx) {
@@ -362,12 +362,12 @@ const builtinSurfaceToolbarConfig = {
       actions: [
         {
           id: 'card',
-          label: 'Card view',
+          label: editorText('Card view'),
           disabled: true,
         },
         {
           id: 'embed',
-          label: 'Embed view',
+          label: editorText('Embed view'),
           run(ctx) {
             const model = ctx.getCurrentModelByType(BookmarkBlockModel);
             if (!model) return;
@@ -483,19 +483,19 @@ const builtinSurfaceToolbarConfig = {
         [
           {
             id: 'horizontal',
-            label: 'Large horizontal style',
+            label: editorText('Large horizontal style'),
           },
           {
             id: 'list',
-            label: 'Small horizontal style',
+            label: editorText('Small horizontal style'),
           },
           {
             id: 'vertical',
-            label: 'Large vertical style',
+            label: editorText('Large vertical style'),
           },
           {
             id: 'cube',
-            label: 'Small vertical style',
+            label: editorText('Small vertical style'),
           },
         ] as const
       ).filter(action => BookmarkStyles.includes(action.id)),

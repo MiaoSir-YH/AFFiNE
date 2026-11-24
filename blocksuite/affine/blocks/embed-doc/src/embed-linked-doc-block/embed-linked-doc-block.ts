@@ -25,6 +25,7 @@ import {
   ThemeProvider,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   cloneReferenceInfo,
   cloneReferenceInfoWithoutAliases,
   isNewTabTrigger,
@@ -435,7 +436,7 @@ export class EmbedLinkedDocBlockComponent extends EmbedBlockComponent<EmbedLinke
                         class="affine-embed-linked-doc-card-content-reload-button"
                         @click=${this.refreshData}
                       >
-                        ${ResetIcon()} <span>Reload</span>
+                        ${ResetIcon()} <span>${editorText('Reload')}</span>
                       </div>
                     </div>
                   `

@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import {
   CloseIcon,
   ExportToHtmlIcon,
@@ -44,7 +45,7 @@ export const ImportPage = ({
       <CloseIcon />
     </IconButton>
     <div className={importPageBodyStyle}>
-      <div className="title">Import</div>
+      <div className="title">{I18n.t('Import')}</div>
       <span>
         AFFiNE will gradually support more and more file types for import.&nbsp;
         <a
@@ -81,7 +82,7 @@ export const ImportPage = ({
       />
       <BlockCard
         left={<NewIcon width={20} height={20} />}
-        title="Coming soon..."
+        title={I18n.t('Coming soon...')}
         disabled
         onClick={importHtml}
       />

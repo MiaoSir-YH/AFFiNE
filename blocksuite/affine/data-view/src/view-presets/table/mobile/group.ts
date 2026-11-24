@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   menu,
   popFilterableSimpleMenu,
@@ -118,7 +119,9 @@ export class MobileTableGroup extends SignalWatcher(
     const ele = e.currentTarget as HTMLElement;
     popFilterableSimpleMenu(popupTargetFromElement(ele), [
       menu.action({
-        name: 'Ungroup',
+        get name() {
+          return editorText('Ungroup');
+        },
         hide: () => group.value == null,
         select: () => {
           group.rows.forEach(row => {
@@ -127,7 +130,9 @@ export class MobileTableGroup extends SignalWatcher(
         },
       }),
       menu.action({
-        name: 'Delete Cards',
+        get name() {
+          return editorText('Delete Cards');
+        },
         select: () => {
           this.view.rowsDelete(group.rows.map(row => row.rowId));
           this.requestUpdate();
@@ -212,7 +217,9 @@ export class MobileTableGroup extends SignalWatcher(
                 data-test-id="affine-database-add-row-button"
                 role="button"
               >
-                ${PlusIcon()}<span style="font-size: 12px">New Record</span>
+                ${PlusIcon()}<span style="font-size: 12px"
+                  >${editorText('New Record')}</span
+                >
               </div>
             </div>`
       }

@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { ColorScheme, NoteShadow } from '@blocksuite/affine-model';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
 import { css, html, LitElement, type PropertyValues } from 'lit';
@@ -21,7 +22,7 @@ const SHADOWS: Shadow[] = [
     light: {},
     dark: {},
     style: {},
-    tooltip: 'No shadow',
+    tooltip: editorText('No shadow'),
   },
   {
     type: NoteShadow.Box,
@@ -37,7 +38,7 @@ const SHADOWS: Shadow[] = [
       boxShadow:
         '0px 0.109px 2.621px var(--note-box-shadow-color-1), 0px 0px 0.874px var(--note-box-shadow-color-2)',
     },
-    tooltip: 'Box shadow',
+    tooltip: editorText('Box shadow'),
   },
   {
     type: NoteShadow.Sticker,
@@ -53,7 +54,7 @@ const SHADOWS: Shadow[] = [
       boxShadow:
         '0px 5.243px 5.68px var(--note-sticker-shadow-color-1), 0px 5.68px 3.932px var(--note-sticker-shadow-color-2)',
     },
-    tooltip: 'Sticker shadow',
+    tooltip: editorText('Sticker shadow'),
   },
   {
     type: NoteShadow.Paper,
@@ -69,7 +70,7 @@ const SHADOWS: Shadow[] = [
       border: '2px solid var(--note-paper-shadow-color-2)',
       boxShadow: '0px 0.655px 1.311px var(--note-paper-shadow-color-1)',
     },
-    tooltip: 'Paper shadow',
+    tooltip: editorText('Paper shadow'),
   },
   {
     type: NoteShadow.Float,
@@ -85,7 +86,7 @@ const SHADOWS: Shadow[] = [
       boxShadow:
         '0px 2.84px 6.554px var(--note-float-shadow-color-1), 0px 0px 0.218px var(--note-float-shadow-color-2)',
     },
-    tooltip: 'Floating shadow',
+    tooltip: editorText('Floating shadow'),
   },
   {
     type: NoteShadow.Film,
@@ -101,7 +102,7 @@ const SHADOWS: Shadow[] = [
       border: '1px solid var(--note-film-shadow-color-1)',
       boxShadow: '2px 2px 0px var(--note-film-shadow-color-2)',
     },
-    tooltip: 'Film shadow',
+    tooltip: editorText('Film shadow'),
   },
 ];
 

@@ -714,7 +714,7 @@ function createSurfaceRefToolbarConfig(baseUrl?: string): ToolbarModuleConfig {
           return html`${keyed(
             surfaceRefBlock,
             html`<editor-menu-button
-              aria-label="Open"
+              aria-label=${I18n.t('Open')}
               .contentPadding=${'8px'}
               .button=${html`<editor-icon-button
                 .iconSize=${'16px'}

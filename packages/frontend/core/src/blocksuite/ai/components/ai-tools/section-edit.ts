@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import type { FeatureFlagService } from '@affine/core/modules/feature-flag';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import type { ColorScheme } from '@blocksuite/affine/model';
@@ -171,7 +172,7 @@ export class SectionEditTool extends WithDisposable(ShadowlessElement) {
                 }}
               >
                 ${CopyIcon()}
-                <affine-tooltip>Copy</affine-tooltip>
+                <affine-tooltip>${I18n.t('Copy')}</affine-tooltip>
               </div>
               ${
                 this.independentMode
@@ -182,7 +183,7 @@ export class SectionEditTool extends WithDisposable(ShadowlessElement) {
                         if (!this.host) return;
                         if (this.host.std.store.readonly$.value) {
                           this.notificationService.notify({
-                            title: 'Cannot insert in read-only mode',
+                            title: I18n.t('Cannot insert in read-only mode'),
                             accent: 'error',
                             onClose: () => {},
                           });
@@ -218,7 +219,9 @@ export class SectionEditTool extends WithDisposable(ShadowlessElement) {
                       }}
                     >
                       ${LinkedPageIcon()}
-                      <affine-tooltip>Create new doc</affine-tooltip>
+                      <affine-tooltip
+                        >${I18n.t('Create new doc')}</affine-tooltip
+                      >
                     </div>`
               }
             </div>

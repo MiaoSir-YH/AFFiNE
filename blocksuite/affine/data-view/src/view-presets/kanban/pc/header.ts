@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   menu,
   popMenu,
@@ -66,7 +67,9 @@ export class KanbanHeader extends SignalWatcher(
     return html`
       <div></div>
       <div>
-        <div class="select-group" @click="${this.clickGroup}">Group</div>
+        <div class="select-group" @click="${this.clickGroup}">
+          ${editorText('Groups')}
+        </div>
       </div>
     `;
   }

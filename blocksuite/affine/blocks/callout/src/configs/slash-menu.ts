@@ -1,5 +1,8 @@
 import { focusBlockEnd } from '@blocksuite/affine-shared/commands';
-import { isInsideBlockByFlavour } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  isInsideBlockByFlavour,
+} from '@blocksuite/affine-shared/utils';
 import { type SlashMenuConfig } from '@blocksuite/affine-widget-slash-menu';
 import { FontIcon } from '@blocksuite/icons/lit';
 
@@ -13,7 +16,7 @@ export const calloutSlashMenuConfig: SlashMenuConfig = {
       icon: FontIcon(),
       tooltip: {
         figure: calloutTooltip,
-        caption: 'Callout',
+        caption: editorText('Callout'),
       },
       searchAlias: ['callout'],
       group: '0_Basic@9',

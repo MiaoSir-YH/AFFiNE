@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   BulletedListIcon,
   CheckBoxIcon,
@@ -32,7 +33,7 @@ const LIST_ITEMS = [
     name: 'Bulleted List',
     description: 'A simple bulleted list.',
     icon: BulletedListIcon,
-    tooltip: 'Drag/Click to insert Bulleted List',
+    tooltip: editorText('Drag/Click to insert Bulleted List'),
   },
   {
     flavour: 'affine:list',
@@ -40,7 +41,7 @@ const LIST_ITEMS = [
     name: 'Numbered List',
     description: 'A list with numbering.',
     icon: NumberedListIcon,
-    tooltip: 'Drag/Click to insert Numbered List',
+    tooltip: editorText('Drag/Click to insert Numbered List'),
   },
   {
     flavour: 'affine:list',
@@ -48,7 +49,7 @@ const LIST_ITEMS = [
     name: 'To-do List',
     description: 'Track tasks with a to-do list.',
     icon: CheckBoxIcon,
-    tooltip: 'Drag/Click to insert To-do List',
+    tooltip: editorText('Drag/Click to insert To-do List'),
   },
 ];
 
@@ -59,7 +60,7 @@ const TEXT_ITEMS = [
     name: 'Text',
     description: 'Start typing with plain text.',
     icon: TextIcon,
-    tooltip: 'Drag/Click to insert Text block',
+    tooltip: editorText('Drag/Click to insert Text block'),
   },
   {
     flavour: 'affine:paragraph',
@@ -67,7 +68,7 @@ const TEXT_ITEMS = [
     name: 'Heading 1',
     description: 'Headings in the largest font.',
     icon: Heading1Icon,
-    tooltip: 'Drag/Click to insert Heading 1',
+    tooltip: editorText('Drag/Click to insert Heading 1'),
   },
   {
     flavour: 'affine:paragraph',
@@ -75,7 +76,7 @@ const TEXT_ITEMS = [
     name: 'Heading 2',
     description: 'Headings in the 2nd font size.',
     icon: Heading2Icon,
-    tooltip: 'Drag/Click to insert Heading 2',
+    tooltip: editorText('Drag/Click to insert Heading 2'),
   },
   {
     flavour: 'affine:paragraph',
@@ -83,7 +84,7 @@ const TEXT_ITEMS = [
     name: 'Heading 3',
     description: 'Headings in the 3rd font size.',
     icon: Heading3Icon,
-    tooltip: 'Drag/Click to insert Heading 3',
+    tooltip: editorText('Drag/Click to insert Heading 3'),
   },
   {
     flavour: 'affine:paragraph',
@@ -91,7 +92,7 @@ const TEXT_ITEMS = [
     name: 'Heading 4',
     description: 'Heading in the 4th font size.',
     icon: Heading4Icon,
-    tooltip: 'Drag/Click to insert Heading 4',
+    tooltip: editorText('Drag/Click to insert Heading 4'),
   },
   {
     flavour: 'affine:paragraph',
@@ -99,7 +100,7 @@ const TEXT_ITEMS = [
     name: 'Heading 5',
     description: 'Heading in the 5th font size.',
     icon: Heading5Icon,
-    tooltip: 'Drag/Click to insert Heading 5',
+    tooltip: editorText('Drag/Click to insert Heading 5'),
   },
   {
     flavour: 'affine:paragraph',
@@ -107,7 +108,7 @@ const TEXT_ITEMS = [
     name: 'Heading 6',
     description: 'Heading in the 6th font size.',
     icon: Heading6Icon,
-    tooltip: 'Drag/Click to insert Heading 6',
+    tooltip: editorText('Drag/Click to insert Heading 6'),
   },
   {
     flavour: 'affine:code',
@@ -115,7 +116,7 @@ const TEXT_ITEMS = [
     name: 'Code Block',
     description: 'Capture a code snippet.',
     icon: CodeBlockIcon,
-    tooltip: 'Drag/Click to insert Code Block',
+    tooltip: editorText('Drag/Click to insert Code Block'),
   },
   {
     flavour: 'affine:paragraph',
@@ -123,7 +124,7 @@ const TEXT_ITEMS = [
     name: 'Quote',
     description: 'Capture a quote.',
     icon: QuoteIcon,
-    tooltip: 'Drag/Click to insert Quote',
+    tooltip: editorText('Drag/Click to insert Quote'),
   },
   {
     flavour: 'affine:divider',
@@ -131,7 +132,7 @@ const TEXT_ITEMS = [
     name: 'Divider',
     description: 'A visual divider.',
     icon: DividerIcon,
-    tooltip: 'A visual divider',
+    tooltip: editorText('A visual divider'),
   },
 ];
 

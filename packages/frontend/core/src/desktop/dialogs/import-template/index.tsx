@@ -16,7 +16,7 @@ import {
   type WorkspaceMetadata,
   WorkspacesService,
 } from '@affine/core/modules/workspace';
-import { useI18n } from '@affine/i18n';
+import { I18n, useI18n } from '@affine/i18n';
 import type { DocMode } from '@blocksuite/affine/model';
 import { AllDocsIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
@@ -178,7 +178,7 @@ const Dialog = ({
           <p className={styles.desc}>A new workspace will be created.</p>
         ) : (
           <>
-            <p className={styles.desc}>Choose a workspace.</p>
+            <p className={styles.desc}>{I18n.t('Choose a workspace.')}</p>
             <WorkspaceSelector
               workspaceMetadata={selectedWorkspace}
               onSelectWorkspace={handleSelectedWorkspace}

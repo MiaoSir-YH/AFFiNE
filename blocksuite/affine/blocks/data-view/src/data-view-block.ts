@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   BlockRenderer,
   DatabaseSelection,
@@ -96,14 +97,14 @@ export class DataViewBlockComponent extends CaptionedBlockComponent<DataViewBloc
         items: [
           menu.input({
             initialValue: this.model.props.title,
-            placeholder: 'Untitled',
+            placeholder: editorText('Untitled'),
             onChange: text => {
               this.model.props.title = text;
             },
           }),
           menu.action({
             prefix: CopyIcon,
-            name: 'Copy',
+            name: editorText('Copy'),
             select: () => {
               const slice = Slice.fromModels(this.store, [this.model]);
               this.std.clipboard.copySlice(slice).catch(console.error);
@@ -117,7 +118,7 @@ export class DataViewBlockComponent extends CaptionedBlockComponent<DataViewBloc
                 class: {
                   'delete-item': true,
                 },
-                name: 'Delete Database',
+                name: editorText('Delete Database'),
                 select: () => {
                   this.model.children.slice().forEach(block => {
                     this.store.deleteBlock(block);

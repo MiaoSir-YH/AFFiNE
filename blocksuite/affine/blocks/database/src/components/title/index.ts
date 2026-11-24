@@ -1,5 +1,5 @@
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
-import { stopPropagation } from '@blocksuite/affine-shared/utils';
+import { editorText, stopPropagation } from '@blocksuite/affine-shared/utils';
 import type { DataViewUILogicBase } from '@blocksuite/data-view';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { ShadowlessElement } from '@blocksuite/std';
@@ -152,7 +152,7 @@ export class DatabaseTitle extends SignalWatcher(
       data-title-empty="${isEmpty}"
       data-title-focus="${this.isFocus$.value}"
     >
-      <div class="text" style="${untitledStyle}">Untitled</div>
+      <div class="text" style="${untitledStyle}">${editorText('Untitled')}</div>
       <div class="text">${this.text$.value}</div>
       <textarea
         .disabled="${this.readonly$.value}"

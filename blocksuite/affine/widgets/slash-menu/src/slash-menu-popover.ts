@@ -11,13 +11,14 @@ import {
 import type { AffineInlineEditor } from '@blocksuite/affine-shared/types';
 import {
   createKeydownObserver,
+  editorText,
   getCurrentNativeRange,
   getPopperPosition,
   isControlledKeyboardEvent,
   isFuzzyMatch,
   substringMatchScore,
 } from '@blocksuite/affine-shared/utils';
-import { WithDisposable } from '@blocksuite/global/lit';
+import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { ArrowDownSmallIcon } from '@blocksuite/icons/lit';
 import { autoPlacement, offset } from '@floating-ui/dom';
 import { html, LitElement, nothing, type PropertyValues } from 'lit';
@@ -151,7 +152,9 @@ export class SlashMenu extends WithDisposable(LitElement) {
 
       this._filteredItems = this._filteredItems.concat(
         queue.filter(({ name, searchAlias = [] }) =>
-          [name, ...searchAlias].some(str => isFuzzyMatch(str, searchStr))
+          [name, editorText(name), ...searchAlias].some(str =>
+            isFuzzyMatch(str, searchStr)
+          )
         )
       );
 
@@ -169,12 +172,12 @@ export class SlashMenu extends WithDisposable(LitElement) {
       depth++;
     }
 
-    this._filteredItems.sort((a, b) => {
-      return -(
-        substringMatchScore(a.name, searchStr) -
-        substringMatchScore(b.name, searchStr)
+    const score = (name: string) =>
+      Math.max(
+        substringMatchScore(name, searchStr),
+        substringMatchScore(editorText(name), searchStr)
       );
-    });
+    this._filteredItems.sort((a, b) => score(b.name) - score(a.name));
 
     this._queryState = this._filteredItems.length === 0 ? 'no_result' : 'on';
     this._innerSlashMenuContext.searching = true;
@@ -370,7 +373,7 @@ export class SlashMenu extends WithDisposable(LitElement) {
   accessor context!: SlashMenuContext;
 }
 
-export class InnerSlashMenu extends WithDisposable(LitElement) {
+export class InnerSlashMenu extends SignalWatcher(WithDisposable(LitElement)) {
   static override styles = styles;
 
   private readonly _closeSubMenu = () => {
@@ -432,8 +435,8 @@ export class InnerSlashMenu extends WithDisposable(LitElement) {
       class="slash-menu-item ${slashItemClassName(item)}"
       width="100%"
       height="44px"
-      text=${name}
-      subText=${ifDefined(description)}
+      text=${editorText(name)}
+      subText=${ifDefined(editorText(description))}
       data-testid="${name}"
       hover=${hover}
       @mousemove=${() => {
@@ -455,7 +458,7 @@ export class InnerSlashMenu extends WithDisposable(LitElement) {
           }}
         >
           <div class="tooltip-figure">${tooltip.figure}</div>
-          <div class="tooltip-caption">${tooltip.caption}</div>
+          <div class="tooltip-caption">${editorText(tooltip.caption)}</div>
         </affine-tooltip>`
       }
     </icon-button>`;
@@ -468,7 +471,10 @@ export class InnerSlashMenu extends WithDisposable(LitElement) {
     return html`<div class="slash-menu-group">
       ${when(
         !this.context.searching,
-        () => html`<div class="slash-menu-group-name">${groupName}</div>`
+        () =>
+          html`<div class="slash-menu-group-name">
+            ${editorText(groupName)}
+          </div>`
       )}
       ${items.map(this._renderItem)}
     </div>`;
@@ -489,8 +495,8 @@ export class InnerSlashMenu extends WithDisposable(LitElement) {
       class="slash-menu-item ${slashItemClassName(item)}"
       width="100%"
       height="44px"
-      text=${name}
-      subText=${ifDefined(description)}
+      text=${editorText(name)}
+      subText=${ifDefined(editorText(description))}
       data-testid="${name}"
       hover=${hover}
       @mousemove=${() => {
@@ -519,7 +525,7 @@ export class InnerSlashMenu extends WithDisposable(LitElement) {
       return;
     }
 
-    const ele = shadowRoot.querySelector(`icon-button[text="${item.name}"]`);
+    const ele = shadowRoot.querySelector(`.${CSS.escape(slashItemClassName(item))}`);
     if (!ele) {
       return;
     }

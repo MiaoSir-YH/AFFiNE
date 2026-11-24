@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { type ShapeName, ShapeType } from '@blocksuite/affine-model';
 import { EdgelessToolbarToolMixin } from '@blocksuite/affine-widget-edgeless-toolbar';
 import { SignalWatcher } from '@blocksuite/global/lit';
@@ -71,7 +72,7 @@ export class EdgelessShapeToolButton extends EdgelessToolbarToolMixin(
           this.popper
             ? ''
             : html`<affine-tooltip-content-with-shortcut
-                data-tip="${'Shape'}"
+                data-tip="${editorText('Shape')}"
                 data-shortcut="${'S'}"
               ></affine-tooltip-content-with-shortcut>`
         }

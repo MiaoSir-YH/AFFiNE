@@ -6,7 +6,7 @@ import {
   popupTargetFromElement,
 } from '@blocksuite/affine-components/context-menu';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
-import { rangeWrap } from '@blocksuite/affine-shared/utils';
+import { editorText, rangeWrap } from '@blocksuite/affine-shared/utils';
 import { IS_MOBILE } from '@blocksuite/global/env';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import {
@@ -218,7 +218,7 @@ export class MultiTagSelect extends SignalWatcher(
         items: [
           menu.input({
             initialValue: option.value,
-            placeholder: 'Untitled',
+            placeholder: editorText('Untitled'),
             onChange: text => {
               this.tagManager.changeTag({
                 id: option.id,
@@ -227,7 +227,7 @@ export class MultiTagSelect extends SignalWatcher(
             },
           }),
           menu.action({
-            name: 'Delete',
+            name: editorText('Delete'),
             prefix: DeleteIcon(),
             class: {
               'delete-item': true,
@@ -347,7 +347,7 @@ export class MultiTagSelect extends SignalWatcher(
         <input
           class="${tagSelectInputStyle}"
           ${ref(this._selectInput)}
-          placeholder="Type here..."
+          placeholder=${editorText('Type here...')}
           .value="${this.text.value}"
           @input="${this._onInput}"
           @keydown="${this._onInputKeydown}"
@@ -382,7 +382,9 @@ export class MultiTagSelect extends SignalWatcher(
           'layer/insideBorder/border'
         )};margin: 4px 0;"
       ></div>
-      <div class="${selectOptionsTipsStyle}">Select tag or create one</div>
+      <div class="${selectOptionsTipsStyle}">
+        ${editorText('Select tag or create one')}
+      </div>
       <div data-testid="tag-option-list" class="${selectOptionsContainerStyle}">
         ${repeat(
           this.tagManager.filteredOptions$.value,
@@ -577,7 +579,7 @@ const popMobileTagSelect = (target: PopupTarget, ops: TagSelectOptions) => {
                 .value="${tagManager.text$.value}"
                 @input="${onInput}"
                 @keydown="${onKeydown}"
-                placeholder="Type here..."
+                placeholder=${editorText('Type here...')}
                 type="text"
                 style="outline: none;border: none;flex:1;min-width: 10px"
               />

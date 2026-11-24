@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { cssVarV2 } from '@toeverything/theme/v2';
 
 export type SelectOptionColor = {
@@ -9,52 +10,52 @@ export const selectOptionColors: SelectOptionColor[] = [
   {
     oldColor: 'var(--affine-tag-red)',
     color: cssVarV2('chip/label/red'),
-    name: 'Red',
+    name: editorText('Red'),
   },
   {
     oldColor: 'var(--affine-tag-pink)',
     color: cssVarV2('chip/label/magenta'),
-    name: 'Magenta',
+    name: editorText('Magenta'),
   },
   {
     oldColor: 'var(--affine-tag-orange)',
     color: cssVarV2('chip/label/orange'),
-    name: 'Orange',
+    name: editorText('Orange'),
   },
   {
     oldColor: 'var(--affine-tag-yellow)',
     color: cssVarV2('chip/label/yellow'),
-    name: 'Yellow',
+    name: editorText('Yellow'),
   },
   {
     oldColor: 'var(--affine-tag-green)',
     color: cssVarV2('chip/label/green'),
-    name: 'Green',
+    name: editorText('Green'),
   },
   {
     oldColor: 'var(--affine-tag-teal)',
     color: cssVarV2('chip/label/teal'),
-    name: 'Teal',
+    name: editorText('Teal'),
   },
   {
     oldColor: 'var(--affine-tag-blue)',
     color: cssVarV2('chip/label/blue'),
-    name: 'Blue',
+    name: editorText('Blue'),
   },
   {
     oldColor: 'var(--affine-tag-purple)',
     color: cssVarV2('chip/label/purple'),
-    name: 'Purple',
+    name: editorText('Purple'),
   },
   {
     oldColor: 'var(--affine-tag-gray)',
     color: cssVarV2('chip/label/grey'),
-    name: 'Grey',
+    name: editorText('Grey'),
   },
   {
     oldColor: 'var(--affine-tag-white)',
     color: cssVarV2('chip/label/white'),
-    name: 'White',
+    name: editorText('White'),
   },
 ];
 

@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import { getStoreManager } from '@affine/core/blocksuite/manager/store';
 import { getAFFiNEWorkspaceSchema } from '@affine/core/modules/workspace';
 import { getEmbedLinkedDocIcons } from '@blocksuite/affine/blocks/embed-doc';
@@ -202,7 +203,7 @@ export class DocComposeTool extends ArtifactTool<
             })}
             Save as doc
           </button>
-          <icon-button @click=${copyMarkdown} title="Copy markdown">
+          <icon-button @click=${copyMarkdown} title=${I18n.t('Copy markdown')}>
             ${CopyIcon({ width: '20', height: '20' })}
           </icon-button>
         `;

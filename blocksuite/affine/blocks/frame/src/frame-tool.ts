@@ -7,6 +7,7 @@ import {
   EditPropsStore,
   TelemetryProvider,
 } from '@blocksuite/affine-shared/services';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { IPoint, IVec } from '@blocksuite/global/gfx';
 import { Bound, Vec } from '@blocksuite/global/gfx';
 import type { PointerEventState } from '@blocksuite/std';
@@ -73,7 +74,9 @@ export class FrameTool extends BaseTool {
       const props = this.std
         .get(EditPropsStore)
         .applyLastProps('affine:frame', {
-          title: new Text(new Y.Text(`Frame ${frames.length + 1}`)),
+          title: new Text(
+            new Y.Text(`${editorText('Frame')} ${frames.length + 1}`)
+          ),
           xywh: Bound.fromPoints([this._startPoint, currentPoint]).serialize(),
           index: this.gfx.layer.generateIndex(true),
           presentationIndex: this.frameManager.generatePresentationIndex(),

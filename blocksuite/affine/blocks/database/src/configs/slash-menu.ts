@@ -1,6 +1,9 @@
 import { getSelectedModelsCommand } from '@blocksuite/affine-shared/commands';
 import { TelemetryProvider } from '@blocksuite/affine-shared/services';
-import { isInsideBlockByFlavour } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  isInsideBlockByFlavour,
+} from '@blocksuite/affine-shared/utils';
 import { type SlashMenuConfig } from '@blocksuite/affine-widget-slash-menu';
 import { viewPresets } from '@blocksuite/data-view/view-presets';
 import {
@@ -22,7 +25,7 @@ export const databaseSlashMenuConfig: SlashMenuConfig = {
       icon: DatabaseTableViewIcon(),
       tooltip: {
         figure: TableViewTooltip,
-        caption: 'Table View',
+        caption: editorText('Table View'),
       },
       group: '7_Database@0',
       when: ({ model }) =>
@@ -84,7 +87,7 @@ export const databaseSlashMenuConfig: SlashMenuConfig = {
       icon: DatabaseKanbanViewIcon(),
       tooltip: {
         figure: KanbanViewTooltip,
-        caption: 'Kanban View',
+        caption: editorText('Kanban View'),
       },
       group: '7_Database@2',
       when: ({ model }) =>

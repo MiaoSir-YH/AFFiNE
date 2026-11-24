@@ -1,7 +1,7 @@
 import { EmbedLinkedDocBlockSchema } from '@blocksuite/affine-model';
 import { insertContent } from '@blocksuite/affine-rich-text';
 import { REFERENCE_NODE } from '@blocksuite/affine-shared/consts';
-import { createDefaultDoc } from '@blocksuite/affine-shared/utils';
+import { editorText, createDefaultDoc } from '@blocksuite/affine-shared/utils';
 import {
   type SlashMenuConfig,
   SlashMenuConfigIdentifier,
@@ -19,7 +19,7 @@ const linkedDocSlashMenuConfig: SlashMenuConfig = {
       icon: PlusIcon(),
       tooltip: {
         figure: NewDocTooltip,
-        caption: 'New Doc',
+        caption: editorText('New Doc'),
       },
       group: '3_Page@0',
       when: ({ model }) =>

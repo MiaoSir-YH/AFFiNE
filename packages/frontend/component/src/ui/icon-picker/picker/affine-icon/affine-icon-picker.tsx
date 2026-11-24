@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import keywords from '@blocksuite/icons/keywords/en.json';
 import * as allIcons from '@blocksuite/icons/rc';
 import { cssVarV2 } from '@toeverything/theme/v2';
@@ -118,7 +119,7 @@ export const AffineIconPicker = ({
               />
             </div>
           }
-          placeholder="Filter..."
+          placeholder={I18n.t('Filter...')}
         />
 
         {/* Color Picker */}

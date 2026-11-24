@@ -28,7 +28,10 @@ import {
   type ToolbarModuleConfig,
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
-import { getMostCommonValue } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  getMostCommonValue,
+} from '@blocksuite/affine-shared/utils';
 import {
   getRootBlock,
   LINE_STYLE_LIST,
@@ -86,7 +89,7 @@ export const shapeToolbarConfig = {
 
         return renderMenu({
           icon: ShapeIcon(),
-          label: 'Switch shape type',
+          label: editorText('Switch shape type'),
           items: ShapeComponentConfig.map(item => ({
             key: item.tooltip,
             value: item.name,
@@ -123,7 +126,7 @@ export const shapeToolbarConfig = {
         };
 
         return renderMenu({
-          label: 'Style',
+          label: editorText('Style'),
           items: LINE_STYLE_LIST,
           currentValue: shapeStyle === ShapeStyle.Scribbled,
           onPick,
@@ -260,7 +263,7 @@ export const shapeToolbarConfig = {
     },
     {
       id: 'f.text',
-      tooltip: 'Add text',
+      tooltip: editorText('Add text'),
       icon: AddTextIcon(),
       when(ctx) {
         const models = ctx.getSurfaceModelsByType(ShapeElementModel);

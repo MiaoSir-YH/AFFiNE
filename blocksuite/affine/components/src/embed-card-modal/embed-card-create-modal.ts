@@ -2,7 +2,11 @@ import {
   EmbedOptionProvider,
   VirtualKeyboardProvider,
 } from '@blocksuite/affine-shared/services';
-import { isValidUrl, stopPropagation } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  isValidUrl,
+  stopPropagation,
+} from '@blocksuite/affine-shared/utils';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import type { EditorHost } from '@blocksuite/std';
 import { ShadowlessElement } from '@blocksuite/std';
@@ -124,7 +128,7 @@ export class EmbedCardCreateModal extends SignalWatcher(
             class="embed-card-modal-input link"
             id="card-description"
             type="text"
-            placeholder="Input in https://..."
+            placeholder=${editorText('Input in https://...')}
             value=${this._linkInputValue}
             @input=${this._handleInput}
           />

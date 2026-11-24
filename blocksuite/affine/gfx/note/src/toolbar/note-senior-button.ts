@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   Heading1Icon,
   LinkIcon,
@@ -188,7 +189,7 @@ export class EdgelessNoteSeniorButton extends EdgelessToolbarToolMixin(
         this.popper
           ? ''
           : html`<affine-tooltip-content-with-shortcut
-              data-tip="${'Note'}"
+              data-tip="${editorText('Note')}"
               data-shortcut="${'N'}"
             ></affine-tooltip-content-with-shortcut>`
       }

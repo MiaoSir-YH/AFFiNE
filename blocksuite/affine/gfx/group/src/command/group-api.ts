@@ -3,6 +3,7 @@ import {
   type GroupElementModel,
   MindmapElementModel,
 } from '@blocksuite/affine-model';
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { Command } from '@blocksuite/std';
 import {
   batchAddChildren,
@@ -99,7 +100,7 @@ export const createGroupCommand: Command<
       },
       {} as Record<string, true>
     ),
-    title: `Group ${groups.length + 1}`,
+    title: `${editorText('Group')} ${groups.length + 1}`,
   });
   if (!groupId) {
     return;

@@ -22,6 +22,7 @@ import {
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   getMostCommonResolvedValue,
   matchModels,
 } from '@blocksuite/affine-shared/utils';
@@ -50,8 +51,8 @@ const builtinSurfaceToolbarConfig = {
   actions: [
     {
       id: 'a.insert-into-page',
-      label: 'Insert into Page',
-      tooltip: 'Insert into Page',
+      label: editorText('Insert into Page'),
+      tooltip: editorText('Insert into Page'),
       icon: InsertIntoPageIcon(),
       when: ctx => ctx.getSurfaceModelsByType(FrameBlockModel).length === 1,
       run(ctx) {
@@ -101,7 +102,7 @@ const builtinSurfaceToolbarConfig = {
     },
     {
       id: 'b.rename',
-      tooltip: 'Rename',
+      tooltip: editorText('Rename'),
       icon: EditIcon(),
       when: ctx => ctx.getSurfaceModelsByType(FrameBlockModel).length === 1,
       run(ctx) {
@@ -116,7 +117,7 @@ const builtinSurfaceToolbarConfig = {
     },
     {
       id: 'b.ungroup',
-      tooltip: 'Ungroup',
+      tooltip: editorText('Ungroup'),
       icon: UngroupIcon(),
       run(ctx) {
         const models = ctx.getSurfaceModelsByType(FrameBlockModel);
@@ -188,7 +189,7 @@ const builtinSurfaceToolbarConfig = {
         return html`
           <edgeless-color-picker-button
             class="background"
-            .label="${'Background'}"
+            .label="${editorText('Background')}"
             .pick=${onPick}
             .color=${background}
             .theme=${theme}

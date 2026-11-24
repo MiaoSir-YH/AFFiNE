@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   menu,
   popFilterableSimpleMenu,
@@ -75,7 +76,9 @@ export class MobileKanbanGroup extends SignalWatcher(
       menu.group({
         items: [
           menu.action({
-            name: 'Ungroup',
+            get name() {
+              return editorText('Ungroup');
+            },
             hide: () => this.group.value == null,
             select: () => {
               this.group.rows.forEach(row => {
@@ -85,7 +88,9 @@ export class MobileKanbanGroup extends SignalWatcher(
             },
           }),
           menu.action({
-            name: 'Delete Cards',
+            get name() {
+              return editorText('Delete Cards');
+            },
             select: () => {
               this.view.rowsDelete(this.group.rows.map(row => row.rowId));
               this.requestUpdate();

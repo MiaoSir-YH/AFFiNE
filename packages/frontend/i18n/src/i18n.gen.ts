@@ -10744,6 +10744,1854 @@ export function useAFFiNEI18N(): {
       */
     ["com.affine.realtime.connection-error.timeout"](): string;
     /**
+      * `Frame section`
+      */
+    ["Frame section"](): string;
+    /**
+      * `Group section`
+      */
+    ["Group section"](): string;
+    /**
+      * `Bring to Front`
+      */
+    ["Bring to Front"](): string;
+    /**
+      * `Bring Forward`
+      */
+    ["Bring Forward"](): string;
+    /**
+      * `Send Backward`
+      */
+    ["Send Backward"](): string;
+    /**
+      * `Send to Back`
+      */
+    ["Send to Back"](): string;
+    /**
+      * `Copy as Image`
+      */
+    ["Copy as Image"](): string;
+    /**
+      * `Copy link to block`
+      */
+    ["Copy link to block"](): string;
+    /**
+      * `Copy original link`
+      */
+    ["Copy original link"](): string;
+    /**
+      * `Copy link`
+      */
+    ["Copy link"](): string;
+    /**
+      * `Duplicate`
+      */
+    Duplicate(): string;
+    /**
+      * `Duplicate as note`
+      */
+    ["Duplicate as note"](): string;
+    /**
+      * `Duplicate as note to create an editable copy, the original remains unchanged.`
+      */
+    ["Duplicate as note to create an editable copy, the original remains unchanged."](): string;
+    /**
+      * `Create linked doc`
+      */
+    ["Create linked doc"](): string;
+    /**
+      * `Create Linked Doc`
+      */
+    ["Create Linked Doc"](): string;
+    /**
+      * `Create as a linked doc`
+      */
+    ["Create as a linked doc"](): string;
+    /**
+      * `Create new doc`
+      */
+    ["Create new doc"](): string;
+    /**
+      * `Turn into linked doc`
+      */
+    ["Turn into linked doc"](): string;
+    /**
+      * `Open doc`
+      */
+    ["Open doc"](): string;
+    /**
+      * `Open this doc`
+      */
+    ["Open this doc"](): string;
+    /**
+      * `Open doc menu`
+      */
+    ["Open doc menu"](): string;
+    /**
+      * `Open doc with`
+      */
+    ["Open doc with"](): string;
+    /**
+      * `Open in center peek`
+      */
+    ["Open in center peek"](): string;
+    /**
+      * `Doc title`
+      */
+    ["Doc title"](): string;
+    /**
+      * `Link to Doc`
+      */
+    ["Link to Doc"](): string;
+    /**
+      * `Linked Doc`
+      */
+    ["Linked Doc"](): string;
+    /**
+      * `New Doc`
+      */
+    ["New Doc"](): string;
+    /**
+      * `Reload`
+      */
+    Reload(): string;
+    /**
+      * `Frame`
+      */
+    Frame(): string;
+    /**
+      * `Frame block`
+      */
+    ["Frame block"](): string;
+    /**
+      * `Frame Order`
+      */
+    ["Frame Order"](): string;
+    /**
+      * `Frame: `
+      */
+    ["Frame: "](): string;
+    /**
+      * `Group`
+      */
+    Group(): string;
+    /**
+      * `Group: `
+      */
+    ["Group: "](): string;
+    /**
+      * `Ungroup`
+      */
+    Ungroup(): string;
+    /**
+      * `Ungroups`
+      */
+    Ungroups(): string;
+    /**
+      * `Release from group`
+      */
+    ["Release from group"](): string;
+    /**
+      * `Align objects`
+      */
+    ["Align objects"](): string;
+    /**
+      * `Draw connector`
+      */
+    ["Draw connector"](): string;
+    /**
+      * `Connector`
+      */
+    Connector(): string;
+    /**
+      * `Connector shape`
+      */
+    ["Connector shape"](): string;
+    /**
+      * `Lock`
+      */
+    Lock(): string;
+    /**
+      * `Unlock`
+      */
+    Unlock(): string;
+    /**
+      * `Click to unlock`
+      */
+    ["Click to unlock"](): string;
+    /**
+      * `Insert into Page`
+      */
+    ["Insert into Page"](): string;
+    /**
+      * `Insert to page`
+      */
+    ["Insert to page"](): string;
+    /**
+      * `Insert Above`
+      */
+    ["Insert Above"](): string;
+    /**
+      * `Insert Below`
+      */
+    ["Insert Below"](): string;
+    /**
+      * `Insert Left`
+      */
+    ["Insert Left"](): string;
+    /**
+      * `Insert Right`
+      */
+    ["Insert Right"](): string;
+    /**
+      * `Insert Before`
+      */
+    ["Insert Before"](): string;
+    /**
+      * `Insert After`
+      */
+    ["Insert After"](): string;
+    /**
+      * `Header row`
+      */
+    ["Header row"](): string;
+    /**
+      * `Header column`
+      */
+    ["Header column"](): string;
+    /**
+      * `Note`
+      */
+    Note(): string;
+    /**
+      * `Note block`
+      */
+    ["Note block"](): string;
+    /**
+      * `Note Style`
+      */
+    ["Note Style"](): string;
+    /**
+      * `Edgeless content`
+      */
+    ["Edgeless content"](): string;
+    /**
+      * `Edgeless shape`
+      */
+    ["Edgeless shape"](): string;
+    /**
+      * `Document Group&Frame`
+      */
+    ["Document Group&Frame"](): string;
+    /**
+      * `Tablet`
+      */
+    Tablet(): string;
+    /**
+      * `Shape`
+      */
+    Shape(): string;
+    /**
+      * `Shapes`
+      */
+    Shapes(): string;
+    /**
+      * `Style`
+      */
+    Style(): string;
+    /**
+      * `Alignment`
+      */
+    Alignment(): string;
+    /**
+      * `Align`
+      */
+    Align(): string;
+    /**
+      * `Align left`
+      */
+    ["Align left"](): string;
+    /**
+      * `Align center`
+      */
+    ["Align center"](): string;
+    /**
+      * `Align right`
+      */
+    ["Align right"](): string;
+    /**
+      * `Move Up`
+      */
+    ["Move Up"](): string;
+    /**
+      * `Move Down`
+      */
+    ["Move Down"](): string;
+    /**
+      * `Move Left`
+      */
+    ["Move Left"](): string;
+    /**
+      * `Move Right`
+      */
+    ["Move Right"](): string;
+    /**
+      * `Add text`
+      */
+    ["Add text"](): string;
+    /**
+      * `Add a same object`
+      */
+    ["Add a same object"](): string;
+    /**
+      * `Add block below`
+      */
+    ["Add block below"](): string;
+    /**
+      * `Background`
+      */
+    Background(): string;
+    /**
+      * `Background color`
+      */
+    ["Background color"](): string;
+    /**
+      * `Background Color`
+      */
+    ["Background Color"](): string;
+    /**
+      * `Change background color`
+      */
+    ["Change background color"](): string;
+    /**
+      * `Default Color`
+      */
+    ["Default Color"](): string;
+    /**
+      * `Fill color`
+      */
+    ["Fill color"](): string;
+    /**
+      * `Border`
+      */
+    Border(): string;
+    /**
+      * `Border color`
+      */
+    ["Border color"](): string;
+    /**
+      * `Border style`
+      */
+    ["Border style"](): string;
+    /**
+      * `Corner Radius`
+      */
+    ["Corner Radius"](): string;
+    /**
+      * `Smooth Corner`
+      */
+    ["Smooth Corner"](): string;
+    /**
+      * `Size`
+      */
+    Size(): string;
+    /**
+      * `Font`
+      */
+    Font(): string;
+    /**
+      * `Font style`
+      */
+    ["Font style"](): string;
+    /**
+      * `Italic`
+      */
+    Italic(): string;
+    /**
+      * `Underline`
+      */
+    Underline(): string;
+    /**
+      * `Strikethrough`
+      */
+    Strikethrough(): string;
+    /**
+      * `Superscript`
+      */
+    Superscript(): string;
+    /**
+      * `Subscript`
+      */
+    Subscript(): string;
+    /**
+      * `Callout`
+      */
+    Callout(): string;
+    /**
+      * `Code`
+      */
+    Code(): string;
+    /**
+      * `Code Block`
+      */
+    ["Code Block"](): string;
+    /**
+      * `Copy code`
+      */
+    ["Copy code"](): string;
+    /**
+      * `Plain Text`
+      */
+    ["Plain Text"](): string;
+    /**
+      * `Plain-Text`
+      */
+    ["Plain-Text"](): string;
+    /**
+      * `Equation`
+      */
+    Equation(): string;
+    /**
+      * `Inline equation`
+      */
+    ["Inline equation"](): string;
+    /**
+      * `Inline Equation`
+      */
+    ["Inline Equation"](): string;
+    /**
+      * `Error equation`
+      */
+    ["Error equation"](): string;
+    /**
+      * `Heading 1`
+      */
+    ["Heading 1"](): string;
+    /**
+      * `Heading 2`
+      */
+    ["Heading 2"](): string;
+    /**
+      * `Heading 3`
+      */
+    ["Heading 3"](): string;
+    /**
+      * `Heading 4`
+      */
+    ["Heading 4"](): string;
+    /**
+      * `Heading 5`
+      */
+    ["Heading 5"](): string;
+    /**
+      * `Heading 6`
+      */
+    ["Heading 6"](): string;
+    /**
+      * `Other Headings`
+      */
+    ["Other Headings"](): string;
+    /**
+      * `Bulleted List`
+      */
+    ["Bulleted List"](): string;
+    /**
+      * `Numbered List`
+      */
+    ["Numbered List"](): string;
+    /**
+      * `To-do List`
+      */
+    ["To-do List"](): string;
+    /**
+      * `Quote`
+      */
+    Quote(): string;
+    /**
+      * `A visual divider`
+      */
+    ["A visual divider"](): string;
+    /**
+      * `Text block`
+      */
+    ["Text block"](): string;
+    /**
+      * `Paste`
+      */
+    Paste(): string;
+    /**
+      * `Search for a language`
+      */
+    ["Search for a language"](): string;
+    /**
+      * `Search file or anything...`
+      */
+    ["Search file or anything..."](): string;
+    /**
+      * `Sticker`
+      */
+    Sticker(): string;
+    /**
+      * `Stickers`
+      */
+    Stickers(): string;
+    /**
+      * `Wallpaper`
+      */
+    Wallpaper(): string;
+    /**
+      * `Concept Map`
+      */
+    ["Concept Map"](): string;
+    /**
+      * `Flowchart`
+      */
+    Flowchart(): string;
+    /**
+      * `4P Marketing Matrix`
+      */
+    ["4P Marketing Matrix"](): string;
+    /**
+      * `Storyboard`
+      */
+    Storyboard(): string;
+    /**
+      * `User Journey Map`
+      */
+    ["User Journey Map"](): string;
+    /**
+      * `Business Proposal`
+      */
+    ["Business Proposal"](): string;
+    /**
+      * `Data Analysis`
+      */
+    ["Data Analysis"](): string;
+    /**
+      * `Simple Presentation`
+      */
+    ["Simple Presentation"](): string;
+    /**
+      * `Fishbone Diagram`
+      */
+    ["Fishbone Diagram"](): string;
+    /**
+      * `Gantt Chart`
+      */
+    ["Gantt Chart"](): string;
+    /**
+      * `Monthly Calendar`
+      */
+    ["Monthly Calendar"](): string;
+    /**
+      * `Project Planning`
+      */
+    ["Project Planning"](): string;
+    /**
+      * `Project Tracking Kanban`
+      */
+    ["Project Tracking Kanban"](): string;
+    /**
+      * `Brainstorming`
+      */
+    Brainstorming(): string;
+    /**
+      * `Marketing`
+      */
+    Marketing(): string;
+    /**
+      * `Presentation`
+      */
+    Presentation(): string;
+    /**
+      * `Project Management`
+      */
+    ["Project Management"](): string;
+    /**
+      * `Search...`
+      */
+    ["Search..."](): string;
+    /**
+      * `Filter...`
+      */
+    ["Filter..."](): string;
+    /**
+      * `No Results`
+      */
+    ["No Results"](): string;
+    /**
+      * `Nothing here yet`
+      */
+    ["Nothing here yet"](): string;
+    /**
+      * `New record`
+      */
+    ["New record"](): string;
+    /**
+      * `New Record`
+      */
+    ["New Record"](): string;
+    /**
+      * `New row`
+      */
+    ["New row"](): string;
+    /**
+      * `Add`
+      */
+    Add(): string;
+    /**
+      * `Add Property`
+      */
+    ["Add Property"](): string;
+    /**
+      * `Properties`
+      */
+    Properties(): string;
+    /**
+      * `Property name`
+      */
+    ["Property name"](): string;
+    /**
+      * `View name`
+      */
+    ["View name"](): string;
+    /**
+      * `Views`
+      */
+    Views(): string;
+    /**
+      * `View`
+      */
+    View(): string;
+    /**
+      * `Table View`
+      */
+    ["Table View"](): string;
+    /**
+      * `Table view`
+      */
+    ["Table view"](): string;
+    /**
+      * `Kanban View`
+      */
+    ["Kanban View"](): string;
+    /**
+      * `Kanban view`
+      */
+    ["Kanban view"](): string;
+    /**
+      * `Calendar View`
+      */
+    ["Calendar View"](): string;
+    /**
+      * `Untitled Kanban`
+      */
+    ["Untitled Kanban"](): string;
+    /**
+      * `Untitled Table`
+      */
+    ["Untitled Table"](): string;
+    /**
+      * `Create Table`
+      */
+    ["Create Table"](): string;
+    /**
+      * `Database`
+      */
+    Database(): string;
+    /**
+      * `Database title`
+      */
+    ["Database title"](): string;
+    /**
+      * `Database Block`
+      */
+    ["Database Block"](): string;
+    /**
+      * `Table`
+      */
+    Table(): string;
+    /**
+      * `Delete Database`
+      */
+    ["Delete Database"](): string;
+    /**
+      * `Insert editable tabular data.`
+      */
+    ["Insert editable tabular data."](): string;
+    /**
+      * `Display items in a table format.`
+      */
+    ["Display items in a table format."](): string;
+    /**
+      * `Visualize data in a dashboard.`
+      */
+    ["Visualize data in a dashboard."](): string;
+    /**
+      * `Created Time`
+      */
+    ["Created Time"](): string;
+    /**
+      * `Number`
+      */
+    Number(): string;
+    /**
+      * `Number Format`
+      */
+    ["Number Format"](): string;
+    /**
+      * `Number With Commas`
+      */
+    ["Number With Commas"](): string;
+    /**
+      * `Percent`
+      */
+    Percent(): string;
+    /**
+      * `Progress`
+      */
+    Progress(): string;
+    /**
+      * `Status`
+      */
+    Status(): string;
+    /**
+      * `Multi-select`
+      */
+    ["Multi-select"](): string;
+    /**
+      * `Checkbox`
+      */
+    Checkbox(): string;
+    /**
+      * `Checked`
+      */
+    Checked(): string;
+    /**
+      * `Unchecked`
+      */
+    Unchecked(): string;
+    /**
+      * `Date by`
+      */
+    ["Date by"](): string;
+    /**
+      * `Calendar by`
+      */
+    ["Calendar by"](): string;
+    /**
+      * `Date range`
+      */
+    ["Date range"](): string;
+    /**
+      * `End Date`
+      */
+    ["End Date"](): string;
+    /**
+      * `End date`
+      */
+    ["End date"](): string;
+    /**
+      * `Start date`
+      */
+    ["Start date"](): string;
+    /**
+      * `Connect calendar`
+      */
+    ["Connect calendar"](): string;
+    /**
+      * `External calendars`
+      */
+    ["External calendars"](): string;
+    /**
+      * `Next month`
+      */
+    ["Next month"](): string;
+    /**
+      * `Previous month`
+      */
+    ["Previous month"](): string;
+    /**
+      * `Start week on`
+      */
+    ["Start week on"](): string;
+    /**
+      * `Today`
+      */
+    Today(): string;
+    /**
+      * `TODAY`
+      */
+    TODAY(): string;
+    /**
+      * `Tomorrow`
+      */
+    Tomorrow(): string;
+    /**
+      * `Yesterday`
+      */
+    Yesterday(): string;
+    /**
+      * `Now`
+      */
+    Now(): string;
+    /**
+      * `Add filter`
+      */
+    ["Add filter"](): string;
+    /**
+      * `Add filter group`
+      */
+    ["Add filter group"](): string;
+    /**
+      * `Filter`
+      */
+    Filter(): string;
+    /**
+      * `Where`
+      */
+    Where(): string;
+    /**
+      * `And`
+      */
+    And(): string;
+    /**
+      * `Or`
+      */
+    Or(): string;
+    /**
+      * `Is`
+      */
+    Is(): string;
+    /**
+      * `Is not`
+      */
+    ["Is not"](): string;
+    /**
+      * `Is empty`
+      */
+    ["Is empty"](): string;
+    /**
+      * `Is not empty`
+      */
+    ["Is not empty"](): string;
+    /**
+      * `Is checked`
+      */
+    ["Is checked"](): string;
+    /**
+      * `Is unchecked`
+      */
+    ["Is unchecked"](): string;
+    /**
+      * `Contains`
+      */
+    Contains(): string;
+    /**
+      * `Does no contains`
+      */
+    ["Does no contains"](): string;
+    /**
+      * `Contains all`
+      */
+    ["Contains all"](): string;
+    /**
+      * `Contains one of`
+      */
+    ["Contains one of"](): string;
+    /**
+      * `Does not contains all`
+      */
+    ["Does not contains all"](): string;
+    /**
+      * `Does not contains one of`
+      */
+    ["Does not contains one of"](): string;
+    /**
+      * `Is one of`
+      */
+    ["Is one of"](): string;
+    /**
+      * `Is not one of`
+      */
+    ["Is not one of"](): string;
+    /**
+      * `Starts with`
+      */
+    ["Starts with"](): string;
+    /**
+      * `Ends with`
+      */
+    ["Ends with"](): string;
+    /**
+      * `After`
+      */
+    After(): string;
+    /**
+      * `Before`
+      */
+    Before(): string;
+    /**
+      * `Sort`
+      */
+    Sort(): string;
+    /**
+      * `Add sort`
+      */
+    ["Add sort"](): string;
+    /**
+      * `Sort Ascending`
+      */
+    ["Sort Ascending"](): string;
+    /**
+      * `Sort Descending`
+      */
+    ["Sort Descending"](): string;
+    /**
+      * `Newest first`
+      */
+    ["Newest first"](): string;
+    /**
+      * `Oldest first`
+      */
+    ["Oldest first"](): string;
+    /**
+      * `Groups`
+      */
+    Groups(): string;
+    /**
+      * `Group By`
+      */
+    ["Group By"](): string;
+    /**
+      * `New Group`
+      */
+    ["New Group"](): string;
+    /**
+      * `Remove Grouping`
+      */
+    ["Remove Grouping"](): string;
+    /**
+      * `Remove grouping`
+      */
+    ["Remove grouping"](): string;
+    /**
+      * `Hide empty groups`
+      */
+    ["Hide empty groups"](): string;
+    /**
+      * `All groups are hidden`
+      */
+    ["All groups are hidden"](): string;
+    /**
+      * `Hide In View`
+      */
+    ["Hide In View"](): string;
+    /**
+      * `Move To`
+      */
+    ["Move To"](): string;
+    /**
+      * `Omit`
+      */
+    Omit(): string;
+    /**
+      * `None`
+      */
+    None(): string;
+    /**
+      * `Type`
+      */
+    Type(): string;
+    /**
+      * `Type a value...`
+      */
+    ["Type a value..."](): string;
+    /**
+      * `Type here...`
+      */
+    ["Type here..."](): string;
+    /**
+      * `Select or create date property`
+      */
+    ["Select or create date property"](): string;
+    /**
+      * `Create date property`
+      */
+    ["Create date property"](): string;
+    /**
+      * `Select tag or create one`
+      */
+    ["Select tag or create one"](): string;
+    /**
+      * `Delete view`
+      */
+    ["Delete view"](): string;
+    /**
+      * `Duplicate view`
+      */
+    ["Duplicate view"](): string;
+    /**
+      * `Edit View`
+      */
+    ["Edit View"](): string;
+    /**
+      * `Switch view`
+      */
+    ["Switch view"](): string;
+    /**
+      * `Delete Card`
+      */
+    ["Delete Card"](): string;
+    /**
+      * `Delete Cards`
+      */
+    ["Delete Cards"](): string;
+    /**
+      * `Expand Card`
+      */
+    ["Expand Card"](): string;
+    /**
+      * `Delete Row`
+      */
+    ["Delete Row"](): string;
+    /**
+      * `Delete Rows`
+      */
+    ["Delete Rows"](): string;
+    /**
+      * `Expand Row`
+      */
+    ["Expand Row"](): string;
+    /**
+      * `Insert Left Column`
+      */
+    ["Insert Left Column"](): string;
+    /**
+      * `Insert Right Column`
+      */
+    ["Insert Right Column"](): string;
+    /**
+      * `Clear column contents`
+      */
+    ["Clear column contents"](): string;
+    /**
+      * `Clear column style`
+      */
+    ["Clear column style"](): string;
+    /**
+      * `Clear row contents`
+      */
+    ["Clear row contents"](): string;
+    /**
+      * `Clear row style`
+      */
+    ["Clear row style"](): string;
+    /**
+      * `Clear contents`
+      */
+    ["Clear contents"](): string;
+    /**
+      * `Comment`
+      */
+    Comment(): string;
+    /**
+      * `Done`
+      */
+    Done(): string;
+    /**
+      * `Default`
+      */
+    Default(): string;
+    /**
+      * `Original`
+      */
+    Original(): string;
+    /**
+      * `Empty`
+      */
+    Empty(): string;
+    /**
+      * `More`
+      */
+    More(): string;
+    /**
+      * `More menu`
+      */
+    ["More menu"](): string;
+    /**
+      * `More Tools`
+      */
+    ["More Tools"](): string;
+    /**
+      * `Settings`
+      */
+    Settings(): string;
+    /**
+      * `Preview`
+      */
+    Preview(): string;
+    /**
+      * `Preview Settings`
+      */
+    ["Preview Settings"](): string;
+    /**
+      * `Playback Settings`
+      */
+    ["Playback Settings"](): string;
+    /**
+      * `Hide toolbar`
+      */
+    ["Hide toolbar"](): string;
+    /**
+      * `Layout`
+      */
+    Layout(): string;
+    /**
+      * `Mode`
+      */
+    Mode(): string;
+    /**
+      * `Show in`
+      */
+    ["Show in"](): string;
+    /**
+      * `View in Toc`
+      */
+    ["View in Toc"](): string;
+    /**
+      * `Table of Contents`
+      */
+    ["Table of Contents"](): string;
+    /**
+      * `All frames`
+      */
+    ["All frames"](): string;
+    /**
+      * `Use headings to create a table of contents.`
+      */
+    ["Use headings to create a table of contents."](): string;
+    /**
+      * `Add frames to organize and present your Edgeless`
+      */
+    ["Add frames to organize and present your Edgeless"](): string;
+    /**
+      * `Hidden Contents`
+      */
+    ["Hidden Contents"](): string;
+    /**
+      * `SOME CONTENTS HIDDEN`
+      */
+    ["SOME CONTENTS HIDDEN"](): string;
+    /**
+      * `Some contents are not visible on edgeless.`
+      */
+    ["Some contents are not visible on edgeless."](): string;
+    /**
+      * `Fit to screen`
+      */
+    ["Fit to screen"](): string;
+    /**
+      * `Fill Screen`
+      */
+    ["Fill Screen"](): string;
+    /**
+      * `White`
+      */
+    White(): string;
+    /**
+      * `Grey`
+      */
+    Grey(): string;
+    /**
+      * `Black background`
+      */
+    ["Black background"](): string;
+    /**
+      * `Dark background`
+      */
+    ["Dark background"](): string;
+    /**
+      * `Blue`
+      */
+    Blue(): string;
+    /**
+      * `Green`
+      */
+    Green(): string;
+    /**
+      * `Orange`
+      */
+    Orange(): string;
+    /**
+      * `Purple`
+      */
+    Purple(): string;
+    /**
+      * `Red`
+      */
+    Red(): string;
+    /**
+      * `Teal`
+      */
+    Teal(): string;
+    /**
+      * `Yellow`
+      */
+    Yellow(): string;
+    /**
+      * `Magenta`
+      */
+    Magenta(): string;
+    /**
+      * `Dark`
+      */
+    Dark(): string;
+    /**
+      * `Light`
+      */
+    Light(): string;
+    /**
+      * `Custom`
+      */
+    Custom(): string;
+    /**
+      * `Custom color`
+      */
+    ["Custom color"](): string;
+    /**
+      * `Color`
+      */
+    Color(): string;
+    /**
+      * `Back`
+      */
+    Back(): string;
+    /**
+      * `Reset`
+      */
+    Reset(): string;
+    /**
+      * `Clear`
+      */
+    Clear(): string;
+    /**
+      * `Close`
+      */
+    Close(): string;
+    /**
+      * `Next`
+      */
+    Next(): string;
+    /**
+      * `Skip`
+      */
+    Skip(): string;
+    /**
+      * `Open`
+      */
+    Open(): string;
+    /**
+      * `Download`
+      */
+    Download(): string;
+    /**
+      * `Export`
+      */
+    Export(): string;
+    /**
+      * `Loading...`
+      */
+    ["Loading..."](): string;
+    /**
+      * `Load error`
+      */
+    ["Load error"](): string;
+    /**
+      * `Get Started`
+      */
+    ["Get Started"](): string;
+    /**
+      * `Icons`
+      */
+    Icons(): string;
+    /**
+      * `Icon Picker`
+      */
+    ["Icon Picker"](): string;
+    /**
+      * `Change icon`
+      */
+    ["Change icon"](): string;
+    /**
+      * `Show type icon`
+      */
+    ["Show type icon"](): string;
+    /**
+      * `Unknown`
+      */
+    Unknown(): string;
+    /**
+      * `Failed to sign in`
+      */
+    ["Failed to sign in"](): string;
+    /**
+      * `Failed to create workspace`
+      */
+    ["Failed to create workspace"](): string;
+    /**
+      * `Failed to load members`
+      */
+    ["Failed to load members"](): string;
+    /**
+      * `Failed to load invoices`
+      */
+    ["Failed to load invoices"](): string;
+    /**
+      * `Failed to copy link to clipboard`
+      */
+    ["Failed to copy link to clipboard"](): string;
+    /**
+      * `Failed to generate invitation link`
+      */
+    ["Failed to generate invitation link"](): string;
+    /**
+      * `Failed to revoke invitation link`
+      */
+    ["Failed to revoke invitation link"](): string;
+    /**
+      * `Failed to upload attachment`
+      */
+    ["Failed to upload attachment"](): string;
+    /**
+      * `Failed to download attachment`
+      */
+    ["Failed to download attachment"](): string;
+    /**
+      * `Import cancelled`
+      */
+    ["Import cancelled"](): string;
+    /**
+      * `Choose a workspace.`
+      */
+    ["Choose a workspace."](): string;
+    /**
+      * `Coming soon...`
+      */
+    ["Coming soon..."](): string;
+    /**
+      * `Discussion about this feature`
+      */
+    ["Discussion about this feature"](): string;
+    /**
+      * `Loading emojis...`
+      */
+    ["Loading emojis..."](): string;
+    /**
+      * `Apply`
+      */
+    Apply(): string;
+    /**
+      * `Insert`
+      */
+    Insert(): string;
+    /**
+      * `Basic`
+      */
+    Basic(): string;
+    /**
+      * `Actions`
+      */
+    Actions(): string;
+    /**
+      * `Edgeless Element`
+      */
+    ["Edgeless Element"](): string;
+    /**
+      * `Conversions`
+      */
+    Conversions(): string;
+    /**
+      * `Content & Media`
+      */
+    ["Content & Media"](): string;
+    /**
+      * `Embeds`
+      */
+    Embeds(): string;
+    /**
+      * `Embed`
+      */
+    Embed(): string;
+    /**
+      * `Embed block`
+      */
+    ["Embed block"](): string;
+    /**
+      * `Attachment`
+      */
+    Attachment(): string;
+    /**
+      * `Attach a file.`
+      */
+    ["Attach a file."](): string;
+    /**
+      * `Image Block`
+      */
+    ["Image Block"](): string;
+    /**
+      * `Image block`
+      */
+    ["Image block"](): string;
+    /**
+      * `Insert a photo.`
+      */
+    ["Insert a photo."](): string;
+    /**
+      * `Upload a pdf to document.`
+      */
+    ["Upload a pdf to document."](): string;
+    /**
+      * `Insert a Linear issue.`
+      */
+    ["Insert a Linear issue."](): string;
+    /**
+      * `Link to a GitHub repository.`
+      */
+    ["Link to a GitHub repository."](): string;
+    /**
+      * `Embed a Figma document.`
+      */
+    ["Embed a Figma document."](): string;
+    /**
+      * `Embed a loom video.`
+      */
+    ["Embed a loom video."](): string;
+    /**
+      * `Embed a YouTube video.`
+      */
+    ["Embed a YouTube video."](): string;
+    /**
+      * `Embed a X post (tweet).`
+      */
+    ["Embed a X post (tweet)."](): string;
+    /**
+      * `Highlight important notes.`
+      */
+    ["Highlight important notes."](): string;
+    /**
+      * `Create a blank frame in Edgeless`
+      */
+    ["Create a blank frame in Edgeless"](): string;
+    /**
+      * `Create a mind map in Edgeless`
+      */
+    ["Create a mind map in Edgeless"](): string;
+    /**
+      * `Mind Map`
+      */
+    ["Mind Map"](): string;
+    /**
+      * `Mind map`
+      */
+    ["Mind map"](): string;
+    /**
+      * `Importing mind map...`
+      */
+    ["Importing mind map..."](): string;
+    /**
+      * `Edited just now`
+      */
+    ["Edited just now"](): string;
+    /**
+      * `Shift this line up.`
+      */
+    ["Shift this line up."](): string;
+    /**
+      * `Shift this line down.`
+      */
+    ["Shift this line down."](): string;
+    /**
+      * `Copy this line to clipboard.`
+      */
+    ["Copy this line to clipboard."](): string;
+    /**
+      * `Create a duplicate of this line.`
+      */
+    ["Create a duplicate of this line."](): string;
+    /**
+      * `Delete this line.`
+      */
+    ["Delete this line."](): string;
+    /**
+      * `Turn into`
+      */
+    ["Turn into"](): string;
+    /**
+      * `Turn into card view`
+      */
+    ["Turn into card view"](): string;
+    /**
+      * `Card view`
+      */
+    ["Card view"](): string;
+    /**
+      * `Card style`
+      */
+    ["Card style"](): string;
+    /**
+      * `Inline view`
+      */
+    ["Inline view"](): string;
+    /**
+      * `Embed view`
+      */
+    ["Embed view"](): string;
+    /**
+      * `Horizontal style`
+      */
+    ["Horizontal style"](): string;
+    /**
+      * `Vertical style`
+      */
+    ["Vertical style"](): string;
+    /**
+      * `Large horizontal style`
+      */
+    ["Large horizontal style"](): string;
+    /**
+      * `Small horizontal style`
+      */
+    ["Small horizontal style"](): string;
+    /**
+      * `Large vertical style`
+      */
+    ["Large vertical style"](): string;
+    /**
+      * `Small vertical style`
+      */
+    ["Small vertical style"](): string;
+    /**
+      * `Auto height`
+      */
+    ["Auto height"](): string;
+    /**
+      * `Customized height`
+      */
+    ["Customized height"](): string;
+    /**
+      * `Caption`
+      */
+    Caption(): string;
+    /**
+      * `Write a caption`
+      */
+    ["Write a caption"](): string;
+    /**
+      * `Input in https://...`
+      */
+    ["Input in https://..."](): string;
+    /**
+      * `Paste or type a link`
+      */
+    ["Paste or type a link"](): string;
+    /**
+      * `Paste the Embed link...`
+      */
+    ["Paste the Embed link..."](): string;
+    /**
+      * `Link details`
+      */
+    ["Link details"](): string;
+    /**
+      * `Add a custom title`
+      */
+    ["Add a custom title"](): string;
+    /**
+      * `Edit Description`
+      */
+    ["Edit Description"](): string;
+    /**
+      * `Remove link`
+      */
+    ["Remove link"](): string;
+    /**
+      * `Enter text`
+      */
+    ["Enter text"](): string;
+    /**
+      * `Shift Enter to line break`
+      */
+    ["Shift Enter to line break"](): string;
+    /**
+      * `Transcript`
+      */
+    Transcript(): string;
+    /**
+      * `No transcript available.`
+      */
+    ["No transcript available."](): string;
+    /**
+      * `Transcript truncated by the preview service.`
+      */
+    ["Transcript truncated by the preview service."](): string;
+    /**
+      * `Replace attachment`
+      */
+    ["Replace attachment"](): string;
+    /**
+      * `This link couldn’t be loaded.`
+      */
+    ["This link couldn\u2019t be loaded."](): string;
+    /**
+      * `Curve`
+      */
+    Curve(): string;
+    /**
+      * `Elbowed`
+      */
+    Elbowed(): string;
+    /**
+      * `Straight`
+      */
+    Straight(): string;
+    /**
+      * `Start point style`
+      */
+    ["Start point style"](): string;
+    /**
+      * `End point style`
+      */
+    ["End point style"](): string;
+    /**
+      * `Flip direction`
+      */
+    ["Flip direction"](): string;
+    /**
+      * `Rounded rectangle`
+      */
+    ["Rounded rectangle"](): string;
+    /**
+      * `Rectangle`
+      */
+    Rectangle(): string;
+    /**
+      * `Square`
+      */
+    Square(): string;
+    /**
+      * `Ellipse`
+      */
+    Ellipse(): string;
+    /**
+      * `Diamond`
+      */
+    Diamond(): string;
+    /**
+      * `Triangle`
+      */
+    Triangle(): string;
+    /**
+      * `Switch shape type`
+      */
+    ["Switch shape type"](): string;
+    /**
+      * `Shadow`
+      */
+    Shadow(): string;
+    /**
+      * `No shadow`
+      */
+    ["No shadow"](): string;
+    /**
+      * `Box shadow`
+      */
+    ["Box shadow"](): string;
+    /**
+      * `Film shadow`
+      */
+    ["Film shadow"](): string;
+    /**
+      * `Floating shadow`
+      */
+    ["Floating shadow"](): string;
+    /**
+      * `Floation shadow`
+      */
+    ["Floation shadow"](): string;
+    /**
+      * `Paper shadow`
+      */
+    ["Paper shadow"](): string;
+    /**
+      * `Sticker shadow`
+      */
+    ["Sticker shadow"](): string;
+    /**
+      * `Type from here`
+      */
+    ["Type from here"](): string;
+    /**
+      * `Drag/Click to insert Text block`
+      */
+    ["Drag/Click to insert Text block"](): string;
+    /**
+      * `Drag/Click to insert Bulleted List`
+      */
+    ["Drag/Click to insert Bulleted List"](): string;
+    /**
+      * `Drag/Click to insert Numbered List`
+      */
+    ["Drag/Click to insert Numbered List"](): string;
+    /**
+      * `Drag/Click to insert To-do List`
+      */
+    ["Drag/Click to insert To-do List"](): string;
+    /**
+      * `Drag/Click to insert Code Block`
+      */
+    ["Drag/Click to insert Code Block"](): string;
+    /**
+      * `Drag/Click to insert Quote`
+      */
+    ["Drag/Click to insert Quote"](): string;
+    /**
+      * `Drag/Click to insert Heading 1`
+      */
+    ["Drag/Click to insert Heading 1"](): string;
+    /**
+      * `Drag/Click to insert Heading 2`
+      */
+    ["Drag/Click to insert Heading 2"](): string;
+    /**
+      * `Drag/Click to insert Heading 3`
+      */
+    ["Drag/Click to insert Heading 3"](): string;
+    /**
+      * `Drag/Click to insert Heading 4`
+      */
+    ["Drag/Click to insert Heading 4"](): string;
+    /**
+      * `Drag/Click to insert Heading 5`
+      */
+    ["Drag/Click to insert Heading 5"](): string;
+    /**
+      * `Drag/Click to insert Heading 6`
+      */
+    ["Drag/Click to insert Heading 6"](): string;
+    /**
+      * `Large`
+      */
+    Large(): string;
+    /**
+      * `Huge`
+      */
+    Huge(): string;
+    /**
+      * `Small`
+      */
+    Small(): string;
+    /**
+      * `Medium`
+      */
+    Medium(): string;
+    /**
+      * `Redo`
+      */
+    Redo(): string;
+    /**
+      * `Dismiss`
+      */
+    Dismiss(): string;
+    /**
+      * `US Dollar`
+      */
+    ["US Dollar"](): string;
+    /**
+      * `British Pound`
+      */
+    ["British Pound"](): string;
+    /**
+      * `Chinese Yuan`
+      */
+    ["Chinese Yuan"](): string;
+    /**
+      * `Euro`
+      */
+    Euro(): string;
+    /**
+      * `Indian Rupee`
+      */
+    ["Indian Rupee"](): string;
+    /**
+      * `Japanese Yen`
+      */
+    ["Japanese Yen"](): string;
+    /**
+      * `Add a file or image`
+      */
+    ["Add a file or image"](): string;
+    /**
+      * `Choose a file`
+      */
+    ["Choose a file"](): string;
+    /**
+      * `AI is generating...`
+      */
+    ["AI is generating..."](): string;
+    /**
+      * `AI is generating content. Do you want to stop generating?`
+      */
+    ["AI is generating content. Do you want to stop generating?"](): string;
+    /**
+      * `AI chat block`
+      */
+    ["AI chat block"](): string;
+    /**
+      * `Cannot insert in read-only mode`
+      */
+    ["Cannot insert in read-only mode"](): string;
+    /**
+      * `Check status`
+      */
+    ["Check status"](): string;
+    /**
+      * `Better results after embedding finished.`
+      */
+    ["Better results after embedding finished."](): string;
+    /**
+      * `Add to edgeless as note`
+      */
+    ["Add to edgeless as note"](): string;
+    /**
+      * `Copy HTML`
+      */
+    ["Copy HTML"](): string;
+    /**
+      * `Copy markdown`
+      */
+    ["Copy markdown"](): string;
+    /**
+      * `Bi-Directional Links`
+      */
+    ["Bi-Directional Links"](): string;
+    /**
+      * `Arrows`
+      */
+    Arrows(): string;
+    /**
+      * `Cheeky Piggies`
+      */
+    ["Cheeky Piggies"](): string;
+    /**
+      * `Contorted Stickers`
+      */
+    ["Contorted Stickers"](): string;
+    /**
+      * `Paper`
+      */
+    Paper(): string;
+    /**
       * `An internal error occurred.`
       */
     ["error.INTERNAL_SERVER_ERROR"](): string;

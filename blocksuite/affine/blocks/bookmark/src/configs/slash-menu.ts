@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { DefaultTool } from '@blocksuite/affine-block-surface';
 import { toggleEmbedCardCreateModal } from '@blocksuite/affine-components/embed-card-modal';
 import { BookmarkBlockSchema } from '@blocksuite/affine-model';
@@ -19,7 +20,7 @@ const bookmarkSlashMenuConfig: SlashMenuConfig = {
       icon: LinkIcon(),
       tooltip: {
         figure: LinkTooltip,
-        caption: 'Link',
+        caption: editorText('Link'),
       },
       group: '4_Content & Media@2',
       when: ({ model }) =>

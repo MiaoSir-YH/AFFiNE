@@ -7,7 +7,7 @@ import {
   type ToolbarModuleConfig,
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
-import { getBlockProps } from '@blocksuite/affine-shared/utils';
+import { editorText, getBlockProps } from '@blocksuite/affine-shared/utils';
 import {
   CaptionIcon,
   CopyIcon,
@@ -30,7 +30,7 @@ const trackBaseProps = {
 const openDocAction = {
   id: 'a.open-doc',
   icon: ExpandFullIcon(),
-  tooltip: 'Open this doc',
+  tooltip: editorText('Open this doc'),
   run(ctx) {
     const block = ctx.getCurrentBlockByType(EmbedHtmlBlockComponent);
     block?.open();
@@ -39,7 +39,7 @@ const openDocAction = {
 
 const captionAction = {
   id: 'c.caption',
-  tooltip: 'Caption',
+  tooltip: editorText('Caption'),
   icon: CaptionIcon(),
   run(ctx) {
     const block = ctx.getCurrentBlockByType(EmbedHtmlBlockComponent);
@@ -60,11 +60,11 @@ const builtinToolbarConfig = {
       actions: [
         {
           id: 'horizontal',
-          label: 'Large horizontal style',
+          label: editorText('Large horizontal style'),
         },
         {
           id: 'list',
-          label: 'Small horizontal style',
+          label: editorText('Small horizontal style'),
         },
       ],
       content(ctx) {
@@ -112,7 +112,7 @@ const builtinToolbarConfig = {
       actions: [
         {
           id: 'copy',
-          label: 'Copy',
+          label: editorText('Copy'),
           icon: CopyIcon(),
           run(ctx) {
             const model = ctx.getCurrentModelByType(EmbedHtmlModel);
@@ -127,7 +127,7 @@ const builtinToolbarConfig = {
         },
         {
           id: 'duplicate',
-          label: 'Duplicate',
+          label: editorText('Duplicate'),
           icon: DuplicateIcon(),
           run(ctx) {
             const model = ctx.getCurrentModelByType(EmbedHtmlModel);
@@ -145,7 +145,7 @@ const builtinToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'c.delete',
-      label: 'Delete',
+      label: editorText('Delete'),
       icon: DeleteIcon(),
       variant: 'destructive',
       run(ctx) {

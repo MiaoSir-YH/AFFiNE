@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   menu,
   popMenu,
@@ -60,7 +61,7 @@ export class SelectGroupView extends BaseGroup<
         items: [
           menu.input({
             initialValue: this.tag?.value ?? '',
-            placeholder: 'Untitled',
+            placeholder: editorText('Untitled'),
             onChange: text => {
               this.updateTag({ value: text });
             },

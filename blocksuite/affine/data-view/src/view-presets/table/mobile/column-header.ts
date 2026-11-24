@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   menu,
   type MenuConfig,
@@ -74,12 +75,14 @@ export class MobileTableColumnHeader extends SignalWatcher(
           typeConfig(this.column),
           // Number format begin
           menu.subMenu({
-            name: 'Number Format',
+            get name() {
+              return editorText('Number Format');
+            },
             hide: () =>
               !this.column.dataUpdate || this.column.type$.value !== 'number',
             options: {
               title: {
-                text: 'Number Format',
+                text: editorText('Number Format'),
               },
               items: [
                 numberFormatConfig(this.column),
@@ -107,7 +110,9 @@ export class MobileTableColumnHeader extends SignalWatcher(
           menu.group({
             items: [
               menu.action({
-                name: 'Hide In View',
+                get name() {
+                  return editorText('Hide In View');
+                },
                 prefix: ViewIcon(),
                 hide: () => !this.column.hideCanSet,
                 select: () => {
@@ -119,7 +124,9 @@ export class MobileTableColumnHeader extends SignalWatcher(
           menu.group({
             items: [
               menu.action({
-                name: 'Insert Left Column',
+                get name() {
+                  return editorText('Insert Left Column');
+                },
                 prefix: InsertLeftIcon(),
                 select: () => {
                   this.tableViewManager.propertyAdd({
@@ -142,7 +149,9 @@ export class MobileTableColumnHeader extends SignalWatcher(
                 },
               }),
               menu.action({
-                name: 'Insert Right Column',
+                get name() {
+                  return editorText('Insert Right Column');
+                },
                 prefix: InsertRightIcon(),
                 select: () => {
                   this.tableViewManager.propertyAdd({
@@ -164,7 +173,9 @@ export class MobileTableColumnHeader extends SignalWatcher(
                 },
               }),
               menu.action({
-                name: 'Move Left',
+                get name() {
+                  return editorText('Move Left');
+                },
                 prefix: MoveLeftIcon(),
                 hide: () => this.column.isFirst$.value,
                 select: () => {
@@ -179,7 +190,9 @@ export class MobileTableColumnHeader extends SignalWatcher(
                 },
               }),
               menu.action({
-                name: 'Move Right',
+                get name() {
+                  return editorText('Move Right');
+                },
                 prefix: MoveRightIcon(),
                 hide: () => this.column.isLast$.value,
                 select: () => {
@@ -198,7 +211,9 @@ export class MobileTableColumnHeader extends SignalWatcher(
           menu.group({
             items: [
               menu.action({
-                name: 'Duplicate',
+                get name() {
+                  return editorText('Duplicate');
+                },
                 prefix: DuplicateIcon(),
                 hide: () => !this.column.canDuplicate,
                 select: () => {
@@ -206,7 +221,9 @@ export class MobileTableColumnHeader extends SignalWatcher(
                 },
               }),
               menu.action({
-                name: 'Delete',
+                get name() {
+                  return editorText('Delete');
+                },
                 prefix: DeleteIcon(),
                 hide: () => !this.column.canDelete,
                 select: () => {

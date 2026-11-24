@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   menu,
   popFilterableSimpleMenu,
@@ -42,14 +43,18 @@ export const popCardMenu = (
   );
   popFilterableSimpleMenu(ele, [
     menu.action({
-      name: 'Expand Card',
+      get name() {
+        return editorText('Expand Card');
+      },
       prefix: ExpandFullIcon(),
       select: () => {
         openDetail(kanbanViewLogic, rowId, selection);
       },
     }),
     menu.subMenu({
-      name: 'Move To',
+      get name() {
+        return editorText('Move To');
+      },
       prefix: ArrowRightBigIcon(),
       options: {
         items:
@@ -76,7 +81,9 @@ export const popCardMenu = (
       name: '',
       items: [
         menu.action({
-          name: 'Insert Before',
+          get name() {
+            return editorText('Insert Before');
+          },
           prefix: html` <div
             style="transform: rotate(90deg);display:flex;align-items:center;"
           >
@@ -87,7 +94,9 @@ export const popCardMenu = (
           },
         }),
         menu.action({
-          name: 'Insert After',
+          get name() {
+            return editorText('Insert After');
+          },
           prefix: html` <div
             style="transform: rotate(90deg);display:flex;align-items:center;"
           >
@@ -103,7 +112,9 @@ export const popCardMenu = (
       name: '',
       items: [
         menu.action({
-          name: 'Delete Card',
+          get name() {
+            return editorText('Delete Card');
+          },
           class: {
             'delete-item': true,
           },

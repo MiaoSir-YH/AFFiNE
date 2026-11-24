@@ -1,6 +1,9 @@
 import { getSelectedModelsCommand } from '@blocksuite/affine-shared/commands';
 import { TelemetryProvider } from '@blocksuite/affine-shared/services';
-import { isInsideBlockByFlavour } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  isInsideBlockByFlavour,
+} from '@blocksuite/affine-shared/utils';
 import type { SlashMenuConfig } from '@blocksuite/affine-widget-slash-menu';
 import { TableIcon } from '@blocksuite/icons/lit';
 
@@ -16,7 +19,7 @@ export const tableSlashMenuConfig: SlashMenuConfig = {
       icon: TableIcon(),
       tooltip: {
         figure: tableTooltip,
-        caption: 'Table',
+        caption: editorText('Table'),
       },
       group: '4_Content & Media@0',
       when: ({ model }) =>

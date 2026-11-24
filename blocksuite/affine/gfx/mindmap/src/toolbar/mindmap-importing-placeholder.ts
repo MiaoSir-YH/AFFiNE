@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { LoadingIcon } from '@blocksuite/affine-components/icons';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
 import { ShadowlessElement } from '@blocksuite/std';
@@ -47,7 +48,7 @@ export class MindMapPlaceholder extends ShadowlessElement {
       <div class="preview-icon">${importMindMapIcon}</div>
       <div class="description">
         ${LoadingIcon()}
-        <span>Importing mind map...</span>
+        <span>${editorText('Importing mind map...')}</span>
       </div>
     </div>`;
   }

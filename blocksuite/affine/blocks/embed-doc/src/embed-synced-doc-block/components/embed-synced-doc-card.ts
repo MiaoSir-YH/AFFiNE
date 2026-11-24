@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { RENDER_CARD_THROTTLE_MS } from '@blocksuite/affine-block-embed';
 import { LoadingIcon } from '@blocksuite/affine-components/icons';
 import { ThemeProvider } from '@blocksuite/affine-shared/services';
@@ -219,7 +220,7 @@ export class EmbedSyncedDocCard extends WithDisposable(ShadowlessElement) {
                       class="affine-embed-synced-doc-card-content-reload-button"
                       @click=${() => this.block.refreshData()}
                     >
-                      ${ResetIcon()} <span>Reload</span>
+                      ${ResetIcon()} <span>${editorText('Reload')}</span>
                     </div>
                   </div>
                 `

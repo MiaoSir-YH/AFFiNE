@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { createLitPortal } from '@blocksuite/affine-components/portal';
 import type {
   EditorIconButton,
@@ -127,8 +128,8 @@ export class AffineCodeToolbar extends WithDisposable(LitElement) {
         <editor-icon-button
           class="code-toolbar-button more"
           data-testid="more"
-          aria-label="More"
-          .tooltip=${'More'}
+          aria-label=${editorText('More')}
+          .tooltip=${editorText('More')}
           .tooltipOffset=${4}
           .iconSize=${'16px'}
           .iconContainerPadding=${4}

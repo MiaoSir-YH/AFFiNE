@@ -7,6 +7,7 @@ import {
   type ToolbarModuleConfig,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   cloneReferenceInfoWithoutAliases,
   isInsideBlockByFlavour,
 } from '@blocksuite/affine-shared/utils';
@@ -51,12 +52,12 @@ export const builtinInlineReferenceToolbarConfig = {
       actions: [
         {
           id: 'inline',
-          label: 'Inline view',
+          label: editorText('Inline view'),
           disabled: true,
         },
         {
           id: 'card',
-          label: 'Card view',
+          label: editorText('Card view'),
           run(ctx) {
             const target = ctx.message$.peek()?.element;
             if (!(target instanceof AffineReference)) return;
@@ -105,7 +106,7 @@ export const builtinInlineReferenceToolbarConfig = {
         },
         {
           id: 'embed',
-          label: 'Embed view',
+          label: editorText('Embed view'),
           disabled(ctx) {
             const target = ctx.message$.peek()?.element;
             if (!(target instanceof AffineReference)) return true;
@@ -228,7 +229,7 @@ export const builtinInlineReferenceToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'c.delete',
-      label: 'Delete',
+      label: editorText('Delete'),
       icon: DeleteIcon(),
       variant: 'destructive',
       run(ctx) {

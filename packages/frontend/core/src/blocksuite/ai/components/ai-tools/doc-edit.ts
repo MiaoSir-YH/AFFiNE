@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import track from '@affine/track';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import { unsafeCSSVar, unsafeCSSVarV2 } from '@blocksuite/affine/shared/theme';
@@ -268,7 +269,7 @@ export class DocEditTool extends WithDisposable(ShadowlessElement) {
     const success = await copyText(removeMarkdownComments(changedMarkdown));
     if (success) {
       this.notificationService.notify({
-        title: 'Copied to clipboard',
+        title: I18n.t('Copied to clipboard'),
         accent: 'success',
         onClose: function (): void {},
       });
@@ -375,9 +376,11 @@ export class DocEditTool extends WithDisposable(ShadowlessElement) {
                     </button>
                     <button @click=${() => this._handleCopy(changedContent)}>
                       ${CopyIcon()}
-                      <affine-tooltip>Copy</affine-tooltip>
+                      <affine-tooltip>${I18n.t('Copy')}</affine-tooltip>
                     </button>
-                    <button @click=${() => this._handleApply(op)}>Apply</button>
+                    <button @click=${() => this._handleApply(op)}>
+                      ${I18n.t('Apply')}
+                    </button>
                   </div>
                 </div>
                 <div class="doc-edit-tool-result-card-content">

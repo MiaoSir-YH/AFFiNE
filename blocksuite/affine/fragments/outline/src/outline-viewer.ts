@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { NoteDisplayMode } from '@blocksuite/affine-model';
 import { DocModeProvider } from '@blocksuite/affine-shared/services';
 import { scrollbarStyle } from '@blocksuite/affine-shared/styles';
@@ -271,7 +272,7 @@ export class OutlineViewer extends SignalWatcher(
         </div>
         <div class="outline-viewer-panel">
           <div class="outline-viewer-item outline-viewer-header">
-            <span>Table of Contents</span>
+            <span>${editorText('Table of Contents')}</span>
             ${toggleOutlinePanelButton}
           </div>
           ${repeat(

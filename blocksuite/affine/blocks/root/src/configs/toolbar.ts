@@ -55,6 +55,7 @@ import {
   blockCommentToolbarButton,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   getMostCommonValue,
   isInsideBlockByFlavour,
 } from '@blocksuite/affine-shared/utils';
@@ -119,8 +120,8 @@ const conversionsActionGroup = {
           .contentPadding="${'8px'}"
           .button=${html`
             <editor-icon-button
-              aria-label="Conversions"
-              .tooltip="${'Turn into'}"
+              aria-label=${editorText('Conversions')}
+              .tooltip="${editorText('Turn into')}"
             >
               ${conversion.icon} ${EditorChevronDown}
             </editor-icon-button>
@@ -184,7 +185,10 @@ const alignActionGroup = {
         <editor-menu-button
           .contentPadding="${'8px'}"
           .button=${html`
-            <editor-icon-button aria-label="Align" .tooltip="${'Align'}">
+            <editor-icon-button
+              aria-label=${editorText('Align')}
+              .tooltip="${editorText('Align')}"
+            >
               ${alignment.icon} ${EditorChevronDown}
             </editor-icon-button>
           `}
@@ -233,7 +237,7 @@ const inlineTextActionGroup = {
           id: 'inline-latex',
           icon: TeXIcon(),
           score: score + 0.5,
-          tooltip: 'Inline Equation',
+          tooltip: editorText('Inline Equation'),
           run: ({ host }) => {
             host.std.command
               .chain()
@@ -274,7 +278,7 @@ const highlightActionGroup = {
 
 const turnIntoDatabase = {
   id: 'e.convert-to-database',
-  tooltip: 'Create Table',
+  tooltip: editorText('Create Table'),
   icon: DatabaseTableViewIcon(),
   when({ chain }) {
     const middleware = (count = 0) => {
@@ -321,7 +325,7 @@ const turnIntoDatabase = {
 
 const turnIntoLinkedDoc = {
   id: 'f.convert-to-linked-doc',
-  tooltip: 'Create Linked Doc',
+  tooltip: editorText('Create Linked Doc'),
   icon: LinkedPageIcon(),
   when({ chain, std }) {
     const supportFlavours = [
@@ -407,7 +411,7 @@ export const builtinToolbarConfig = {
       actions: [
         {
           id: 'copy',
-          label: 'Copy',
+          label: editorText('Copy'),
           icon: CopyIcon(),
           run({ chain, host }) {
             const [ok] = chain
@@ -423,7 +427,7 @@ export const builtinToolbarConfig = {
         },
         {
           id: 'duplicate',
-          label: 'Duplicate',
+          label: editorText('Duplicate'),
           icon: DuplicateIcon(),
           run({ chain, store, selection }) {
             store.captureSync();
@@ -468,7 +472,7 @@ export const builtinToolbarConfig = {
       actions: [
         {
           id: 'delete',
-          label: 'Delete',
+          label: editorText('Delete'),
           icon: DeleteIcon(),
           variant: 'destructive',
           run({ chain }) {

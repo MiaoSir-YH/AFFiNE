@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { insertInlineLatex } from '@blocksuite/affine-inline-latex';
 import {
   getSelectedModelsCommand,
@@ -22,7 +23,7 @@ export const latexSlashMenuConfig: SlashMenuConfig = {
           'E=mc^2',
           false
         ),
-        caption: 'Inline equation',
+        caption: editorText('Inline equation'),
       },
       searchAlias: ['inlineMath, inlineEquation', 'inlineLatex'],
       action: ({ std }) => {
@@ -43,7 +44,7 @@ export const latexSlashMenuConfig: SlashMenuConfig = {
           String.raw`\frac{a}{b} \pm \frac{c}{d} = \frac{ad \pm bc}{bd}`,
           true
         ),
-        caption: 'Equation',
+        caption: editorText('Equation'),
       },
       searchAlias: ['mathBlock, equationBlock', 'latexBlock'],
       group: '4_Content & Media@10',

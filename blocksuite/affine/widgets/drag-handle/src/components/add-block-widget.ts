@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { PlusIcon } from '@blocksuite/icons/lit';
 import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
@@ -62,7 +63,7 @@ export class AffineAddBlockWidget extends LitElement {
       <button
         class="affine-add-block-widget"
         title="Click to add a block below"
-        aria-label="Add block below"
+        aria-label=${editorText('Add block below')}
         @click=${this._handleClick}
       >
         ${PlusIcon({ width: '12', height: '12' })}

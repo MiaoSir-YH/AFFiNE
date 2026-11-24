@@ -138,11 +138,11 @@ export const NoteSettings = () => {
       const isSelected = borderRadius === value;
       return (
         <MenuItem key={name} onSelect={handler} selected={isSelected}>
-          {name}
+          {t[name]()}
         </MenuItem>
       );
     });
-  }, [editorSetting, settings]);
+  }, [editorSetting, settings, t]);
 
   const shadowItems = useMemo(() => {
     const { shadowType } = settings['affine:note'].edgeless.style;

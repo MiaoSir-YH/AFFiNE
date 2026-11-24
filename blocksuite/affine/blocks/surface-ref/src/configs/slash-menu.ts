@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { EdgelessFrameManagerIdentifier } from '@blocksuite/affine-block-frame';
 import { EdgelessCRUDExtension } from '@blocksuite/affine-block-surface';
 import { MindmapStyle, SurfaceRefBlockSchema } from '@blocksuite/affine-model';
@@ -57,7 +58,7 @@ const surfaceRefSlashMenuConfig: SlashMenuConfig = {
       icon: FrameIcon(),
       tooltip: {
         figure: FrameTooltip,
-        caption: 'Frame',
+        caption: editorText('Frame'),
       },
       group: `5_Edgeless Element@${index++}`,
       action: () => {

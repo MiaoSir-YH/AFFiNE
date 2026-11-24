@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { ColorScheme } from '@blocksuite/affine-model';
 import {
   type ToolbarAction,
@@ -77,8 +78,8 @@ export class CardStyleDropdownMenu extends SignalWatcher(LitElement) {
         .contentPadding="${'8px'}"
         .button=${html`
           <editor-icon-button
-            aria-label="Card style"
-            .tooltip="${'Card style'}"
+            aria-label=${editorText('Card style')}
+            .tooltip="${editorText('Card style')}"
           >
             ${PaletteIcon()}
           </editor-icon-button>

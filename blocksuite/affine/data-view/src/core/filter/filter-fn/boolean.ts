@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { t } from '../../logical/type-presets.js';
 import { createFilter } from './create.js';
 
@@ -6,7 +7,9 @@ export const booleanFilter = [
     name: 'isChecked',
     self: t.boolean.instance(),
     args: [],
-    label: 'Is checked',
+    get label() {
+      return editorText('Is checked');
+    },
     shortString: () => ': Checked',
     impl: value => {
       return !!value;
@@ -17,7 +20,9 @@ export const booleanFilter = [
     name: 'isUnchecked',
     self: t.boolean.instance(),
     args: [],
-    label: 'Is unchecked',
+    get label() {
+      return editorText('Is unchecked');
+    },
     shortString: () => ': Unchecked',
     impl: value => {
       return !value;

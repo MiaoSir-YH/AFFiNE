@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { toast } from '@blocksuite/affine-components/toast';
 import {
   ActionPlacement,
@@ -48,7 +49,7 @@ export const builtinInlineLinkToolbarConfig = {
       actions: [
         {
           id: 'copy-link',
-          tooltip: 'Copy link',
+          tooltip: editorText('Copy link'),
           icon: CopyIcon(),
           run(ctx) {
             const target = ctx.message$.peek()?.element;
@@ -72,7 +73,7 @@ export const builtinInlineLinkToolbarConfig = {
         },
         {
           id: 'edit',
-          tooltip: 'Edit Description',
+          tooltip: editorText('Edit Description'),
           icon: EditIcon(),
           run(ctx) {
             const target = ctx.message$.peek()?.element;
@@ -105,12 +106,12 @@ export const builtinInlineLinkToolbarConfig = {
       actions: [
         {
           id: 'inline',
-          label: 'Inline view',
+          label: editorText('Inline view'),
           disabled: true,
         },
         {
           id: 'card',
-          label: 'Card view',
+          label: editorText('Card view'),
           run(ctx) {
             const target = ctx.message$.peek()?.element;
             if (!(target instanceof AffineLink)) return;
@@ -177,7 +178,7 @@ export const builtinInlineLinkToolbarConfig = {
         },
         {
           id: 'embed',
-          label: 'Embed view',
+          label: editorText('Embed view'),
           when(ctx) {
             const target = ctx.message$.peek()?.element;
             if (!(target instanceof AffineLink)) return false;
@@ -329,7 +330,7 @@ export const builtinInlineLinkToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'b.remove-link',
-      label: 'Remove link',
+      label: editorText('Remove link'),
       icon: UnlinkIcon(),
       run(ctx) {
         const target = ctx.message$.peek()?.element;
@@ -346,7 +347,7 @@ export const builtinInlineLinkToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'c.delete',
-      label: 'Delete',
+      label: editorText('Delete'),
       icon: DeleteIcon(),
       variant: 'destructive',
       run(ctx) {

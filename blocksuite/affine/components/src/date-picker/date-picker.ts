@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { clamp } from '@blocksuite/global/gfx';
 import { WithDisposable } from '@blocksuite/global/lit';
 import { isSameDay, isSameMonth, isToday } from 'date-fns';
@@ -165,7 +166,7 @@ export class DatePicker extends WithDisposable(LitElement) {
               this._onChange(new Date());
             }}
           >
-            <span>TODAY</span>
+            <span>${editorText('TODAY')}</span>
           </button>`
         )}
       </div>

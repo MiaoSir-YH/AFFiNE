@@ -21,7 +21,7 @@ import {
   type ToolbarModuleConfig,
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
-import { getBlockProps } from '@blocksuite/affine-shared/utils';
+import { editorText, getBlockProps } from '@blocksuite/affine-shared/utils';
 import { Bound } from '@blocksuite/global/gfx';
 import {
   CaptionIcon,
@@ -97,7 +97,7 @@ function createBuiltinToolbarConfigForExternal(
         actions: [
           {
             id: 'inline',
-            label: 'Inline view',
+            label: editorText('Inline view'),
             run(ctx) {
               const model = ctx.getCurrentModel();
               if (!model || !isExternalEmbedModel(model)) return;
@@ -130,7 +130,7 @@ function createBuiltinToolbarConfigForExternal(
           },
           {
             id: 'card',
-            label: 'Card view',
+            label: editorText('Card view'),
             disabled(ctx) {
               const model = ctx.getCurrentModel();
               if (!model || !isExternalEmbedModel(model)) return true;
@@ -190,7 +190,7 @@ function createBuiltinToolbarConfigForExternal(
           },
           {
             id: 'embed',
-            label: 'Embed view',
+            label: editorText('Embed view'),
             disabled(ctx) {
               const model = ctx.getCurrentModel();
               if (!model || !isExternalEmbedModel(model)) return false;
@@ -291,11 +291,11 @@ function createBuiltinToolbarConfigForExternal(
         actions: [
           {
             id: 'horizontal',
-            label: 'Large horizontal style',
+            label: editorText('Large horizontal style'),
           },
           {
             id: 'list',
-            label: 'Small horizontal style',
+            label: editorText('Small horizontal style'),
           },
         ],
         when(ctx) {
@@ -336,7 +336,7 @@ function createBuiltinToolbarConfigForExternal(
       } satisfies ToolbarActionGroup<ToolbarAction>,
       {
         id: 'd.caption',
-        tooltip: 'Caption',
+        tooltip: editorText('Caption'),
         icon: CaptionIcon(),
         run(ctx) {
           const block = ctx.getCurrentBlockByType(klass);
@@ -354,7 +354,7 @@ function createBuiltinToolbarConfigForExternal(
         actions: [
           {
             id: 'copy',
-            label: 'Copy',
+            label: editorText('Copy'),
             icon: CopyIcon(),
             run(ctx) {
               const model = ctx.getCurrentBlockByType(klass)?.model;
@@ -369,7 +369,7 @@ function createBuiltinToolbarConfigForExternal(
           },
           {
             id: 'duplicate',
-            label: 'Duplicate',
+            label: editorText('Duplicate'),
             icon: DuplicateIcon(),
             run(ctx) {
               const model = ctx.getCurrentBlockByType(klass)?.model;
@@ -387,7 +387,7 @@ function createBuiltinToolbarConfigForExternal(
       {
         placement: ActionPlacement.More,
         id: 'b.reload',
-        label: 'Reload',
+        label: editorText('Reload'),
         icon: ResetIcon(),
         run(ctx) {
           const block = ctx.getCurrentBlockByType(klass);
@@ -397,7 +397,7 @@ function createBuiltinToolbarConfigForExternal(
       {
         placement: ActionPlacement.More,
         id: 'c.delete',
-        label: 'Delete',
+        label: editorText('Delete'),
         icon: DeleteIcon(),
         variant: 'destructive',
         run(ctx) {
@@ -430,7 +430,7 @@ const createBuiltinSurfaceToolbarConfigForExternal = (
         actions: [
           {
             id: 'card',
-            label: 'Card view',
+            label: editorText('Card view'),
             run(ctx) {
               const model = ctx.getCurrentBlockByType(klass)?.model;
               if (!model || !isExternalEmbedModel(model)) return;
@@ -475,7 +475,7 @@ const createBuiltinSurfaceToolbarConfigForExternal = (
           },
           {
             id: 'embed',
-            label: 'Embed view',
+            label: editorText('Embed view'),
             disabled: true,
           },
         ],
@@ -525,19 +525,19 @@ const createBuiltinSurfaceToolbarConfigForExternal = (
           [
             {
               id: 'horizontal',
-              label: 'Large horizontal style',
+              label: editorText('Large horizontal style'),
             },
             {
               id: 'list',
-              label: 'Small horizontal style',
+              label: editorText('Small horizontal style'),
             },
             {
               id: 'vertical',
-              label: 'Large vertical style',
+              label: editorText('Large vertical style'),
             },
             {
               id: 'cube',
-              label: 'Small vertical style',
+              label: editorText('Small vertical style'),
             },
           ] as const
         ).filter(action => EmbedGithubStyles.includes(action.id)),
@@ -586,7 +586,7 @@ const createBuiltinSurfaceToolbarConfigForExternal = (
       } satisfies ToolbarActionGroup<ToolbarAction>,
       {
         id: 'd.caption',
-        tooltip: 'Caption',
+        tooltip: editorText('Caption'),
         icon: CaptionIcon(),
         run(ctx) {
           const block = ctx.getCurrentBlockByType(klass);

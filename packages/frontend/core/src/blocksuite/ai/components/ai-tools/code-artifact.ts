@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import { CodeBlockHighlighter } from '@blocksuite/affine/blocks/code';
 import { SignalWatcher, WithDisposable } from '@blocksuite/affine/global/lit';
 import { ColorScheme } from '@blocksuite/affine/model';
@@ -633,7 +634,7 @@ export class CodeArtifactTool extends ArtifactTool<
       <icon-button @click=${downloadHTML} title="Download HTML">
         ${DownloadIcon({ width: '20', height: '20' })}
       </icon-button>
-      <icon-button @click=${copyHTML} title="Copy HTML">
+      <icon-button @click=${copyHTML} title=${I18n.t('Copy HTML')}>
         ${CopyIcon({ width: '20', height: '20' })}
       </icon-button>
     `;

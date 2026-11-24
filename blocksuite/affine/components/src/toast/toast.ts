@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { EditorHost } from '@blocksuite/std';
 import { baseTheme } from '@toeverything/theme';
 import { html } from 'lit';
@@ -40,7 +41,7 @@ export const toast = (
   const template = html`<div style="${styles}"></div>`;
   const element = htmlToElement<HTMLDivElement>(template);
   // message is not trusted
-  element.textContent = message;
+  element.textContent = editorText(message);
   ToastContainer?.append(element);
 
   const fadeIn = [

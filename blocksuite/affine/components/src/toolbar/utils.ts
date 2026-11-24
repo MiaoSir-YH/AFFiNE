@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { BlockStdScope } from '@blocksuite/std';
 import { html, nothing } from 'lit';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -78,14 +79,14 @@ export function renderActions(
                 class=${ifDefined(
                   item.type === 'delete' ? 'delete' : undefined
                 )}
-                aria-label=${ifDefined(item.label)}
+                aria-label=${ifDefined(editorText(item.label))}
                 ?data-selected=${selectedName === item.label}
                 ?disabled=${item.disabled}
                 @click=${item.action ? item.action : () => action?.(item)}
               >
                 ${item.icon}${
                   item.label
-                    ? html`<span class="label">${item.label}</span>`
+                    ? html`<span class="label">${editorText(item.label)}</span>`
                     : nothing
                 }
               </editor-menu-action>

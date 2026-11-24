@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   menu,
   popFilterableSimpleMenu,
@@ -36,7 +37,7 @@ export const popAddNewFilter = (
 ) => {
   popFilterableSimpleMenu(target, [
     menu.action({
-      name: 'Add filter',
+      name: editorText('Add filter'),
       select: () => {
         props.onChange({
           ...props.value,
@@ -45,7 +46,7 @@ export const popAddNewFilter = (
       },
     }),
     menu.action({
-      name: 'Add filter group',
+      name: editorText('Add filter group'),
       select: () => {
         props.onChange({
           ...props.value,
@@ -208,7 +209,7 @@ export class FilterGroupView extends SignalWatcher(ShadowlessElement) {
       popupTargetFromElement(event.currentTarget as HTMLElement),
       [
         menu.action({
-          name: 'And',
+          name: editorText('And'),
           select: () => {
             this.onChange({
               ...this.filterGroup.value,
@@ -217,7 +218,7 @@ export class FilterGroupView extends SignalWatcher(ShadowlessElement) {
           },
         }),
         menu.action({
-          name: 'Or',
+          name: editorText('Or'),
           select: () => {
             this.onChange({
               ...this.filterGroup.value,
@@ -288,7 +289,7 @@ export class FilterGroupView extends SignalWatcher(ShadowlessElement) {
             },
           }),
           menu.action({
-            name: 'Duplicate',
+            name: editorText('Duplicate'),
             prefix: DuplicateIcon(),
             onHover: hover => {
               this.containerClass = hover
@@ -314,7 +315,7 @@ export class FilterGroupView extends SignalWatcher(ShadowlessElement) {
         name: '',
         items: [
           menu.action({
-            name: 'Delete',
+            name: editorText('Delete'),
             prefix: DeleteIcon(),
             class: { 'delete-item': true },
             onHover: hover => {
@@ -348,7 +349,9 @@ export class FilterGroupView extends SignalWatcher(ShadowlessElement) {
           };
           let op: TemplateResult;
           if (i === 0) {
-            op = html` <div class="filter-group-op">Where</div>`;
+            op = html` <div class="filter-group-op">
+              ${editorText('Where')}
+            </div>`;
           } else {
             op = html`
               <div
@@ -467,7 +470,7 @@ export const popFilterGroup = (
         menu.group({
           items: [
             menu.action({
-              name: 'Delete',
+              name: editorText('Delete'),
               class: { 'delete-item': true },
               prefix: DeleteIcon(),
               select: () => {

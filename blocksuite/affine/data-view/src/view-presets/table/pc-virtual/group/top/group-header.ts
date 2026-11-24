@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   menu,
   popFilterableSimpleMenu,
@@ -86,7 +87,9 @@ export class TableGroupHeader extends SignalWatcher(
     const ele = e.currentTarget as HTMLElement;
     popFilterableSimpleMenu(popupTargetFromElement(ele), [
       menu.action({
-        name: 'Ungroup',
+        get name() {
+          return editorText('Ungroup');
+        },
         hide: () => group.value == null,
         select: () => {
           group.rows.forEach(row => {
@@ -95,7 +98,9 @@ export class TableGroupHeader extends SignalWatcher(
         },
       }),
       menu.action({
-        name: 'Delete Cards',
+        get name() {
+          return editorText('Delete Cards');
+        },
         select: () => {
           this.tableViewManager.rowsDelete(group.rows.map(row => row.rowId));
           this.requestUpdate();

@@ -22,6 +22,7 @@ import {
   ToolbarModuleExtension,
 } from '@blocksuite/affine-shared/services';
 import {
+  editorText,
   getBlockProps,
   referenceToNode,
 } from '@blocksuite/affine-shared/utils';
@@ -91,7 +92,7 @@ const docTitleAction = {
 
 const captionAction = {
   id: 'd.caption',
-  tooltip: 'Caption',
+  tooltip: editorText('Caption'),
   icon: CaptionIcon(),
   run(ctx) {
     const block = ctx.getCurrentBlockByType(EmbedLinkedDocBlockComponent);
@@ -108,7 +109,7 @@ const openDocActions = [
   {
     mode: 'open-in-active-view',
     id: 'a.open-in-active-view',
-    label: 'Open this doc',
+    label: editorText('Open this doc'),
     icon: ExpandFullIcon(),
   },
 ] as const satisfies (Pick<ToolbarAction, 'id' | 'label' | 'icon'> & {
@@ -139,7 +140,10 @@ const openDocActionGroup = {
       <editor-menu-button
         .contentPadding="${'8px'}"
         .button=${html`
-          <editor-icon-button aria-label="Open doc" .tooltip=${'Open doc'}>
+          <editor-icon-button
+            aria-label=${editorText('Open doc')}
+            .tooltip=${editorText('Open doc')}
+          >
             ${OpenInNewIcon()} ${EditorChevronDown}
           </editor-icon-button>
         `}
@@ -171,7 +175,7 @@ const conversionsActionGroup = {
   actions: [
     {
       id: 'inline',
-      label: 'Inline view',
+      label: editorText('Inline view'),
       run(ctx) {
         const block = ctx.getCurrentBlockByType(EmbedLinkedDocBlockComponent);
         block?.convertToInline();
@@ -190,12 +194,12 @@ const conversionsActionGroup = {
     },
     {
       id: 'card',
-      label: 'Card view',
+      label: editorText('Card view'),
       disabled: true,
     },
     {
       id: 'embed',
-      label: 'Embed view',
+      label: editorText('Embed view'),
       disabled(ctx) {
         const block = ctx.getCurrentBlockByType(EmbedLinkedDocBlockComponent);
         if (!block) return true;
@@ -263,11 +267,11 @@ const builtinToolbarConfig = {
         [
           {
             id: 'horizontal',
-            label: 'Large horizontal style',
+            label: editorText('Large horizontal style'),
           },
           {
             id: 'list',
-            label: 'Small horizontal style',
+            label: editorText('Small horizontal style'),
           },
         ] as const
       ).filter(action => EmbedLinkedDocStyles.includes(action.id)),
@@ -311,7 +315,7 @@ const builtinToolbarConfig = {
       actions: [
         {
           id: 'copy',
-          label: 'Copy',
+          label: editorText('Copy'),
           icon: CopyIcon(),
           run(ctx) {
             const model = ctx.getCurrentModelByType(EmbedLinkedDocModel);
@@ -326,7 +330,7 @@ const builtinToolbarConfig = {
         },
         {
           id: 'duplicate',
-          label: 'Duplicate',
+          label: editorText('Duplicate'),
           icon: DuplicateIcon(),
           run(ctx) {
             const model = ctx.getCurrentModelByType(EmbedLinkedDocModel);
@@ -344,7 +348,7 @@ const builtinToolbarConfig = {
     {
       placement: ActionPlacement.More,
       id: 'c.delete',
-      label: 'Delete',
+      label: editorText('Delete'),
       icon: DeleteIcon(),
       variant: 'destructive',
       run(ctx) {
@@ -372,19 +376,19 @@ const builtinSurfaceToolbarConfig = {
         [
           {
             id: 'horizontal',
-            label: 'Large horizontal style',
+            label: editorText('Large horizontal style'),
           },
           {
             id: 'list',
-            label: 'Small horizontal style',
+            label: editorText('Small horizontal style'),
           },
           {
             id: 'vertical',
-            label: 'Large vertical style',
+            label: editorText('Large vertical style'),
           },
           {
             id: 'cube',
-            label: 'Small vertical style',
+            label: editorText('Small vertical style'),
           },
         ] as const
       ).filter(action => EmbedLinkedDocStyles.includes(action.id)),

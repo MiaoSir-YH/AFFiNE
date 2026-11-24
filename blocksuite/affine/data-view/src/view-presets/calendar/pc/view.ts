@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   menu,
   type MenuConfig,
@@ -259,7 +260,9 @@ export class CalendarViewUILogic extends DataViewUILogicBase<CalendarSingleView>
     if (!this.view.readonly$.value) {
       items.push(
         menu.action({
-          name: 'Create date property',
+          get name() {
+            return editorText('Create date property');
+          },
           select: () => {
             this.view.createDateColumn();
           },
@@ -314,7 +317,9 @@ export class CalendarViewUILogic extends DataViewUILogicBase<CalendarSingleView>
       source.openConnectSettings
         ? [
             menu.action({
-              name: 'Connect calendar',
+              get name() {
+                return editorText('Connect calendar');
+              },
               closeOnSelect: false,
               select: () => {
                 source.openConnectSettings?.();
@@ -370,7 +375,9 @@ export class CalendarViewUILogic extends DataViewUILogicBase<CalendarSingleView>
     if (options?.includeNone) {
       items.push(
         menu.action({
-          name: 'None',
+          get name() {
+            return editorText('None');
+          },
           isSelected: !selectedPropertyId,
           closeOnSelect,
           select: () => onSelect(undefined),
@@ -407,10 +414,14 @@ export class CalendarViewUILogic extends DataViewUILogicBase<CalendarSingleView>
     const selectedEnd = this.view.endDateMapping$.value.propertyId;
     return [
       menu.group({
-        name: 'Date range',
+        get name() {
+          return editorText('Date range');
+        },
         items: [
           menu.action({
-            name: 'Calendar by',
+            get name() {
+              return editorText('Calendar by');
+            },
             prefix: TodayIcon(),
             closeOnSelect: false,
             postfix: html`<div
@@ -444,7 +455,9 @@ export class CalendarViewUILogic extends DataViewUILogicBase<CalendarSingleView>
             },
           }),
           menu.action({
-            name: 'End date',
+            get name() {
+              return editorText('End date');
+            },
             prefix: DateTimeIcon(),
             closeOnSelect: false,
             postfix: html`<div
@@ -479,7 +492,9 @@ export class CalendarViewUILogic extends DataViewUILogicBase<CalendarSingleView>
             },
           }),
           menu.action({
-            name: 'External calendars',
+            get name() {
+              return editorText('External calendars');
+            },
             prefix: IntegrationsIcon(),
             closeOnSelect: false,
             postfix: html`${ArrowRightSmallIcon()}`,
@@ -925,7 +940,9 @@ export class CalendarViewUI extends DataViewUIBase<CalendarViewUILogic> {
     }
     return html`<div class="calendar-empty-month-hint">
       <div class="calendar-empty-month-hint-copy">
-        <span class="calendar-empty-month-hint-title">Nothing here yet</span>
+        <span class="calendar-empty-month-hint-title"
+          >${editorText('Nothing here yet')}</span
+        >
         <span class="calendar-empty-month-hint-body">
           Add a row to any date, it'll appear here on the calendar.
         </span>
@@ -941,12 +958,12 @@ export class CalendarViewUI extends DataViewUIBase<CalendarViewUILogic> {
                     getDefaultCreateDate(this.logic.currentMonth)
                   )}
               >
-                ${PlusIcon()}<span>New row</span>
+                ${PlusIcon()}<span>${editorText('New row')}</span>
               </button>`
         }
         <button
           class="calendar-empty-month-hint-close"
-          aria-label="Dismiss"
+          aria-label=${editorText('Dismiss')}
           @click=${() => this.logic.view.dismissEmptyMonthHint()}
         >
           ${CloseIcon()}
@@ -984,19 +1001,19 @@ export class CalendarViewUI extends DataViewUIBase<CalendarViewUILogic> {
                     class="calendar-today-button"
                     @click=${() => this.logic.goToday()}
                   >
-                    <span>Today</span>
+                    <span>${editorText('Today')}</span>
                   </button>`
             }
             <button
               class="calendar-icon-button"
-              aria-label="Previous month"
+              aria-label=${editorText('Previous month')}
               @click=${() => this.logic.moveMonth(-1)}
             >
               ${ArrowLeftSmallIcon()}
             </button>
             <button
               class="calendar-icon-button"
-              aria-label="Next month"
+              aria-label=${editorText('Next month')}
               @click=${() => this.logic.moveMonth(1)}
             >
               ${ArrowRightSmallIcon()}
@@ -1069,7 +1086,9 @@ export class CalendarViewUI extends DataViewUIBase<CalendarViewUILogic> {
                                   @click=${() =>
                                     this.logic.createRowOnDate(day.date)}
                                 >
-                                  ${PlusIcon()}<span>New row</span>
+                                  ${PlusIcon()}<span
+                                    >${editorText('New row')}</span
+                                  >
                                 </button>`
                               : nothing
                           }
@@ -1121,7 +1140,9 @@ export class CalendarViewUI extends DataViewUIBase<CalendarViewUILogic> {
                       event.currentTarget as HTMLElement
                     )}
                 >
-                  ${TodayIcon()}<span>Select or create date property</span>
+                  ${TodayIcon()}<span
+                    >${editorText('Select or create date property')}</span
+                  >
                 </button>
               </div>`
             : nothing

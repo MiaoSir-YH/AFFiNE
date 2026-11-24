@@ -192,7 +192,7 @@ export class ChatCopyMore extends WithDisposable(LitElement) {
                 data-testid="action-copy-button"
               >
                 ${CopyIcon({ width: '20px', height: '20px' })}
-                <affine-tooltip>Copy</affine-tooltip>
+                <affine-tooltip>${I18n.t('Copy')}</affine-tooltip>
               </div>`
             : nothing
         }

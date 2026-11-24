@@ -1,4 +1,7 @@
-import { openSingleFileWith } from '@blocksuite/affine-shared/utils';
+import {
+  editorText,
+  openSingleFileWith,
+} from '@blocksuite/affine-shared/utils';
 import { type SlashMenuConfig } from '@blocksuite/affine-widget-slash-menu';
 import { ExportToPdfIcon, FileIcon } from '@blocksuite/icons/lit';
 
@@ -13,7 +16,7 @@ export const attachmentSlashMenuConfig: SlashMenuConfig = {
       icon: FileIcon(),
       tooltip: {
         figure: AttachmentTooltip,
-        caption: 'Attachment',
+        caption: editorText('Attachment'),
       },
       searchAlias: ['file'],
       group: '4_Content & Media@3',

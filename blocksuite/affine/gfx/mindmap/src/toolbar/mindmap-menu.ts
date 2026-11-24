@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { DefaultTool } from '@blocksuite/affine-block-surface';
 import { toast } from '@blocksuite/affine-components/toast';
 import { EmptyTool } from '@blocksuite/affine-gfx-pointer';
@@ -386,7 +387,7 @@ export class EdgelessMindmapMenu extends EdgelessToolbarToolMixin(
               </button>
               <affine-tooltip tip-position="top" .offset=${12}>
                 <affine-tooltip-content-with-shortcut
-                  data-tip="${'Mind Map'}"
+                  data-tip="${editorText('Mind Map')}"
                   data-shortcup="${'M'}"
                 ></affine-tooltip-content-with-shortcut>
               </affine-tooltip>

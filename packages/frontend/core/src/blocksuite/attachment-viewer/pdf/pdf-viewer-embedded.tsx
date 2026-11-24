@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import { IconButton, observeIntersection } from '@affine/component';
 import {
   type PDF,
@@ -233,7 +234,7 @@ export function PDFViewerEmbedded({ model }: AttachmentViewerProps) {
             icon={<ArrowDownSmallIcon />}
             className={styles.pdfControlButton}
             onDoubleClick={stopPropagation}
-            aria-label="Next"
+            aria-label={I18n.t('Next')}
             {...navigator.next}
           />
           <IconButton

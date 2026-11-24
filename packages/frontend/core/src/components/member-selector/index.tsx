@@ -11,7 +11,7 @@ import {
   type Member,
   MemberSearchService,
 } from '@affine/core/modules/permissions';
-import { useI18n } from '@affine/i18n';
+import { I18n, useI18n } from '@affine/i18n';
 import { DoneIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
 import clsx from 'clsx';
@@ -255,7 +255,9 @@ export const MemberSelector = ({
             className={styles.memberSelectorScrollContainer}
           >
             {searchedMembers.length === 0 && (
-              <div className={styles.memberSelectorEmpty}>Nothing here yet</div>
+              <div className={styles.memberSelectorEmpty}>
+                {I18n.t('Nothing here yet')}
+              </div>
             )}
 
             {searchedMembers.map((member, idx) => {

@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   menu,
   type MenuConfig,
@@ -133,7 +134,9 @@ export class DatabaseColumnStatsCell extends SignalWatcher(
         items: [
           menu.action({
             isSelected: !this.column.statCalcOp$.value,
-            name: 'None',
+            get name() {
+              return editorText('None');
+            },
             select: () => {
               this.column.updateStatCalcOp();
             },

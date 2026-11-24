@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { ct } from '../../logical/composite-type.js';
 import { t } from '../../logical/type-presets.js';
 import { tRef, tVar } from '../../logical/type-variable.js';
@@ -11,7 +12,9 @@ export const tagFilter = [
     vars: [tVar(optionName, t.tag.instance())] as const,
     self: tRef(optionName),
     args: [ct.array.instance(tRef(optionName))] as const,
-    label: 'Is one of',
+    get label() {
+      return editorText('Is one of');
+    },
     shortString: v =>
       v ? `: ${tagToString(v.value, v.type.element)}` : undefined,
     impl: (self, value) => {
@@ -30,7 +33,9 @@ export const tagFilter = [
     vars: [tVar(optionName, t.tag.instance())] as const,
     self: tRef(optionName),
     args: [ct.array.instance(tRef(optionName))] as const,
-    label: 'Is not one of',
+    get label() {
+      return editorText('Is not one of');
+    },
     shortString: v =>
       v ? `: Not ${tagToString(v.value, v.type.element)}` : undefined,
     impl: (self, value) => {

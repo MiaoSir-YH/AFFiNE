@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { scrollbarStyle } from '@blocksuite/affine-shared/styles';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
 import { SignalWatcher } from '@blocksuite/global/lit';
@@ -155,7 +156,7 @@ export class AdapterPanelBody extends SignalWatcher(LitElement) {
             class="html-toggle-item"
             ?active=${this.isHtmlPreview}
             @click=${() => (this._context.isHtmlPreview$.value = true)}
-            >Preview</span
+            >${editorText('Preview')}</span
           >
         </div>
       </div>

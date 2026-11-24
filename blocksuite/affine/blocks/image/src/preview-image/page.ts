@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type { ImageBlockModel } from '@blocksuite/affine-model';
 import { unsafeCSSVarV2 } from '@blocksuite/affine-shared/theme';
 import { ImageIcon } from '@blocksuite/icons/lit';
@@ -45,7 +46,7 @@ export class ImagePlaceholderBlockComponent extends BlockComponent<ImageBlockMod
     >
       <div class="placeholder-preview-content">
         ${ImageIcon({ width: '24px', height: '24px' })}
-        <span class="text">Image Block</span>
+        <span class="text">${editorText('Image Block')}</span>
       </div>
     </div>`;
   }

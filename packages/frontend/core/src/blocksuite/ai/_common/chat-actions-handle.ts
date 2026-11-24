@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import { EdgelessCRUDIdentifier } from '@blocksuite/affine/blocks/surface';
 import {
   Bound,
@@ -196,9 +197,9 @@ export function promptDocTitle(host: EditorHost, autofill?: string) {
   if (!notification) return Promise.resolve(undefined);
 
   return notification.prompt({
-    title: 'Create linked doc',
+    title: I18n.t('Create linked doc'),
     message: 'Enter a title for the new doc.',
-    placeholder: 'Untitled',
+    placeholder: I18n.t('Untitled'),
     autofill,
     confirmText: 'Confirm',
     cancelText: 'Cancel',
@@ -256,7 +257,7 @@ async function insertBelowBlock(
 
 export const PAGE_INSERT = {
   icon: InsertBelowIcon({ width: '20px', height: '20px' }),
-  title: 'Insert',
+  title: I18n.t('Insert'),
   showWhen: (host: EditorHost) => {
     if (host.std.store.readonly$.value) {
       return false;
@@ -441,7 +442,7 @@ const SAVE_AS_BLOCK: ChatAction = {
 
 const ADD_TO_EDGELESS_AS_NOTE = {
   icon: EdgelessIcon({ width: '20px', height: '20px' }),
-  title: 'Add to edgeless as note',
+  title: I18n.t('Add to edgeless as note'),
   showWhen: (host: EditorHost) => {
     if (host.std.store.readonly$.value) {
       return false;
@@ -522,7 +523,7 @@ export const SAVE_AS_DOC = {
 
 const CREATE_AS_LINKED_DOC = {
   icon: LinkedPageIcon({ width: '20px', height: '20px' }),
-  title: 'Create as a linked doc',
+  title: I18n.t('Create as a linked doc'),
   showWhen: (host: EditorHost) => {
     if (host.std.store.readonly$.value) {
       return false;

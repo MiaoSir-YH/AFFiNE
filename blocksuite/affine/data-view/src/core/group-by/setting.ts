@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   dropdownSubMenuMiddleware,
   menu,
@@ -297,7 +298,7 @@ export const buildGroupSelectItems = (
           hide: () =>
             view instanceof KanbanSingleView || !group.property$.value,
           class: { 'delete-item': true },
-          name: 'Remove Grouping',
+          name: editorText('Remove Grouping'),
           select: () => {
             group.changeGroup(undefined);
             onSelect(undefined);
@@ -325,7 +326,7 @@ export const buildGroupSettingItems = (
     menu.group({
       items: [
         menu.action({
-          name: 'Group By',
+          name: editorText('Group By'),
           postfix: html`
             <div
               style="display:flex;align-items:center;gap:4px;font-size:14px;line-height:20px;color:var(--affine-text-secondary-color);margin-left:8px;"
@@ -348,7 +349,7 @@ export const buildGroupSettingItems = (
             items: [
               menu.dynamic(() => [
                 menu.subMenu({
-                  name: 'Date by',
+                  name: editorText('Date by'),
                   openOnHover: false,
                   middleware: dropdownSubMenuMiddleware,
                   autoHeight: true,
@@ -413,7 +414,7 @@ export const buildGroupSettingItems = (
                   items: [
                     menu.dynamic(() => [
                       menu.subMenu({
-                        name: 'Start week on',
+                        name: editorText('Start week on'),
                         postfix: html`
                           <div
                             style="display:flex;align-items:center;gap:4px;font-size:14px;line-height:20px;color:var(--affine-text-secondary-color);margin-left:8px;"
@@ -471,7 +472,7 @@ export const buildGroupSettingItems = (
             items: [
               menu.dynamic(() => [
                 menu.subMenu({
-                  name: 'Sort',
+                  name: editorText('Sort'),
                   openOnHover: false,
                   middleware: dropdownSubMenuMiddleware,
                   autoHeight: true,
@@ -486,7 +487,7 @@ export const buildGroupSettingItems = (
                     items: [
                       menu.dynamic(() => [
                         menu.action({
-                          name: 'Oldest first',
+                          name: editorText('Oldest first'),
                           label: () => {
                             const isSelected = group.sortAsc$.value;
                             return html`<span
@@ -495,7 +496,7 @@ export const buildGroupSettingItems = (
                                   ? 'var(--affine-text-emphasis-color)'
                                   : 'var(--affine-text-secondary-color)'
                               }"
-                              >Oldest first</span
+                              >${editorText('Oldest first')}</span
                             >`;
                           },
                           isSelected: group.sortAsc$.value,
@@ -505,7 +506,7 @@ export const buildGroupSettingItems = (
                           },
                         }),
                         menu.action({
-                          name: 'Newest first',
+                          name: editorText('Newest first'),
                           label: () => {
                             const isSelected = !group.sortAsc$.value;
                             return html`<span
@@ -514,7 +515,7 @@ export const buildGroupSettingItems = (
                                   ? 'var(--affine-text-emphasis-color)'
                                   : 'var(--affine-text-secondary-color)'
                               }"
-                              >Newest first</span
+                              >${editorText('Newest first')}</span
                             >`;
                           },
                           isSelected: !group.sortAsc$.value,
@@ -537,7 +538,7 @@ export const buildGroupSettingItems = (
       items: [
         menu.dynamic(() => [
           menu.action({
-            name: 'Hide empty groups',
+            name: editorText('Hide empty groups'),
             isSelected: group.hideEmpty$.value,
             select: () => {
               group.setHideEmpty(!group.hideEmpty$.value);
@@ -562,7 +563,7 @@ export const buildGroupSettingItems = (
     menu.group({
       items: [
         menu.action({
-          name: 'Remove grouping',
+          name: editorText('Remove grouping'),
           prefix: DeleteIcon(),
           class: { 'delete-item': true },
           hide: () => !(view instanceof TableSingleView),

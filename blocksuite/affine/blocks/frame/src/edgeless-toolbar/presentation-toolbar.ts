@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   DefaultTool,
   EdgelessLegacySlotIdentifier,
@@ -425,7 +426,7 @@ export class PresentationToolbar extends EdgelessToolbarToolMixin(
       </div>
 
       <edgeless-tool-icon-button
-        .tooltip=${'Next'}
+        .tooltip=${editorText('Next')}
         @click=${() => this._nextFrame()}
         .iconContainerPadding=${0}
         .iconSize=${'24px'}

@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { createLitPortal } from '@blocksuite/affine-components/portal';
 import type { EmbedIframeBlockModel } from '@blocksuite/affine-model';
 import {
@@ -246,7 +247,9 @@ export class EmbedIframeErrorCard extends WithDisposable(LitElement) {
             <span class="error-icon">
               ${InformationIcon({ width: '16px', height: '16px' })}
             </span>
-            <span class="error-title-text">This link couldn’t be loaded.</span>
+            <span class="error-title-text"
+              >${editorText('This link couldn’t be loaded.')}</span
+            >
           </div>
           <div class="error-message">
             ${this.error?.message || 'Failed to load embedded content'}
@@ -268,7 +271,7 @@ export class EmbedIframeErrorCard extends WithDisposable(LitElement) {
               <span class="icon"
                 >${ResetIcon({ width: '16px', height: '16px' })}</span
               >
-              <span class="text">Reload</span>
+              <span class="text">${editorText('Reload')}</span>
             </div>
           </div>
         </div>

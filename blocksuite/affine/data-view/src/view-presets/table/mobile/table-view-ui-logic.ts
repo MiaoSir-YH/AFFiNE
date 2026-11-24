@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import {
   menu,
   popMenu,
@@ -90,7 +91,7 @@ export class MobileTableViewUILogic extends DataViewUILogicBase<
         @click="${add}"
       >
         <div class="dv-icon-16" style="display:flex;">${AddCursorIcon()}</div>
-        <div>New Group</div>
+        <div>${editorText('New Group')}</div>
       </div>
     </div>`;
   };

@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import type {
   LinkPreviewProvider,
   LinkPreviewResult,
@@ -217,7 +218,7 @@ export class LinkPreviewDetails extends LitElement {
       contenteditable="false"
       aria-busy=${this.loading}
       role=${this.floating ? 'dialog' : 'region'}
-      aria-label="Link details"
+      aria-label=${editorText('Link details')}
       tabindex="-1"
       @click=${(event: Event) => event.stopPropagation()}
       @dblclick=${(event: Event) => event.stopPropagation()}
@@ -233,7 +234,7 @@ export class LinkPreviewDetails extends LitElement {
               ${
                 transcript?.segments.length
                   ? html`
-                      <h4>Transcript</h4>
+                      <h4>${editorText('Transcript')}</h4>
                       ${transcript.segments.map(segment => {
                         const headings = [];
                         while (
@@ -253,9 +254,11 @@ export class LinkPreviewDetails extends LitElement {
                             >
                           </div>`;
                       })}
-                      ${transcript.truncated ? html`<p class="status">Transcript truncated by the preview service.</p>` : nothing}
+                      ${transcript.truncated ? html`<p class="status">${editorText('Transcript truncated by the preview service.')}</p>` : nothing}
                     `
-                  : html`<div class="status">No transcript available.</div>`
+                  : html`<div class="status">
+                      ${editorText('No transcript available.')}
+                    </div>`
               }
             `
       }

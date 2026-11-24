@@ -1,3 +1,4 @@
+import { editorText } from '@blocksuite/affine-shared/utils';
 import { NoteDisplayMode } from '@blocksuite/affine-model';
 import { SignalWatcher, WithDisposable } from '@blocksuite/global/lit';
 import { CloseIcon, SortIcon } from '@blocksuite/icons/lit';
@@ -50,7 +51,9 @@ export class OutlineNotice extends SignalWatcher(
     return html`
       <div data-testid=${AFFINE_OUTLINE_NOTICE} class=${styles.outlineNotice}>
         <div class=${styles.outlineNoticeHeader}>
-          <span class=${styles.outlineNoticeLabel}>SOME CONTENTS HIDDEN</span>
+          <span class=${styles.outlineNoticeLabel}
+            >${editorText('SOME CONTENTS HIDDEN')}</span
+          >
           <span
             data-testid="outline-notice-close-button"
             class=${styles.outlineNoticeCloseButton}
