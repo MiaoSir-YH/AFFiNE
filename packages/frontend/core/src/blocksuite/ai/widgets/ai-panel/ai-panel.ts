@@ -475,11 +475,12 @@ export class AffineAIPanelWidget extends WidgetComponent {
     this.tabIndex = -1;
     // No need to synchronize the contents of the input into the editor.
     this.setAttribute(RANGE_SYNC_EXCLUDE_ATTR, 'true');
-    this.disposables.addFromEvent(
-      document,
-      'pointerdown',
-      this._onDocumentClick
-    );
+    // Capture the event before BlockSuite's canvas event bridge can stop it.
+    // This keeps the error panel dismissible when the user clicks blank canvas space.
+    document.addEventListener('pointerdown', this._onDocumentClick, true);
+    this.disposables.add(() => {
+      document.removeEventListener('pointerdown', this._onDocumentClick, true);
+    });
     if (this.block) {
       this.disposables.add(
         this.block.host.event.add('pointerDown', evtState =>
