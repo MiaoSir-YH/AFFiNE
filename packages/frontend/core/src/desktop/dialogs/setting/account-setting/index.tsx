@@ -17,17 +17,18 @@ import { useI18n } from '@affine/i18n';
 import { track } from '@affine/track';
 import { ArrowRightSmallIcon, CameraIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService, useServices } from '@toeverything/infra';
-import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
+import { desktopAI } from '../../../../blocksuite/ai/runtime/request/desktop-copilot';
 import {
   AuthService,
   type DeviceAuthSession,
   ServerService,
 } from '../../../../modules/cloud';
+import { ChatGPTSubscriptionPanel } from '../chatgpt-subscription-panel';
 import type { SettingState } from '../types';
 import { AIUsagePanel } from './ai-usage-panel';
 import { DeleteAccount } from './delete-account';
-import { DesktopAISetting } from './desktop-ai';
 import { IntegrationsPanel } from './integrations-panel';
 import { StorageProgress } from './storage-progress';
 import * as styles from './style.css';
@@ -285,52 +286,6 @@ const DevicesPanel = () => {
   );
 };
 
-const ChatGPTSubscriptionPanel = ({
-  client,
-}: {
-  client: NonNullable<AIModelService['chatGPT']>;
-}) => {
-  const t = useI18n();
-  const status = useSyncExternalStore(
-    useCallback(onChange => client.connection.subscribe(onChange), [client]),
-    () => client.connection.value.status
-  );
-  const busy = useSyncExternalStore(
-    useCallback(onChange => client.busy.subscribe(onChange), [client]),
-    () => client.busy.value
-  );
-  const notifyFailure = useCallback(() => {
-    notify.error({ title: t['com.affine.ai.chatgpt.request-failed']() });
-  }, [t]);
-
-  useEffect(() => {
-    client.refresh().catch(notifyFailure);
-  }, [client, notifyFailure]);
-
-  const disconnect = useCallback(async () => {
-    try {
-      await client.disconnect();
-      if (client.connection.value.status === 'error') notifyFailure();
-    } catch {
-      notifyFailure();
-    }
-  }, [client, notifyFailure]);
-
-  if (status !== 'connected') return null;
-
-  return (
-    <SettingRow name={t['com.affine.ai.chatgpt.provider']()}>
-      <Button
-        data-testid="chatgpt-subscription-disconnect"
-        disabled={busy}
-        onClick={() => void disconnect()}
-      >
-        {t['com.affine.ai.chatgpt.disconnect']()}
-      </Button>
-    </SettingRow>
-  );
-};
-
 export const AccountSetting = ({
   onChangeSettingState,
 }: {
@@ -411,8 +366,9 @@ export const AccountSetting = ({
         {serverFeatures?.copilot && (
           <AIUsagePanel onChangeSettingState={onChangeSettingState} />
         )}
-        {chatGPT ? <ChatGPTSubscriptionPanel client={chatGPT} /> : null}
-        <DesktopAISetting />
+        {chatGPT && !desktopAI() ? (
+          <ChatGPTSubscriptionPanel client={chatGPT} />
+        ) : null}
         <IntegrationsPanel onChangeSettingState={onChangeSettingState} />
         <SettingRow
           name={t[`Sign out`]()}

@@ -10,14 +10,16 @@ import { WindowsUpdater } from './windows-updater';
 const mode = process.env.NODE_ENV;
 const isDev = mode === 'development';
 
-// skip auto update in dev mode & internal
-const disabled = buildType === 'internal' || isDev;
+const disabled =
+  buildType === 'internal' ||
+  isDev ||
+  process.env.AFFINE_DISABLE_UPDATES === '1';
 
 export const autoUpdater =
   process.platform === 'win32' ? new WindowsUpdater() : defaultAutoUpdater;
 
 export const quitAndInstall = async () => {
-  autoUpdater.quitAndInstall();
+  if (!disabled) autoUpdater.quitAndInstall();
 };
 
 let downloading = false;

@@ -1232,6 +1232,10 @@ export function useAFFiNEI18N(): {
       */
     ["com.affine.ai.desktop.gateway"](): string;
     /**
+      * `AI provider`
+      */
+    ["com.affine.ai.desktop.provider-settings"](): string;
+    /**
       * `Configure a gateway to handle AI requests from this desktop app.`
       */
     ["com.affine.ai.desktop.gateway-description"](): string;

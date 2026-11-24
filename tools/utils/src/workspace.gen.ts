@@ -1109,6 +1109,7 @@ export const PackageList = [
     location: 'packages/backend/server',
     name: '@affine/server',
     workspaceDependencies: [
+      'packages/common/auth',
       'packages/common/s3-compat',
       'packages/backend/native',
       'tools/cli',

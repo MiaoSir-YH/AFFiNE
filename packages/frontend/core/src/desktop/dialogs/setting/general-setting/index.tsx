@@ -5,6 +5,7 @@ import { MeetingSettingsService } from '@affine/core/modules/media/services/meet
 import { useI18n } from '@affine/i18n';
 import {
   AppearanceIcon,
+  ChatWithAiIcon,
   ExperimentIcon,
   FolderIcon,
   InformationIcon,
@@ -16,12 +17,14 @@ import {
 import { useLiveData, useServices } from '@toeverything/infra';
 import { useEffect, useMemo } from 'react';
 
+import { desktopAI } from '../../../../blocksuite/ai/runtime/request/desktop-copilot';
 import { AuthService, ServerService } from '../../../../modules/cloud';
 import type { SettingSidebarItem, SettingState } from '../types';
 import { AboutAffine } from './about';
 import { AppearanceSettings } from './appearance';
 import { BackupSettingPanel } from './backup';
 import { BillingSettings } from './billing';
+import { DesktopAISetting } from './desktop-ai';
 import { EditorSettings } from './editor';
 import { ExperimentalFeatures } from './experimental-features';
 import { PaymentIcon, UpgradeIcon } from './icons';
@@ -61,6 +64,7 @@ export const useGeneralSettingList = (): GeneralSettingList => {
   }, [userFeatureService]);
 
   const meetingSettings = useLiveData(meetingSettingsService.settings$);
+  const hasDesktopAI = !!desktopAI();
 
   return useMemo(() => {
     const settings: GeneralSettingList = [
@@ -125,6 +129,15 @@ export const useGeneralSettingList = (): GeneralSettingList => {
       }
     }
 
+    if (hasDesktopAI) {
+      settings.push({
+        key: 'desktop-ai',
+        title: t['com.affine.ai.desktop.provider-settings'](),
+        icon: <ChatWithAiIcon />,
+        testId: 'desktop-ai-panel-trigger',
+      });
+    }
+
     if (BUILD_CONFIG.isElectron) {
       settings.push({
         key: 'backup',
@@ -155,6 +168,7 @@ export const useGeneralSettingList = (): GeneralSettingList => {
     enableEditorSettings,
     meetingSettings?.enabled,
     hasPaymentFeature,
+    hasDesktopAI,
   ]);
 };
 
@@ -178,6 +192,8 @@ export const GeneralSetting = ({
       return <AppearanceSettings />;
     case 'meetings':
       return <MeetingsSettings />;
+    case 'desktop-ai':
+      return <DesktopAISetting />;
     case 'about':
       return <AboutAffine />;
     case 'plans':

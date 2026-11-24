@@ -30,6 +30,9 @@ async function buildLayers() {
     ...common.define,
     'process.env.NODE_ENV': `"${mode}"`,
     'process.env.BUILD_TYPE': `"${process.env.BUILD_TYPE || 'stable'}"`,
+    'process.env.AFFINE_DISABLE_UPDATES': JSON.stringify(
+      process.env.AFFINE_DISABLE_UPDATES === '1' ? '1' : ''
+    ),
   };
 
   if (process.env.BUILD_TYPE_OVERRIDE) {

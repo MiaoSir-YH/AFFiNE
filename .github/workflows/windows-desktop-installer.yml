@@ -67,6 +67,8 @@ jobs:
           name: windows-desktop-renderer
           path: packages/frontend/apps/electron/resources/web-static
       - name: Build Electron main and preload
+        env:
+          AFFINE_DISABLE_UPDATES: '1'
         run: yarn workspace @affine/electron build
       - name: Package AFFiNE Electron for Windows x64
         shell: pwsh
@@ -76,6 +78,9 @@ jobs:
           $loader = [Uri]::new((Resolve-Path 'tools/cli/tsx-register.js').Path).AbsoluteUri
           $env:NODE_OPTIONS = "--max-old-space-size=6144 --import=$loader"
           yarn workspace @affine/electron package --platform=win32 --arch=x64
+      - name: Launch the packaged AFFiNE application
+        shell: pwsh
+        run: node .github/scripts/check-windows-desktop.mjs packages/frontend/apps/electron/out/stable/AFFiNE-win32-x64/AFFiNE.exe
       - name: Build AFFiNE NSIS installer
         shell: pwsh
         run: yarn workspace @affine/electron make-nsis --platform=win32 --arch=x64

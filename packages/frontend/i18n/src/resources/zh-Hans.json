@@ -290,6 +290,7 @@
   "com.affine.ai.chatgpt.connect-pending": "等待 ChatGPT 授权",
   "com.affine.ai.chatgpt.disconnect": "断开 ChatGPT 订阅",
   "com.affine.ai.desktop.gateway": "OpenAI 兼容网关",
+  "com.affine.ai.desktop.provider-settings": "AI 服务商",
   "com.affine.ai.desktop.gateway-description": "配置这台电脑上的桌面端使用自己的网关处理 AI 请求。",
   "com.affine.ai.desktop.configure": "配置",
   "com.affine.ai.desktop.api-address": "API 地址",
