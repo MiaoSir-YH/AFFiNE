@@ -2126,6 +2126,16 @@ export function useAFFiNEI18N(): {
       */
     ["com.affine.auth.sign.email.continue"](): string;
     /**
+      * `Continue with {{provider}}`
+      */
+    ["com.affine.auth.sign.oauth.continue"](options: {
+        readonly provider: string;
+    }): string;
+    /**
+      * `or`
+      */
+    ["com.affine.auth.sign.other-options"](): string;
+    /**
       * `Invalid email`
       */
     ["com.affine.auth.sign.email.error"](): string;

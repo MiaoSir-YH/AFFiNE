@@ -212,7 +212,9 @@ export const SignInStep = ({
             </div>
             <div className={style.skipDivider}>
               <div className={style.skipDividerLine} />
-              <span className={style.skipDividerText}>or</span>
+              <span className={style.skipDividerText}>
+                {t['com.affine.auth.sign.other-options']()}
+              </span>
               <div className={style.skipDividerLine} />
             </div>
             <div className={style.skipSection}>
