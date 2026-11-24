@@ -1,4 +1,5 @@
 import { createRequire } from 'node:module';
+import { tmpdir } from 'node:os';
 import path from 'node:path';
 
 import { buildForge } from 'app-builder-lib';
@@ -37,7 +38,7 @@ async function make() {
   await fs.emptyDir(outPath);
 
   // create tmp dir
-  const tmpPath = await fs.mkdtemp(appName);
+  const tmpPath = await fs.mkdtemp(path.join(tmpdir(), 'affine-nsis-'));
 
   // copy app to tmp dir
   log(`Copying app to ${tmpPath}`);
@@ -91,7 +92,12 @@ async function make() {
   }
 
   // cleanup
-  await fs.remove(tmpPath);
+  await fs.rm(tmpPath, {
+    recursive: true,
+    force: true,
+    maxRetries: 10,
+    retryDelay: 200,
+  });
 }
 
 make().catch(e => {

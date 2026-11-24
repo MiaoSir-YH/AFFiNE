@@ -42,17 +42,16 @@ async function encodeFile(file: Blob) {
   });
 }
 
-const listQueries = new Set<GraphQLQuery>([
-  getCopilotHistoriesQuery,
-  getCopilotHistoryIdsQuery,
-  getCopilotRecentSessionsQuery,
-  getCopilotSessionQuery,
-  getCopilotSessionsQuery,
-]);
-
 export function routeDesktopQueries(gql: Gql): Gql {
   const desktop = desktopAI();
   if (!desktop) return gql;
+  const listQueries = new Set<GraphQLQuery>([
+    getCopilotHistoriesQuery,
+    getCopilotHistoryIdsQuery,
+    getCopilotRecentSessionsQuery,
+    getCopilotSessionQuery,
+    getCopilotSessionsQuery,
+  ]);
   return async <Query extends GraphQLQuery>(request: QueryOptions<Query>) => {
     const query: GraphQLQuery = request.query;
     const variables =

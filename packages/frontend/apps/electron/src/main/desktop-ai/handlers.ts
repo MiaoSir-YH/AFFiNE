@@ -1,4 +1,11 @@
 import { randomUUID } from 'node:crypto';
+import {
+  mkdirSync,
+  readFileSync,
+  renameSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { join } from 'node:path';
 
 import { ChatGPTAuth } from '@affine/auth/chatgpt';
@@ -22,10 +29,46 @@ const directory = app.getPath('userData');
 const storage = new PersistentJSONFileStorage(
   join(directory, 'desktop-ai.json')
 );
-const auth = new ChatGPTAuth({
-  applicationName: 'AFFiNE Desktop',
-  dataDirectory: join(directory, 'chatgpt'),
-});
+const authorizationFile = join(directory, 'desktop-ai-chatgpt');
+// These levels have been accepted by the Responses API for these exact models.
+const verifiedReasoningLevels = new Map([
+  ['gpt-6.2-sol', { supportedReasoningEfforts: ['low', 'medium', 'high'] }],
+  ['gpt-6.2-astra', { supportedReasoningEfforts: ['medium', 'max'] }],
+]);
+let chatGPTAuth: ChatGPTAuth | undefined;
+function getAuth() {
+  return (chatGPTAuth ??= new ChatGPTAuth({
+    applicationName: 'AFFiNE Desktop',
+    dataDirectory: join(directory, 'chatgpt'),
+    loadModelMetadata: () => Promise.resolve(verifiedReasoningLevels),
+    sessionStorage: {
+      read() {
+        if (!safeStorage.isEncryptionAvailable()) return;
+        try {
+          return JSON.parse(
+            safeStorage.decryptString(readFileSync(authorizationFile))
+          );
+        } catch {
+          return;
+        }
+      },
+      write(session) {
+        if (session === undefined) {
+          rmSync(authorizationFile, { force: true });
+        } else if (safeStorage.isEncryptionAvailable()) {
+          mkdirSync(directory, { recursive: true });
+          const temporary = authorizationFile + '.new';
+          writeFileSync(
+            temporary,
+            safeStorage.encryptString(JSON.stringify(session)),
+            { mode: 0o600 }
+          );
+          renameSync(temporary, authorizationFile);
+        }
+      },
+    },
+  }));
+}
 const nullableId = z.string().max(256).nullish();
 const sessionOptions = z.object({
   workspaceId: z.string().min(1).max(256),
@@ -101,7 +144,7 @@ function status() {
   const gateway = getGateway();
   return {
     mode: mode(),
-    chatgpt: { ...auth.state(), preference: preference() },
+    chatgpt: { ...getAuth().state(), preference: preference() },
     gateway: gateway
       ? {
           baseUrl: gateway.baseUrl,
@@ -116,10 +159,12 @@ function status() {
 }
 
 function getModels() {
-  catalog ??= auth.models().catch(error => {
-    catalog = undefined;
-    throw error;
-  });
+  catalog ??= getAuth()
+    .models()
+    .catch(error => {
+      catalog = undefined;
+      throw error;
+    });
   return catalog;
 }
 
@@ -133,7 +178,7 @@ async function currentProvider(): Promise<DesktopProvider> {
     if (selected)
       return {
         baseUrl: 'https://api.openai.com/v1',
-        apiKey: await auth.accessToken(),
+        apiKey: await getAuth().accessToken(),
         model: selected.modelId,
         effort: selected.effort,
         dialect: 'responses',
@@ -287,14 +332,14 @@ export const desktopAIHandlers = {
   status: async () => status(),
   models: async () => getModels(),
   connectChatGPT: async (_, language: string) => {
-    const { authorizationUrl } = await auth.start({
+    const { authorizationUrl } = await getAuth().start({
       simplifiedChinese: /^zh-(Hans|CN)/i.test(language),
     });
     await shell.openExternal(authorizationUrl);
     return status();
   },
   disconnectChatGPT: async () => {
-    await auth.disconnect();
+    await getAuth().disconnect();
     catalog = undefined;
     storage.del('chatgpt-preference');
     return status();

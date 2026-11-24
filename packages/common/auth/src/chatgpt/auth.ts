@@ -89,6 +89,21 @@ interface Session {
   expiresAt: number;
 }
 
+const storedSessionSchema = z.object({
+  registration: z.object({
+    clientId: z.string().min(1),
+    subject: z.string().min(1),
+    email: z.string().optional(),
+  }),
+  tokens: tokensSchema,
+  expiresAt: z.number().finite(),
+});
+
+export interface ChatGPTSessionStorage {
+  read(): unknown;
+  write(session: unknown): void;
+}
+
 interface Authorization {
   server: ReturnType<typeof createServer>;
   state: string;
@@ -195,6 +210,7 @@ export class ChatGPTAuth {
   readonly #hostId: () => Promise<string>;
   readonly #keys: ReturnType<typeof createRemoteJWKSet>;
   readonly #applicationName: string;
+  readonly #sessionStorage?: ChatGPTSessionStorage;
   readonly #loadModelMetadata?: (
     token: string
   ) => Promise<ReadonlyMap<string, ReasoningMetadata>>;
@@ -216,6 +232,7 @@ export class ChatGPTAuth {
       hostId?: string;
       dataDirectory?: string;
       applicationName?: string;
+      sessionStorage?: ChatGPTSessionStorage;
       loadModelMetadata?: (
         token: string
       ) => Promise<ReadonlyMap<string, ReasoningMetadata>>;
@@ -223,6 +240,20 @@ export class ChatGPTAuth {
   ) {
     this.#fetch = options.fetcher ?? fetch;
     this.#applicationName = options.applicationName ?? 'AFFiNE';
+    this.#sessionStorage = options.sessionStorage;
+    if (this.#sessionStorage) {
+      const restored = storedSessionSchema.safeParse(
+        this.#sessionStorage.read()
+      );
+      if (
+        restored.success &&
+        restored.data.tokens.refresh_token &&
+        hasPlanAccess(restored.data.tokens.scope)
+      ) {
+        this.#session = restored.data;
+        this.#registration = restored.data.registration;
+      }
+    }
     this.#loadModelMetadata = options.loadModelMetadata;
     const { hostId, dataDirectory = join(homedir(), '.affine') } = options;
     this.#hostId = hostId
@@ -445,6 +476,7 @@ export class ChatGPTAuth {
         );
       }
 
+      this.#sessionStorage?.write(session);
       this.#session = session;
       respond(
         response,
@@ -575,6 +607,7 @@ export class ChatGPTAuth {
         invalidRefreshErrors.has(error.code ?? '')
       ) {
         this.#session = undefined;
+        this.#sessionStorage?.write(undefined);
         this.#error =
           'The ChatGPT connection expired or was revoked. Sign in again.';
         throw new Error(this.#error);
@@ -589,11 +622,13 @@ export class ChatGPTAuth {
     };
     if (!hasPlanAccess(tokens.scope) || !tokens.refresh_token) {
       this.#session = undefined;
+      this.#sessionStorage?.write(undefined);
       this.#error =
         'OpenAI could not renew access to your ChatGPT plan. Sign in again.';
       await this.#revoke(refreshed).catch(() => undefined);
       throw new Error(this.#error);
     }
+    this.#sessionStorage?.write(refreshed);
     this.#session = refreshed;
     return refreshed;
   }
@@ -675,6 +710,7 @@ export class ChatGPTAuth {
 
     const session = this.#session;
     this.#session = undefined;
+    this.#sessionStorage?.write(undefined);
     this.#modelMetadata = undefined;
     this.#error = undefined;
     if (!session) return;
