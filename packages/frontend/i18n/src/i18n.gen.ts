@@ -868,6 +868,10 @@ export function useAFFiNEI18N(): {
       */
     ["com.affine.ai.chat-panel.title"](): string;
     /**
+      * `AI outputs can be misleading or wrong`
+      */
+    ["com.affine.ai.output-disclaimer"](): string;
+    /**
       * `AFFiNE AI is loading history...`
       */
     ["com.affine.ai.chat-panel.loading-history"](): string;
@@ -1029,6 +1033,58 @@ export function useAFFiNEI18N(): {
       */
     ["com.affine.ai.error.retry"](): string;
     /**
+      * `Answer`
+      */
+    ["com.affine.ai.answer"](): string;
+    /**
+      * `An error occurred`
+      */
+    ["com.affine.ai.error.generic-title"](): string;
+    /**
+      * `. Please try again later. If the issue persists, contact`
+      */
+    ["com.affine.ai.error.generic-help"](): string;
+    /**
+      * `You've reached the usage limit for AFFiNE AI. Subscribe to continue using it.`
+      */
+    ["com.affine.ai.error.usage-limit"](): string;
+    /**
+      * `An error occurred. If the issue persists, please contact us.`
+      */
+    ["com.affine.ai.error.contact-support"](): string;
+    /**
+      * `Response`
+      */
+    ["com.affine.ai.response"](): string;
+    /**
+      * `Use as caption`
+      */
+    ["com.affine.ai.response.use-as-caption"](): string;
+    /**
+      * `Create new note`
+      */
+    ["com.affine.ai.response.create-note"](): string;
+    /**
+      * `Insert below`
+      */
+    ["com.affine.ai.response.insert-below"](): string;
+    /**
+      * `Insert above`
+      */
+    ["com.affine.ai.response.insert-above"](): string;
+    /**
+      * `Replace selection`
+      */
+    ["com.affine.ai.response.replace-selection"](): string;
+    /**
+      * `Regenerate`
+      */
+    ["com.affine.ai.response.regenerate"](): string;
+    /**
+      * `Discard`
+      */
+    ["com.affine.ai.response.discard"](): string;
+    /**
       * `Working… · {{count}} actions`
       */
     ["com.affine.ai.chat-panel.tool-group.running"](options: {
@@ -1063,6 +1119,496 @@ export function useAFFiNEI18N(): {
       * `Failed to delete history`
       */
     ["com.affine.ai.chat-panel.session.delete.toast.failed"](): string;
+    /**
+      * `What can I help you with?`
+      */
+    ["com.affine.ai.chat-panel.empty-prompt"](): string;
+    /**
+      * `Clear`
+      */
+    ["com.affine.ai.chat-panel.history.clear.action"](): string;
+    /**
+      * `Failed to clear history`
+      */
+    ["com.affine.ai.chat-panel.history.clear.failed"](): string;
+    /**
+      * `Are you sure you want to clear all history? This action will permanently delete all content, including all chat logs and data, and cannot be undone.`
+      */
+    ["com.affine.ai.chat-panel.history.clear.message"](): string;
+    /**
+      * `History cleared`
+      */
+    ["com.affine.ai.chat-panel.history.clear.success"](): string;
+    /**
+      * `Clear History`
+      */
+    ["com.affine.ai.chat-panel.history.clear.title"](): string;
+    /**
+      * `Empty history`
+      */
+    ["com.affine.ai.chat-panel.history.empty"](): string;
+    /**
+      * `Chat History`
+      */
+    ["com.affine.ai.chat-panel.history.label"](): string;
+    /**
+      * `Loading history...`
+      */
+    ["com.affine.ai.chat-panel.history.loading"](): string;
+    /**
+      * `Older`
+      */
+    ["com.affine.ai.chat-panel.history.older"](): string;
+    /**
+      * `Close tab`
+      */
+    ["com.affine.ai.chat-panel.session.close-tab"](): string;
+    /**
+      * `New chat`
+      */
+    ["com.affine.ai.chat-panel.session.new"](): string;
+    /**
+      * `Click to open this chat`
+      */
+    ["com.affine.ai.chat-panel.session.open"](): string;
+    /**
+      * `Pin this Chat`
+      */
+    ["com.affine.ai.chat-panel.session.pin"](): string;
+    /**
+      * `Cannot pin a chat while generating an answer`
+      */
+    ["com.affine.ai.chat-panel.session.pin-generating"](): string;
+    /**
+      * `Switch Chat`
+      */
+    ["com.affine.ai.chat-panel.session.switch.action"](): string;
+    /**
+      * `Switching will unpin the current chat and open a different conversation.`
+      */
+    ["com.affine.ai.chat-panel.session.switch.message"](): string;
+    /**
+      * `Switch Chat? Current chat is pinned`
+      */
+    ["com.affine.ai.chat-panel.session.switch.title"](): string;
+    /**
+      * `Unpin this Chat`
+      */
+    ["com.affine.ai.chat-panel.session.unpin"](): string;
+    /**
+      * `Failed to unpin the chat`
+      */
+    ["com.affine.ai.chat-panel.session.unpin-failed"](): string;
+    /**
+      * `This model requires an AFFiNE AI subscription.`
+      */
+    ["com.affine.ai.chatgpt.affine-subscription-required"](): string;
+    /**
+      * `ChatGPT authorization failed. Please reconnect.`
+      */
+    ["com.affine.ai.chatgpt.auth-failed"](): string;
+    /**
+      * `Auto`
+      */
+    ["com.affine.ai.chatgpt.automatic"](): string;
+    /**
+      * `Cancel authorization`
+      */
+    ["com.affine.ai.chatgpt.cancel"](): string;
+    /**
+      * `Connect ChatGPT subscription`
+      */
+    ["com.affine.ai.chatgpt.connect"](): string;
+    /**
+      * `Waiting for ChatGPT authorization`
+      */
+    ["com.affine.ai.chatgpt.connect-pending"](): string;
+    /**
+      * `Disconnect ChatGPT subscription`
+      */
+    ["com.affine.ai.chatgpt.disconnect"](): string;
+    /**
+      * `OpenAI-compatible gateway`
+      */
+    ["com.affine.ai.desktop.gateway"](): string;
+    /**
+      * `Configure a gateway to handle AI requests from this desktop app.`
+      */
+    ["com.affine.ai.desktop.gateway-description"](): string;
+    /**
+      * `Configure`
+      */
+    ["com.affine.ai.desktop.configure"](): string;
+    /**
+      * `API base URL`
+      */
+    ["com.affine.ai.desktop.api-address"](): string;
+    /**
+      * `API format`
+      */
+    ["com.affine.ai.desktop.api-format"](): string;
+    /**
+      * `Image model (optional)`
+      */
+    ["com.affine.ai.desktop.image-model"](): string;
+    /**
+      * `Transcription model (optional)`
+      */
+    ["com.affine.ai.desktop.transcription-model"](): string;
+    /**
+      * `Save and use gateway`
+      */
+    ["com.affine.ai.desktop.save-gateway"](): string;
+    /**
+      * `Could not save the gateway. Check the address, API key, model, and thinking effort.`
+      */
+    ["com.affine.ai.desktop.gateway-save-error"](): string;
+    /**
+      * `Currently using your own AI provider`
+      */
+    ["com.affine.ai.desktop.active-provider"](): string;
+    /**
+      * `Stop using my provider`
+      */
+    ["com.affine.ai.desktop.disable-provider"](): string;
+    /**
+      * `Thinking effort`
+      */
+    ["com.affine.ai.chatgpt.effort"](): string;
+    /**
+      * `Model default`
+      */
+    ["com.affine.ai.chatgpt.effort-default"](): string;
+    /**
+      * `High`
+      */
+    ["com.affine.ai.chatgpt.effort-high"](): string;
+    /**
+      * `Low`
+      */
+    ["com.affine.ai.chatgpt.effort-low"](): string;
+    /**
+      * `Maximum`
+      */
+    ["com.affine.ai.chatgpt.effort-max"](): string;
+    /**
+      * `Medium`
+      */
+    ["com.affine.ai.chatgpt.effort-medium"](): string;
+    /**
+      * `Minimal`
+      */
+    ["com.affine.ai.chatgpt.effort-minimal"](): string;
+    /**
+      * `None`
+      */
+    ["com.affine.ai.chatgpt.effort-none"](): string;
+    /**
+      * `Extra high`
+      */
+    ["com.affine.ai.chatgpt.effort-xhigh"](): string;
+    /**
+      * `Extended Thinking`
+      */
+    ["com.affine.ai.chatgpt.extended-thinking"](): string;
+    /**
+      * `Model`
+      */
+    ["com.affine.ai.chatgpt.model"](): string;
+    /**
+      * `No ChatGPT models available`
+      */
+    ["com.affine.ai.chatgpt.model-empty"](): string;
+    /**
+      * `ChatGPT subscription`
+      */
+    ["com.affine.ai.chatgpt.provider"](): string;
+    /**
+      * `Reload models`
+      */
+    ["com.affine.ai.chatgpt.reload-models"](): string;
+    /**
+      * `Could not update the ChatGPT connection. Please try again.`
+      */
+    ["com.affine.ai.chatgpt.request-failed"](): string;
+    /**
+      * `Search workspace documents`
+      */
+    ["com.affine.ai.chatgpt.workspace-docs"](): string;
+    /**
+      * `Brainstorm ideas about this`
+      */
+    ["com.affine.ai.menu.action.brainstorm"](): string;
+    /**
+      * `Brainstorm ideas with mind map`
+      */
+    ["com.affine.ai.menu.action.brainstorm-mind-map"](): string;
+    /**
+      * `Change tone to`
+      */
+    ["com.affine.ai.menu.action.change-tone"](): string;
+    /**
+      * `Check code error`
+      */
+    ["com.affine.ai.menu.action.check-code"](): string;
+    /**
+      * `Continue in AI Chat`
+      */
+    ["com.affine.ai.menu.action.continue-in-chat"](): string;
+    /**
+      * `Continue writing`
+      */
+    ["com.affine.ai.menu.action.continue-writing"](): string;
+    /**
+      * `Expand from this mind map node`
+      */
+    ["com.affine.ai.menu.action.expand-mind-map-node"](): string;
+    /**
+      * `Explain this code`
+      */
+    ["com.affine.ai.menu.action.explain-code"](): string;
+    /**
+      * `Explain this image`
+      */
+    ["com.affine.ai.menu.action.explain-image"](): string;
+    /**
+      * `Explain selection`
+      */
+    ["com.affine.ai.menu.action.explain-selection"](): string;
+    /**
+      * `Find actions`
+      */
+    ["com.affine.ai.menu.action.find-actions"](): string;
+    /**
+      * `Fix grammar`
+      */
+    ["com.affine.ai.menu.action.fix-grammar"](): string;
+    /**
+      * `Fix spelling`
+      */
+    ["com.affine.ai.menu.action.fix-spelling"](): string;
+    /**
+      * `{{action}} from above`
+      */
+    ["com.affine.ai.menu.action.from-above"](options: {
+        readonly action: string;
+    }): string;
+    /**
+      * `Generate a caption`
+      */
+    ["com.affine.ai.menu.action.generate-caption"](): string;
+    /**
+      * `Generate headings`
+      */
+    ["com.affine.ai.menu.action.generate-headings"](): string;
+    /**
+      * `Generate an image`
+      */
+    ["com.affine.ai.menu.action.generate-image"](): string;
+    /**
+      * `Generate outline`
+      */
+    ["com.affine.ai.menu.action.generate-outline"](): string;
+    /**
+      * `Generate presentation`
+      */
+    ["com.affine.ai.menu.action.generate-presentation"](): string;
+    /**
+      * `AI image filter`
+      */
+    ["com.affine.ai.menu.action.image-filter"](): string;
+    /**
+      * `Image processing`
+      */
+    ["com.affine.ai.menu.action.image-processing"](): string;
+    /**
+      * `Improve writing`
+      */
+    ["com.affine.ai.menu.action.improve-writing"](): string;
+    /**
+      * `Make it real`
+      */
+    ["com.affine.ai.menu.action.make-it-real"](): string;
+    /**
+      * `Make it longer`
+      */
+    ["com.affine.ai.menu.action.make-longer"](): string;
+    /**
+      * `Make it shorter`
+      */
+    ["com.affine.ai.menu.action.make-shorter"](): string;
+    /**
+      * `Regenerate mind map`
+      */
+    ["com.affine.ai.menu.action.regenerate-mind-map"](): string;
+    /**
+      * `Summarize`
+      */
+    ["com.affine.ai.menu.action.summarize"](): string;
+    /**
+      * `Translate to`
+      */
+    ["com.affine.ai.menu.action.translate"](): string;
+    /**
+      * `Write an article about this`
+      */
+    ["com.affine.ai.menu.action.write-article"](): string;
+    /**
+      * `Write a blog post about this`
+      */
+    ["com.affine.ai.menu.action.write-blog-post"](): string;
+    /**
+      * `Write a poem about this`
+      */
+    ["com.affine.ai.menu.action.write-poem"](): string;
+    /**
+      * `Write a tweet about this`
+      */
+    ["com.affine.ai.menu.action.write-tweet"](): string;
+    /**
+      * `Action with above`
+      */
+    ["com.affine.ai.menu.action.with-above"](): string;
+    /**
+      * `Ask AI`
+      */
+    ["com.affine.ai.menu.ask-ai"](): string;
+    /**
+      * `(Beta)`
+      */
+    ["com.affine.ai.menu.beta"](): string;
+    /**
+      * `Draft from text`
+      */
+    ["com.affine.ai.menu.group.draft-from-text"](): string;
+    /**
+      * `Edit text`
+      */
+    ["com.affine.ai.menu.group.edit-text"](): string;
+    /**
+      * `Generate from text`
+      */
+    ["com.affine.ai.menu.group.generate-from-text"](): string;
+    /**
+      * `Others`
+      */
+    ["com.affine.ai.menu.group.others"](): string;
+    /**
+      * `Review code`
+      */
+    ["com.affine.ai.menu.group.review-code"](): string;
+    /**
+      * `Review image`
+      */
+    ["com.affine.ai.menu.group.review-image"](): string;
+    /**
+      * `Review text`
+      */
+    ["com.affine.ai.menu.group.review-text"](): string;
+    /**
+      * `Touch up image`
+      */
+    ["com.affine.ai.menu.group.touch-up-image"](): string;
+    /**
+      * `Anime style`
+      */
+    ["com.affine.ai.menu.image-filter.anime"](): string;
+    /**
+      * `Clay style`
+      */
+    ["com.affine.ai.menu.image-filter.clay"](): string;
+    /**
+      * `Pixel style`
+      */
+    ["com.affine.ai.menu.image-filter.pixel"](): string;
+    /**
+      * `Sketch style`
+      */
+    ["com.affine.ai.menu.image-filter.sketch"](): string;
+    /**
+      * `Clearer`
+      */
+    ["com.affine.ai.menu.image-processing.clearer"](): string;
+    /**
+      * `Convert to sticker`
+      */
+    ["com.affine.ai.menu.image-processing.convert-to-sticker"](): string;
+    /**
+      * `Remove background`
+      */
+    ["com.affine.ai.menu.image-processing.remove-background"](): string;
+    /**
+      * `What are your thoughts?`
+      */
+    ["com.affine.ai.menu.input-placeholder"](): string;
+    /**
+      * `Send to AI`
+      */
+    ["com.affine.ai.menu.send"](): string;
+    /**
+      * `Brazilian Portuguese`
+      */
+    ["com.affine.ai.menu.language.brazilian-portuguese"](): string;
+    /**
+      * `English`
+      */
+    ["com.affine.ai.menu.language.english"](): string;
+    /**
+      * `French`
+      */
+    ["com.affine.ai.menu.language.french"](): string;
+    /**
+      * `German`
+      */
+    ["com.affine.ai.menu.language.german"](): string;
+    /**
+      * `Italian`
+      */
+    ["com.affine.ai.menu.language.italian"](): string;
+    /**
+      * `Japanese`
+      */
+    ["com.affine.ai.menu.language.japanese"](): string;
+    /**
+      * `Korean`
+      */
+    ["com.affine.ai.menu.language.korean"](): string;
+    /**
+      * `Russian`
+      */
+    ["com.affine.ai.menu.language.russian"](): string;
+    /**
+      * `Simplified Chinese`
+      */
+    ["com.affine.ai.menu.language.simplified-chinese"](): string;
+    /**
+      * `Spanish`
+      */
+    ["com.affine.ai.menu.language.spanish"](): string;
+    /**
+      * `Traditional Chinese`
+      */
+    ["com.affine.ai.menu.language.traditional-chinese"](): string;
+    /**
+      * `Critical`
+      */
+    ["com.affine.ai.menu.tone.critical"](): string;
+    /**
+      * `Friendly`
+      */
+    ["com.affine.ai.menu.tone.friendly"](): string;
+    /**
+      * `Humorous`
+      */
+    ["com.affine.ai.menu.tone.humorous"](): string;
+    /**
+      * `Informal`
+      */
+    ["com.affine.ai.menu.tone.informal"](): string;
+    /**
+      * `Professional`
+      */
+    ["com.affine.ai.menu.tone.professional"](): string;
     /**
       * `All docs`
       */
@@ -1868,6 +2414,14 @@ export function useAFFiNEI18N(): {
       */
     ["com.affine.cmdk.affine.navigation.goto-all-pages"](): string;
     /**
+      * `Go to collections`
+      */
+    ["com.affine.cmdk.affine.navigation.goto-collections"](): string;
+    /**
+      * `Go to tags`
+      */
+    ["com.affine.cmdk.affine.navigation.goto-tags"](): string;
+    /**
       * `Go to edgeless list`
       */
     ["com.affine.cmdk.affine.navigation.goto-edgeless-list"](): string;
@@ -1891,6 +2445,26 @@ export function useAFFiNEI18N(): {
       * `Go to Settings`
       */
     ["com.affine.cmdk.affine.navigation.open-settings"](): string;
+    /**
+      * `Export to Snapshot`
+      */
+    ["com.affine.cmdk.affine.editor.export-snapshot"](): string;
+    /**
+      * `Failed to restart to upgrade`
+      */
+    ["com.affine.cmdk.affine.restart-to-upgrade.error"](): string;
+    /**
+      * `Please restart the app manually to upgrade.`
+      */
+    ["com.affine.cmdk.affine.restart-to-upgrade.manual"](): string;
+    /**
+      * `Failed to change language`
+      */
+    ["com.affine.language.change-error.title"](): string;
+    /**
+      * `The language files could not be loaded.`
+      */
+    ["com.affine.language.change-error.description"](): string;
     /**
       * `New edgeless`
       */
@@ -3095,6 +3669,18 @@ export function useAFFiNEI18N(): {
       * `No results found`
       */
     ["com.affine.mobile.search.empty"](): string;
+    /**
+      * `Empty`
+      */
+    ["com.affine.mobile.doc-card.empty"](): string;
+    /**
+      * `Search Results`
+      */
+    ["com.affine.mobile.search.results"](): string;
+    /**
+      * `Search Docs and Collections`
+      */
+    ["com.affine.mobile.search.placeholder"](): string;
     /**
       * `App version`
       */
@@ -5931,6 +6517,14 @@ export function useAFFiNEI18N(): {
       */
     ["com.affine.settings.editorSettings.general.font-family.title"](): string;
     /**
+      * `Search fonts`
+      */
+    ["com.affine.settings.editorSettings.general.font-family.search"](): string;
+    /**
+      * `No fonts found.`
+      */
+    ["com.affine.settings.editorSettings.general.font-family.no-results"](): string;
+    /**
       * `Adjust the base font size for better readability.`
       */
     ["com.affine.settings.editorSettings.general.font-size.description"](): string;
@@ -6115,6 +6709,18 @@ export function useAFFiNEI18N(): {
       */
     ["com.affine.settings.profile.placeholder"](): string;
     /**
+      * `Profile photo updated`
+      */
+    ["com.affine.settings.profile.avatar-updated"](): string;
+    /**
+      * `Couldn't update profile photo`
+      */
+    ["com.affine.settings.profile.avatar-update-failed"](): string;
+    /**
+      * `Couldn't update user name`
+      */
+    ["com.affine.settings.profile.name-update-failed"](): string;
+    /**
       * `Remove workspace`
       */
     ["com.affine.settings.remove-workspace"](): string;
@@ -6275,6 +6881,18 @@ export function useAFFiNEI18N(): {
       * `You can view current workspace's information here.`
       */
     ["com.affine.settings.workspace.description"](): string;
+    /**
+      * `Workspace avatar updated`
+      */
+    ["com.affine.settings.workspace.avatar-updated"](): string;
+    /**
+      * `Couldn't update workspace avatar`
+      */
+    ["com.affine.settings.workspace.avatar-update-failed"](): string;
+    /**
+      * `Operation failed`
+      */
+    ["com.affine.settings.workspace.members.action-failed"](): string;
     /**
       * `AI BYOK (Beta)`
       */
@@ -7405,6 +8023,44 @@ export function useAFFiNEI18N(): {
       */
     ["com.affine.settings.workspace.storage.subtitle"](): string;
     /**
+      * `Markdown Folder Sync (Experimental)`
+      */
+    ["com.affine.settings.workspace.disk-sync.title"](): string;
+    /**
+      * `Sync pages with Markdown files in a local folder.`
+      */
+    ["com.affine.settings.workspace.disk-sync.description"](): string;
+    /**
+      * `Sync Folder`
+      */
+    ["com.affine.settings.workspace.disk-sync.folder"](): string;
+    /**
+      * `No folder selected`
+      */
+    ["com.affine.settings.workspace.disk-sync.no-folder"](): string;
+    /**
+      * `Choose Folder`
+      */
+    ["com.affine.settings.workspace.disk-sync.choose-folder"](): string;
+    /**
+      * `Clear`
+      */
+    ["com.affine.settings.workspace.disk-sync.clear-folder"](): string;
+    /**
+      * `Review Markdown changes`
+      */
+    ["com.affine.settings.workspace.disk-sync.review"](): string;
+    /**
+      * `Changes to existing files are saved in {{path}}. Review a candidate, then copy it over the Markdown file with the same id to accept it.`
+      */
+    ["com.affine.settings.workspace.disk-sync.review-description"](options: {
+        readonly path: string;
+    }): string;
+    /**
+      * `Disk sync folder updated`
+      */
+    ["com.affine.settings.workspace.disk-sync.folder-updated"](): string;
+    /**
       * `Enable AFFiNE Sync to publish this workspace`
       */
     ["com.affine.settings.workspace.publish-tooltip"](): string;
@@ -8185,6 +8841,10 @@ export function useAFFiNEI18N(): {
       */
     ["com.affine.user-info.usage.cloud"](): string;
     /**
+      * `Failed to load quota`
+      */
+    ["com.affine.user-info.usage.load-error"](): string;
+    /**
       * `Close`
       */
     ["com.affine.workbench.split-view-menu.close"](): string;
@@ -8212,6 +8872,34 @@ export function useAFFiNEI18N(): {
       * `Open in new tab`
       */
     ["com.affine.workbench.tab.page-menu-open"](): string;
+    /**
+      * `No selection`
+      */
+    ["com.affine.workbench.sidebar.empty"](): string;
+    /**
+      * `Open sidebar`
+      */
+    ["com.affine.workbench.sidebar.open"](): string;
+    /**
+      * `Close sidebar`
+      */
+    ["com.affine.workbench.sidebar.close"](): string;
+    /**
+      * `Search members…`
+      */
+    ["com.affine.member-selector.search-placeholder"](): string;
+    /**
+      * `Fit to screen`
+      */
+    ["com.affine.image-preview.fit-to-screen"](): string;
+    /**
+      * `Reset scale`
+      */
+    ["com.affine.image-preview.reset-scale"](): string;
+    /**
+      * `Copy to clipboard`
+      */
+    ["com.affine.image-preview.copy-to-clipboard"](): string;
     /**
       * `You cannot delete the last workspace`
       */
@@ -8296,6 +8984,93 @@ export function useAFFiNEI18N(): {
       * `Delete workspace`
       */
     ["com.affine.workspaceDelete.title"](): string;
+    /**
+      * `Cloud`
+      */
+    ["com.affine.workspace.status.cloud"](): string;
+    /**
+      * `Local`
+      */
+    ["com.affine.workspace.status.local"](): string;
+    /**
+      * `Offline`
+      */
+    ["com.affine.workspace.status.offline"](): string;
+    /**
+      * `This is a local demo workspace.`
+      */
+    ["com.affine.workspace.status.local-demo"](): string;
+    /**
+      * `Saved locally`
+      */
+    ["com.affine.workspace.status.saved-locally"](): string;
+    /**
+      * `Disconnected. Check your network connection.`
+      */
+    ["com.affine.workspace.status.disconnected"](): string;
+    /**
+      * `The workspace index needs attention. Your local data is preserved, and existing documents can continue syncing.`
+      */
+    ["com.affine.workspace.status.index-needs-attention"](): string;
+    /**
+      * `Some changes could not be uploaded. Your local data is preserved.`
+      */
+    ["com.affine.workspace.status.upload-failed"](): string;
+    /**
+      * `Sync disconnected due to unexpected issues. Reconnecting…`
+      */
+    ["com.affine.workspace.status.reconnecting"](): string;
+    /**
+      * `{{reason}}. Reconnecting…`
+      */
+    ["com.affine.workspace.status.reconnecting-with-reason"](options: {
+        readonly reason: string;
+    }): string;
+    /**
+      * `Syncing with {{target}}{{progress}}`
+      */
+    ["com.affine.workspace.status.syncing-with"](options: Readonly<{
+        target: string;
+        progress: string;
+    }>): string;
+    /**
+      * `Synced with {{target}}`
+      */
+    ["com.affine.workspace.status.synced-with"](options: {
+        readonly target: string;
+    }): string;
+    /**
+      * `Upload paused`
+      */
+    ["com.affine.workspace.status.upload-paused"](): string;
+    /**
+      * `Sync status`
+      */
+    ["com.affine.workspace.status.sync-label"](): string;
+    /**
+      * `Copy diagnostics`
+      */
+    ["com.affine.workspace.status.copy-diagnostics"](): string;
+    /**
+      * `Diagnostics copied`
+      */
+    ["com.affine.workspace.status.diagnostics-copied"](): string;
+    /**
+      * `Could not copy diagnostics`
+      */
+    ["com.affine.workspace.status.diagnostics-copy-failed"](): string;
+    /**
+      * `Open Quick Export`
+      */
+    ["com.affine.workspace.status.open-quick-export"](): string;
+    /**
+      * `Remove`
+      */
+    ["com.affine.workspace.status.remove-workspace"](): string;
+    /**
+      * `Enable Cloud`
+      */
+    ["com.affine.workspace.status.enable-cloud"](): string;
     /**
       * `Create workspace`
       */
@@ -8752,6 +9527,20 @@ export function useAFFiNEI18N(): {
       * `Journal`
       */
     ["com.affine.editor.at-menu.journal"](): string;
+    /**
+      * `Type '/' for commands`
+      */
+    ["com.affine.editor.paragraph.placeholder.command"](): string;
+    /**
+      * `Type '/' for commands, 'space' for AI`
+      */
+    ["com.affine.editor.paragraph.placeholder.command-with-ai"](): string;
+    /**
+      * `Heading {{level}}`
+      */
+    ["com.affine.editor.paragraph.placeholder.heading"](options: {
+        readonly level: string;
+    }): string;
     /**
       * `Select a specific date`
       */

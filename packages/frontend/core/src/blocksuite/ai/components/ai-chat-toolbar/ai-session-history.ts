@@ -1,4 +1,5 @@
 import type { CopilotChatHistoryFragment } from '@affine/graphql';
+import { I18n } from '@affine/i18n';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import { scrollbarStyle } from '@blocksuite/affine/shared/styles';
 import { unsafeCSSVar, unsafeCSSVarV2 } from '@blocksuite/affine/shared/theme';
@@ -19,7 +20,6 @@ interface GroupedSessions {
 type HistorySessionWithMessages = BlockSuitePresets.AIRecentSession &
   Partial<Pick<CopilotChatHistoryFragment, 'messages'>>;
 
-const DEFAULT_SESSION_TITLE = 'New chat';
 const TITLE_MAX_LENGTH = 28;
 
 function truncateSessionTitle(text: string) {
@@ -34,7 +34,7 @@ function deriveSessionTitle(session: HistorySessionWithMessages) {
     message => message.role === 'user'
   );
   const raw = firstUserMessage?.content?.trim();
-  if (!raw) return DEFAULT_SESSION_TITLE;
+  if (!raw) return I18n['com.affine.ai.chat-panel.session.new']();
   const newlineIdx = raw.indexOf('\n');
   return truncateSessionTitle(
     newlineIdx === -1 ? raw : raw.slice(0, newlineIdx)
@@ -298,7 +298,7 @@ export class AISessionHistory extends WithDisposable(ShadowlessElement) {
               <div class="ai-session-title">
                 ${sessionTitle}
                 <affine-tooltip .offsetX=${60}>
-                  Click to open this chat
+                  ${I18n['com.affine.ai.chat-panel.session.open']()}
                 </affine-tooltip>
               </div>
               ${
@@ -314,7 +314,7 @@ export class AISessionHistory extends WithDisposable(ShadowlessElement) {
                 }}
               >
                 ${DeleteIcon()}
-                <affine-tooltip>Delete</affine-tooltip>
+                <affine-tooltip>${I18n.Delete()}</affine-tooltip>
               </div>
             </div>
           `;
@@ -336,14 +336,18 @@ export class AISessionHistory extends WithDisposable(ShadowlessElement) {
     >
       ${docIcon}
       <span class="doc-title"> ${this.docDisplayConfig.getTitle(docId)} </span>
-      <affine-tooltip>Open this doc</affine-tooltip>
+      <affine-tooltip
+        >${I18n['com.affine.peek-view-controls.open-doc']()}</affine-tooltip
+      >
     </div>`;
   }
 
   private renderLoading() {
     return html`
       <div class="loading-container">
-        <div class="loading-title">Loading history...</div>
+        <div class="loading-title">
+          ${I18n['com.affine.ai.chat-panel.history.loading']()}
+        </div>
       </div>
     `;
   }
@@ -351,7 +355,9 @@ export class AISessionHistory extends WithDisposable(ShadowlessElement) {
   private renderEmpty() {
     return html`
       <div class="empty-container">
-        <div class="empty-title">Empty history</div>
+        <div class="empty-title">
+          ${I18n['com.affine.ai.chat-panel.history.empty']()}
+        </div>
       </div>
     `;
   }
@@ -377,11 +383,14 @@ export class AISessionHistory extends WithDisposable(ShadowlessElement) {
 
     const groupedSessions = this.groupSessionsByTime(otherSessions);
     return html`
-      ${this.renderSessionGroup('Current document', currentDocSessions)}
-      ${this.renderSessionGroup('Today', groupedSessions.today)}
-      ${this.renderSessionGroup('Last 7 days', groupedSessions.last7Days)}
-      ${this.renderSessionGroup('Last 30 days', groupedSessions.last30Days)}
-      ${this.renderSessionGroup('Older', groupedSessions.older)}
+      ${this.renderSessionGroup(
+        I18n['com.affine.ai.chat-panel.tool.live.current-document'](),
+        currentDocSessions
+      )}
+      ${this.renderSessionGroup(I18n['com.affine.today'](), groupedSessions.today)}
+      ${this.renderSessionGroup(I18n['com.affine.last7Days'](), groupedSessions.last7Days)}
+      ${this.renderSessionGroup(I18n['com.affine.last30Days'](), groupedSessions.last30Days)}
+      ${this.renderSessionGroup(I18n['com.affine.ai.chat-panel.history.older'](), groupedSessions.older)}
     `;
   }
 

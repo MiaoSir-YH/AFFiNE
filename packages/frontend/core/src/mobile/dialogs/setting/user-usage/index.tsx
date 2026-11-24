@@ -5,6 +5,7 @@ import {
   UserCopilotQuotaService,
   UserQuotaService,
 } from '@affine/core/modules/cloud';
+import { useI18n } from '@affine/i18n';
 import { useLiveData, useService } from '@toeverything/infra';
 import { cssVar } from '@toeverything/theme';
 import { cssVarV2 } from '@toeverything/theme/v2';
@@ -71,11 +72,15 @@ const Loading = () => {
 };
 
 const UsagePanel = () => {
+  const t = useI18n();
   const serverService = useService(ServerService);
   const serverFeatures = useLiveData(serverService.server.features$);
 
   return (
-    <SettingGroup title="Storage" contentStyle={{ padding: '10px 16px' }}>
+    <SettingGroup
+      title={t['Storage']()}
+      contentStyle={{ padding: '10px 16px' }}
+    >
       <CloudUsage />
       {serverFeatures?.copilot ? <AiUsage /> : null}
     </SettingGroup>
@@ -83,6 +88,7 @@ const UsagePanel = () => {
 };
 
 const CloudUsage = () => {
+  const t = useI18n();
   const quota = useService(UserQuotaService).quota;
 
   const color = useLiveData(quota.color$);
@@ -101,7 +107,7 @@ const CloudUsage = () => {
 
   return (
     <Progress
-      name="Cloud"
+      name={t['com.affine.workspace.status.cloud']()}
       percent={percent}
       desc={`${usedFormatted}/${maxFormatted}`}
       color={color}

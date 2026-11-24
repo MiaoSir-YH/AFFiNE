@@ -9,9 +9,16 @@ export {
 
 import type { Framework } from '@toeverything/infra';
 
-import { GraphQLService, ServerScope, SubscriptionService } from '../cloud';
+import {
+  FetchService,
+  GraphQLService,
+  ServerScope,
+  ServerService,
+  SubscriptionService,
+} from '../cloud';
 import { FeatureFlagService } from '../feature-flag';
 import { CacheStorage, GlobalStateService } from '../storage';
+import { UrlService } from '../url';
 import { WorkspaceScope } from '../workspace';
 import { AIButtonProvider } from './provider/ai-button';
 import { AIButtonService } from './services/ai-button';
@@ -52,5 +59,8 @@ export function configureAIModelModule(framework: Framework) {
       GlobalStateService,
       GraphQLService,
       SubscriptionService,
+      FetchService,
+      ServerService,
+      UrlService,
     ]);
 }

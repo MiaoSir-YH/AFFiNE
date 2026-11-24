@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import { Bound } from '@blocksuite/affine/global/gfx';
 import {
   ImageBlockModel,
@@ -51,6 +52,7 @@ function asCaption<T extends keyof BlockSuitePresets.AIActions>(
 ): AIItemConfig {
   return {
     name: 'Use as caption',
+    label: I18n['com.affine.ai.response.use-as-caption'],
     icon: PenIcon(),
     testId: 'answer-use-as-caption',
     showWhen: () => {
@@ -78,6 +80,7 @@ function asCaption<T extends keyof BlockSuitePresets.AIActions>(
 function createNewNote(host: EditorHost): AIItemConfig {
   return {
     name: 'Create new note',
+    label: I18n['com.affine.ai.response.create-note'],
     icon: PageIcon(),
     testId: 'answer-create-new-note',
     showWhen: () => {
@@ -148,10 +151,12 @@ function buildPageResponseConfig<T extends keyof BlockSuitePresets.AIActions>(
   return [
     {
       name: 'Response',
+      label: I18n['com.affine.ai.response'],
       testId: 'answer-responses',
       items: [
         {
           name: 'Insert below',
+          label: I18n['com.affine.ai.response.insert-below'],
           testId: 'answer-insert-below',
           icon: InsertBelowIcon(),
           showWhen: () =>
@@ -164,6 +169,7 @@ function buildPageResponseConfig<T extends keyof BlockSuitePresets.AIActions>(
         },
         {
           name: 'Insert above',
+          label: I18n['com.affine.ai.response.insert-above'],
           testId: 'answer-insert-above',
           icon: InsertTopIcon(),
           showWhen: () =>
@@ -177,6 +183,7 @@ function buildPageResponseConfig<T extends keyof BlockSuitePresets.AIActions>(
         asCaption(host, id),
         {
           name: 'Replace selection',
+          label: I18n['com.affine.ai.response.replace-selection'],
           testId: 'answer-replace',
           icon: ReplaceIcon(),
           showWhen: () =>
@@ -196,6 +203,7 @@ function buildPageResponseConfig<T extends keyof BlockSuitePresets.AIActions>(
       items: [
         {
           name: 'Continue in chat',
+          label: I18n['com.affine.ai.menu.action.continue-in-chat'],
           icon: ChatWithAiIcon(),
           testId: 'answer-continue-in-chat',
           handler: () => {
@@ -206,6 +214,7 @@ function buildPageResponseConfig<T extends keyof BlockSuitePresets.AIActions>(
         },
         {
           name: 'Regenerate',
+          label: I18n['com.affine.ai.response.regenerate'],
           icon: ResetIcon(),
           testId: 'answer-regenerate',
           handler: () => {
@@ -215,6 +224,7 @@ function buildPageResponseConfig<T extends keyof BlockSuitePresets.AIActions>(
         },
         {
           name: 'Discard',
+          label: I18n['com.affine.ai.response.discard'],
           icon: DeleteIcon(),
           testId: 'answer-discard',
           handler: () => {
@@ -233,6 +243,7 @@ export function buildErrorResponseConfig(panel: AffineAIPanelWidget) {
       items: [
         {
           name: 'Retry',
+          label: I18n['com.affine.ai.error.retry'],
           icon: ResetIcon(),
           testId: 'error-retry',
           showWhen: () => true,
@@ -243,6 +254,7 @@ export function buildErrorResponseConfig(panel: AffineAIPanelWidget) {
         },
         {
           name: 'Discard',
+          label: I18n['com.affine.ai.response.discard'],
           icon: DeleteIcon(),
           testId: 'error-discard',
           showWhen: () => !!panel.answer,

@@ -16,9 +16,8 @@ export function registerAffineLanguageCommands({
   const disposables = i18n.languageList.map(language => {
     return registerAffineCommand({
       id: `affine:change-display-language-to-${language.name}`,
-      label: `${t['com.affine.cmdk.affine.display-language.to']()} ${
-        language.originalName
-      }`,
+      label: () =>
+        `${t['com.affine.cmdk.affine.display-language.to']()} ${language.originalName}`,
       category: 'affine:settings',
       icon: <SettingsIcon />,
       preconditionStrategy: () =>

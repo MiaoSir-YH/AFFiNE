@@ -1,5 +1,6 @@
 import { CopilotAccessService } from './access';
 import { ByokEntitlementPolicy, WorkspaceByokResolver } from './byok';
+import { ChatGPTSubscription } from './chatgpt/subscription';
 import { HistoryAttachmentUrlProjector } from './compat/history-attachment-url-projector';
 import { CompatHistoryProjector } from './compat/history-projector';
 import { HistoryPromptPreloadProjector } from './compat/history-prompt-preload-projector';
@@ -57,6 +58,7 @@ import {
 export const COPILOT_PROVIDER_PROVIDERS: [] = [];
 
 export const COPILOT_RUNTIME_PROVIDERS = [
+  ChatGPTSubscription,
   CopilotAccessService,
   ByokEntitlementPolicy,
   ChatSessionService,

@@ -1,9 +1,20 @@
+import { apis } from '@affine/electron-api';
 import { getCopilotRouteOptionsQuery } from '@affine/graphql';
 import { signal } from '@preact/signals-core';
 import { Service } from '@toeverything/infra';
 
-import type { GraphQLService, SubscriptionService } from '../../cloud';
+import type {
+  FetchService,
+  GraphQLService,
+  ServerService,
+  SubscriptionService,
+} from '../../cloud';
 import type { GlobalStateService } from '../../storage';
+import type { UrlService } from '../../url';
+import {
+  ChatGPTSubscriptionClient,
+  isLocalSubscriptionServer,
+} from './chatgpt-subscription';
 
 const ROUTE_TARGET_KEY = 'AIManagedRouteTarget';
 
@@ -18,6 +29,8 @@ export interface AIModel {
 export class AIModelService extends Service {
   readonly modelId = signal<string | undefined>(undefined);
   readonly models = signal<AIModel[]>([]);
+  readonly chatGPT?: ChatGPTSubscriptionClient;
+  readonly desktopGateway = signal<{ model: string; effort?: string }>();
 
   private workspaceId: string | undefined;
   private routeId: string | undefined;
@@ -26,9 +39,27 @@ export class AIModelService extends Service {
   constructor(
     private readonly globalStateService: GlobalStateService,
     private readonly gqlService: GraphQLService,
-    subscriptionService: SubscriptionService
+    subscriptionService: SubscriptionService,
+    fetchService?: FetchService,
+    serverService?: ServerService,
+    urlService?: UrlService
   ) {
     super();
+    const desktop = BUILD_CONFIG.isElectron ? apis?.desktopAI : undefined;
+    if (
+      fetchService &&
+      serverService &&
+      urlService &&
+      (desktop || isLocalSubscriptionServer(serverService.server.baseUrl))
+    ) {
+      const chatGPT = new ChatGPTSubscriptionClient(
+        fetchService,
+        urlService,
+        desktop
+      );
+      this.chatGPT = chatGPT;
+      this.disposables.push(() => chatGPT.dispose());
+    }
     const subscription = subscriptionService.subscription.ai$.subscribe(() => {
       if (this.workspaceId && this.routeId) {
         this.load(this.workspaceId, this.routeId).catch(console.error);
@@ -44,6 +75,17 @@ export class AIModelService extends Service {
     this.models.value = [];
     this.modelId.value = undefined;
     this.load(workspaceId, routeId).catch(console.error);
+    this.chatGPT?.refresh().catch(console.error);
+    this.refreshDesktopRoute().catch(console.error);
+  }
+
+  async refreshDesktopRoute() {
+    const desktop = BUILD_CONFIG.isElectron ? apis?.desktopAI : undefined;
+    if (desktop) {
+      const status = await desktop.status();
+      this.desktopGateway.value =
+        status.mode === 'gateway' ? status.gateway : undefined;
+    }
   }
 
   resetModel() {

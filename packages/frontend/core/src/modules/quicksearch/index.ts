@@ -8,6 +8,7 @@ import { DocDisplayMetaService } from '../doc-display-meta';
 import { DocsSearchService } from '../docs-search';
 import { FeatureFlagService } from '../feature-flag';
 import { GlobalContextService } from '../global-context';
+import { I18nService } from '../i18n';
 import { JournalService } from '../journal';
 import { TagService } from '../tag';
 import { WorkbenchService } from '../workbench';
@@ -55,7 +56,7 @@ export function configureQuickSearchModule(framework: Framework) {
     ])
     .service(RecentDocsService, [WorkspaceLocalState, DocsService])
     .entity(QuickSearch)
-    .entity(CommandsQuickSearchSession, [GlobalContextService])
+    .entity(CommandsQuickSearchSession, [GlobalContextService, I18nService])
     .entity(DocsQuickSearchSession, [
       WorkspaceService,
       WorkspaceServerService,

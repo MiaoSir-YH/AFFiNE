@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import {
   EdgelessClipboardController,
   splitElements,
@@ -34,6 +35,12 @@ import {
   MakeItRealIconWithAnimation,
 } from '../../_common/icons';
 import {
+  imageFilterLabels,
+  imageProcessingLabels,
+  languageLabels,
+  toneLabels,
+} from '../../_common/menu-labels';
+import {
   actionToHandler,
   imageOnlyShowWhen,
   mindmapChildShowWhen,
@@ -65,6 +72,7 @@ import {
 const translateSubItem = translateLangs.map(lang => {
   return {
     type: lang,
+    label: languageLabels[lang],
     testId: `action-translate-${lang}`,
     handler: actionToHandler('translate', AIStarIconWithAnimation, { lang }),
   };
@@ -73,6 +81,7 @@ const translateSubItem = translateLangs.map(lang => {
 const toneSubItem = textTones.map(tone => {
   return {
     type: tone,
+    label: toneLabels[tone],
     testId: `action-change-tone-${tone.toLowerCase()}`,
     handler: actionToHandler('changeTone', AIStarIconWithAnimation, { tone }),
   };
@@ -81,6 +90,7 @@ const toneSubItem = textTones.map(tone => {
 export const imageFilterSubItem = imageFilterStyles.map(style => {
   return {
     type: style,
+    label: imageFilterLabels[style],
     testId: `action-image-filter-${style.toLowerCase().replace(' ', '-')}`,
     handler: actionToHandler(
       'filterImage',
@@ -96,6 +106,7 @@ export const imageFilterSubItem = imageFilterStyles.map(style => {
 export const imageProcessingSubItem = imageProcessingTypes.map(type => {
   return {
     type,
+    label: imageProcessingLabels[type],
     testId: `action-image-processing-${type.toLowerCase().replace(' ', '-')}`,
     handler: actionToHandler(
       'processImage',
@@ -110,9 +121,11 @@ export const imageProcessingSubItem = imageProcessingTypes.map(type => {
 
 const othersGroup: AIItemGroupConfig = {
   name: 'others',
+  label: I18n['com.affine.ai.menu.group.others'],
   items: [
     {
       name: 'Continue in AI Chat',
+      label: I18n['com.affine.ai.menu.action.continue-in-chat'],
       testId: 'action-continue-with-ai',
       icon: CommentIcon({ width: '20px', height: '20px' }),
       showWhen: () => true,
@@ -138,9 +151,11 @@ const othersGroup: AIItemGroupConfig = {
 
 const editTextGroup: AIItemGroupConfig = {
   name: 'edit text',
+  label: I18n['com.affine.ai.menu.group.edit-text'],
   items: [
     {
       name: 'Translate to',
+      label: I18n['com.affine.ai.menu.action.translate'],
       testId: 'action-translate',
       icon: LanguageIcon(),
       showWhen: noteBlockOrTextShowWhen,
@@ -148,6 +163,7 @@ const editTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Change tone to',
+      label: I18n['com.affine.ai.menu.action.change-tone'],
       testId: 'action-change-tone',
       icon: ToneIcon(),
       showWhen: noteBlockOrTextShowWhen,
@@ -155,6 +171,7 @@ const editTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Improve writing',
+      label: I18n['com.affine.ai.menu.action.improve-writing'],
       testId: 'action-improve-writing',
       icon: ImproveWritingIcon(),
       showWhen: noteBlockOrTextShowWhen,
@@ -163,6 +180,7 @@ const editTextGroup: AIItemGroupConfig = {
 
     {
       name: 'Make it longer',
+      label: I18n['com.affine.ai.menu.action.make-longer'],
       testId: 'action-make-it-longer',
       icon: LongerIcon(),
       showWhen: noteBlockOrTextShowWhen,
@@ -170,6 +188,7 @@ const editTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Make it shorter',
+      label: I18n['com.affine.ai.menu.action.make-shorter'],
       testId: 'action-make-it-shorter',
       icon: ShorterIcon(),
       showWhen: noteBlockOrTextShowWhen,
@@ -177,6 +196,7 @@ const editTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Continue writing',
+      label: I18n['com.affine.ai.menu.action.continue-writing'],
       testId: 'action-continue-writing',
       icon: PenIcon(),
       showWhen: noteBlockOrTextShowWhen,
@@ -187,9 +207,11 @@ const editTextGroup: AIItemGroupConfig = {
 
 const draftFromTextGroup: AIItemGroupConfig = {
   name: 'draft from text',
+  label: I18n['com.affine.ai.menu.group.draft-from-text'],
   items: [
     {
       name: 'Write an article about this',
+      label: I18n['com.affine.ai.menu.action.write-article'],
       testId: 'action-write-article',
       icon: PenIcon(),
       showWhen: noteBlockOrTextShowWhen,
@@ -197,6 +219,7 @@ const draftFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Write a tweet about this',
+      label: I18n['com.affine.ai.menu.action.write-tweet'],
       testId: 'action-write-twitter-post',
       icon: PenIcon(),
       showWhen: noteBlockOrTextShowWhen,
@@ -204,6 +227,7 @@ const draftFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Write a poem about this',
+      label: I18n['com.affine.ai.menu.action.write-poem'],
       testId: 'action-write-poem',
       icon: PenIcon(),
       showWhen: noteBlockOrTextShowWhen,
@@ -211,6 +235,7 @@ const draftFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Write a blog post about this',
+      label: I18n['com.affine.ai.menu.action.write-blog-post'],
       testId: 'action-write-blog-post',
       icon: PenIcon(),
       showWhen: noteBlockOrTextShowWhen,
@@ -218,6 +243,7 @@ const draftFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Brainstorm ideas about this',
+      label: I18n['com.affine.ai.menu.action.brainstorm'],
       testId: 'action-brainstorm',
       icon: PenIcon(),
       showWhen: noteBlockOrTextShowWhen,
@@ -228,9 +254,11 @@ const draftFromTextGroup: AIItemGroupConfig = {
 
 const reviewImageGroup: AIItemGroupConfig = {
   name: 'review image',
+  label: I18n['com.affine.ai.menu.group.review-image'],
   items: [
     {
       name: 'Explain this image',
+      label: I18n['com.affine.ai.menu.action.explain-image'],
       icon: PenIcon(),
       testId: 'action-explain-image',
       showWhen: imageOnlyShowWhen,
@@ -246,9 +274,11 @@ const reviewImageGroup: AIItemGroupConfig = {
 
 const reviewCodeGroup: AIItemGroupConfig = {
   name: 'review code',
+  label: I18n['com.affine.ai.menu.group.review-code'],
   items: [
     {
       name: 'Explain this code',
+      label: I18n['com.affine.ai.menu.action.explain-code'],
       icon: ExplainIcon(),
       testId: 'action-explain-code',
       showWhen: noteWithCodeBlockShowWen,
@@ -256,6 +286,7 @@ const reviewCodeGroup: AIItemGroupConfig = {
     },
     {
       name: 'Check code error',
+      label: I18n['com.affine.ai.menu.action.check-code'],
       icon: ExplainIcon(),
       testId: 'action-check-code-error',
       showWhen: noteWithCodeBlockShowWen,
@@ -266,9 +297,11 @@ const reviewCodeGroup: AIItemGroupConfig = {
 
 const reviewTextGroup: AIItemGroupConfig = {
   name: 'review text',
+  label: I18n['com.affine.ai.menu.group.review-text'],
   items: [
     {
       name: 'Fix spelling',
+      label: I18n['com.affine.ai.menu.action.fix-spelling'],
       icon: PenIcon(),
       testId: 'action-fix-spelling',
       showWhen: noteBlockOrTextShowWhen,
@@ -276,6 +309,7 @@ const reviewTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Fix grammar',
+      label: I18n['com.affine.ai.menu.action.fix-grammar'],
       icon: PenIcon(),
       testId: 'action-fix-grammar',
       showWhen: noteBlockOrTextShowWhen,
@@ -284,6 +318,7 @@ const reviewTextGroup: AIItemGroupConfig = {
 
     {
       name: 'Explain selection',
+      label: I18n['com.affine.ai.menu.action.explain-selection'],
       icon: SelectionIcon({ width: '20px', height: '20px' }),
       testId: 'action-explain-selection',
       showWhen: noteBlockOrTextShowWhen,
@@ -294,9 +329,11 @@ const reviewTextGroup: AIItemGroupConfig = {
 
 const generateFromTextGroup: AIItemGroupConfig = {
   name: 'generate from text',
+  label: I18n['com.affine.ai.menu.group.generate-from-text'],
   items: [
     {
       name: 'Summarize',
+      label: I18n['com.affine.ai.menu.action.summarize'],
       icon: PenIcon(),
       testId: 'action-summarize',
       showWhen: noteBlockOrTextShowWhen,
@@ -304,6 +341,7 @@ const generateFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Generate headings',
+      label: I18n['com.affine.ai.menu.action.generate-headings'],
       icon: PenIcon(),
       testId: 'action-generate-headings',
       showWhen: noteBlockOrTextShowWhen,
@@ -312,6 +350,7 @@ const generateFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Generate outline',
+      label: I18n['com.affine.ai.menu.action.generate-outline'],
       icon: PenIcon(),
       testId: 'action-generate-outline',
       showWhen: noteBlockOrTextShowWhen,
@@ -319,6 +358,7 @@ const generateFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Generate an image',
+      label: I18n['com.affine.ai.menu.action.generate-image'],
       icon: ImageIcon(),
       testId: 'action-generate-image',
       showWhen: notAllAIChatBlockShowWhen,
@@ -394,6 +434,7 @@ const generateFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Expand from this mind map node',
+      label: I18n['com.affine.ai.menu.action.expand-mind-map-node'],
       icon: MindmapNodeIcon(),
       testId: 'action-expand-mindmap-node',
       showWhen: mindmapChildShowWhen,
@@ -420,6 +461,7 @@ const generateFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Brainstorm ideas with mind map',
+      label: I18n['com.affine.ai.menu.action.brainstorm-mind-map'],
       icon: MindmapIcon(),
       testId: 'action-brainstorm-mindmap',
       showWhen: noteBlockOrTextShowWhen,
@@ -427,6 +469,7 @@ const generateFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Regenerate mind map',
+      label: I18n['com.affine.ai.menu.action.regenerate-mind-map'],
       icon: MindmapIcon(),
       testId: 'action-regenerate-mindmap',
       showWhen: mindmapRootShowWhen,
@@ -440,6 +483,7 @@ const generateFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Generate presentation',
+      label: I18n['com.affine.ai.menu.action.generate-presentation'],
       icon: PresentationIcon(),
       testId: 'action-generate-presentation',
       showWhen: noteBlockOrTextShowWhen,
@@ -448,6 +492,7 @@ const generateFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Make it real',
+      label: I18n['com.affine.ai.menu.action.make-it-real'],
       icon: MakeItRealIcon({ width: '20px', height: '20px' }),
       testId: 'action-make-it-real',
       beta: true,
@@ -530,6 +575,7 @@ const generateFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'AI image filter',
+      label: I18n['com.affine.ai.menu.action.image-filter'],
       icon: PenIcon(),
       testId: 'action-ai-image-filter',
       showWhen: imageOnlyShowWhen,
@@ -539,6 +585,7 @@ const generateFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Image processing',
+      label: I18n['com.affine.ai.menu.action.image-processing'],
       icon: ImageIcon(),
       testId: 'action-image-processing',
       showWhen: imageOnlyShowWhen,
@@ -548,6 +595,7 @@ const generateFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Generate a caption',
+      label: I18n['com.affine.ai.menu.action.generate-caption'],
       icon: PenIcon(),
       testId: 'action-generate-caption',
       showWhen: imageOnlyShowWhen,
@@ -561,6 +609,7 @@ const generateFromTextGroup: AIItemGroupConfig = {
     },
     {
       name: 'Find actions',
+      label: I18n['com.affine.ai.menu.action.find-actions'],
       icon: SearchIcon(),
       testId: 'action-find-actions',
       showWhen: noteBlockOrTextShowWhen,

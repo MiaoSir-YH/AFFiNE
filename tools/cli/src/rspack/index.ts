@@ -580,6 +580,7 @@ export function createNodeTargetConfig(
         data.request &&
         // import ... from 'module'
         /^[a-zA-Z@]/.test(data.request) &&
+        !path.isAbsolute(data.request) &&
         !options.bundleAllDependencies &&
         // not workspace deps
         !pkg.deps.some(dep => data.request!.startsWith(dep.name))

@@ -38,7 +38,8 @@ export class ActionStreamHost {
     userId: string,
     sessionId: string,
     query: Record<string, string | string[]>,
-    signal?: AbortSignal
+    signal?: AbortSignal,
+    allowChatGPTSubscription = false
   ): Promise<{
     messageId?: string;
     actionId: string;
@@ -117,6 +118,7 @@ export class ActionStreamHost {
           session: sessionId,
           byokLeaseId: parsedQuery.byokLeaseId,
           managedTargetId: parsedQuery.routeTargetId,
+          allowChatGPTSubscription: allowChatGPTSubscription && !producesImage,
           quotaBackedRoutesAllowed: prepared.quotaBackedRoutesAllowed,
           featureKind: producesImage ? 'image' : 'action',
         },

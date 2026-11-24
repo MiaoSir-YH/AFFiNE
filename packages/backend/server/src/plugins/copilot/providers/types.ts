@@ -230,6 +230,7 @@ const CopilotProviderOptionsSchema = z.object({
   actionId: z.string().optional(),
   builtInRouteId: z.string().optional(),
   managedTargetId: z.string().optional(),
+  allowChatGPTSubscription: z.boolean().optional(),
   quotaBackedRoutesAllowed: z.boolean().optional(),
   featureKind: z
     .enum([

@@ -1,0 +1,99 @@
+name: AFFiNE Windows Desktop Installer
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [windows-desktop-provider]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-desktop-installer-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  BUILD_TYPE: stable
+  AFFINE_UNSIGNED_PACKAGE: '1'
+
+jobs:
+  renderer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-node
+        with:
+          electron-install: false
+          corepack-install: true
+          extra-flags: workspaces focus @affine/monorepo @affine/electron-renderer
+      - name: Build Electron renderer
+        run: node tools/cli/bin/runner.js affine.ts bundle -p @affine/electron-renderer
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-desktop-renderer
+          path: packages/frontend/apps/electron-renderer/dist
+          if-no-files-found: error
+
+  installer:
+    needs: renderer
+    runs-on: windows-latest
+    timeout-minutes: 80
+    env:
+      CARGO_PROFILE_RELEASE_DEBUG: '0'
+      CARGO_PROFILE_RELEASE_LTO: thin
+      CARGO_PROFILE_RELEASE_CODEGEN_UNITS: '16'
+      SKIP_GENERATE_ASSETS: '1'
+      SKIP_WEB_BUILD: '1'
+    steps:
+      - uses: actions/checkout@v7
+      - name: Set Windows Rust directory
+        shell: pwsh
+        run: |
+          Add-Content -Path $env:GITHUB_ENV -Value "DEV_DRIVE=$env:RUNNER_TEMP"
+      - uses: ./.github/actions/setup-node
+        with:
+          corepack-install: true
+          hard-link-nm: false
+          nmHoistingLimits: workspaces
+          extra-flags: workspaces focus @affine/electron @affine/monorepo @affine/nbstore @toeverything/infra
+      - uses: ./.github/actions/build-rust
+        with:
+          target: x86_64-pc-windows-msvc
+          package: '@affine/native'
+          cache-key: windows-desktop-provider
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows-desktop-renderer
+          path: packages/frontend/apps/electron/resources/web-static
+      - name: Build Electron main and preload
+        run: yarn workspace @affine/electron build
+      - name: Package AFFiNE Electron for Windows x64
+        shell: pwsh
+        env:
+          HOIST_NODE_MODULES: '1'
+        run: |
+          $loader = [Uri]::new((Resolve-Path 'tools/cli/tsx-register.js').Path).AbsoluteUri
+          $env:NODE_OPTIONS = "--max-old-space-size=6144 --import=$loader"
+          yarn workspace @affine/electron package --platform=win32 --arch=x64
+      - name: Build AFFiNE NSIS installer
+        shell: pwsh
+        run: yarn workspace @affine/electron make-nsis --platform=win32 --arch=x64
+      - name: Verify installer and calculate SHA-256
+        shell: pwsh
+        run: |
+          $output = 'packages/frontend/apps/electron/out/stable/make/nsis.windows/x64'
+          $installers = @(Get-ChildItem -LiteralPath $output -Filter '*.exe' -File)
+          if ($installers.Count -ne 1) { throw 'Expected one Windows installer.' }
+          $installer = $installers[0]
+          if ($installer.Length -lt 10MB) { throw 'The installer appears incomplete.' }
+          $hash = (Get-FileHash -LiteralPath $installer.FullName).Hash.ToLowerInvariant()
+          "$hash  $($installer.Name)" | Set-Content -Encoding ascii -LiteralPath "$($installer.FullName).sha256"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AFFiNE-Windows-x64-Setup
+          path: |
+            packages/frontend/apps/electron/out/stable/make/nsis.windows/x64/*.exe
+            packages/frontend/apps/electron/out/stable/make/nsis.windows/x64/*.sha256
+          compression-level: 0
+          if-no-files-found: error

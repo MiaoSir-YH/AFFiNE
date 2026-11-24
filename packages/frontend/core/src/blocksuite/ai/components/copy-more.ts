@@ -1,4 +1,5 @@
 import type { CopilotChatHistoryFragment } from '@affine/graphql';
+import { I18n } from '@affine/i18n';
 import { Tooltip } from '@blocksuite/affine/components/tooltip';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import { noop } from '@blocksuite/affine/global/utils';
@@ -203,7 +204,9 @@ export class ChatCopyMore extends WithDisposable(LitElement) {
                 data-testid="action-retry-button"
               >
                 ${ResetIcon({ width: '20px', height: '20px' })}
-                <affine-tooltip .autoShift=${true}>Retry</affine-tooltip>
+                <affine-tooltip .autoShift=${true}
+                  >${I18n['com.affine.ai.error.retry']()}</affine-tooltip
+                >
               </div>`
             : nothing
         }

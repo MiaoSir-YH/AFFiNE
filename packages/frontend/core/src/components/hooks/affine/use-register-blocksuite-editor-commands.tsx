@@ -138,7 +138,7 @@ export function useRegisterBlocksuiteEditorCommands(
           PreconditionStrategy.InPaperOrEdgeless && !trash,
         category: `editor:${mode}`,
         icon: mode === 'page' ? <PageIcon /> : <EdgelessIcon />,
-        label: t['com.affine.page-properties.page-info.view'](),
+        label: () => t['com.affine.page-properties.page-info.view'](),
         run() {
           track.$.cmdk.docInfo.open();
 
@@ -153,9 +153,10 @@ export function useRegisterBlocksuiteEditorCommands(
         preconditionStrategy,
         category: `editor:${mode}`,
         icon: mode === 'page' ? <PageIcon /> : <EdgelessIcon />,
-        label: favorite
-          ? t['com.affine.favoritePageOperation.remove']()
-          : t['com.affine.favoritePageOperation.add'](),
+        label: () =>
+          favorite
+            ? t['com.affine.favoritePageOperation.remove']()
+            : t['com.affine.favoritePageOperation.add'](),
         run() {
           favAdapter.toggle(docId, 'doc');
           track.$.cmdk.editor.toggleFavorite();
@@ -177,11 +178,8 @@ export function useRegisterBlocksuiteEditorCommands(
         preconditionStrategy,
         category: `editor:${mode}`,
         icon: mode === 'page' ? <PageIcon /> : <EdgelessIcon />,
-        label: `${t['Convert to ']()}${
-          mode === 'page'
-            ? t['com.affine.pageMode.edgeless']()
-            : t['com.affine.pageMode.page']()
-        }`,
+        label: () =>
+          `${t['Convert to ']()}${mode === 'page' ? t['com.affine.pageMode.edgeless']() : t['com.affine.pageMode.page']()}`,
         run() {
           track.$.cmdk.editor.switchPageMode({
             mode: mode === 'page' ? 'edgeless' : 'page',
@@ -203,9 +201,12 @@ export function useRegisterBlocksuiteEditorCommands(
         preconditionStrategy: () => mode === 'page',
         category: `editor:page`,
         icon: <PageIcon />,
-        label: checked
-          ? t['com.affine.cmdk.affine.current-page-width-layout.standard']()
-          : t['com.affine.cmdk.affine.current-page-width-layout.full-width'](),
+        label: () =>
+          checked
+            ? t['com.affine.cmdk.affine.current-page-width-layout.standard']()
+            : t[
+                'com.affine.cmdk.affine.current-page-width-layout.full-width'
+              ](),
         async run() {
           const canEdit = await guardService.can('Doc_Update', docId);
           if (!canEdit) {
@@ -227,7 +228,7 @@ export function useRegisterBlocksuiteEditorCommands(
         preconditionStrategy,
         category: `editor:${mode}`,
         icon: mode === 'page' ? <PageIcon /> : <EdgelessIcon />,
-        label: t['com.affine.header.option.duplicate'](),
+        label: () => t['com.affine.header.option.duplicate'](),
         run() {
           duplicate(docId);
           track.$.cmdk.editor.createDoc({
@@ -243,7 +244,7 @@ export function useRegisterBlocksuiteEditorCommands(
         preconditionStrategy,
         category: `editor:${mode}`,
         icon: mode === 'page' ? <PageIcon /> : <EdgelessIcon />,
-        label: t['Export to HTML'](),
+        label: () => t['Export to HTML'](),
         async run() {
           track.$.cmdk.editor.export({
             type: 'html',
@@ -260,7 +261,7 @@ export function useRegisterBlocksuiteEditorCommands(
         preconditionStrategy: () => mode === 'page' && !trash,
         category: `editor:${mode}`,
         icon: mode === 'page' ? <PageIcon /> : <EdgelessIcon />,
-        label: t['Export to PNG'](),
+        label: () => t['Export to PNG'](),
         async run() {
           track.$.cmdk.editor.export({
             type: 'png',
@@ -277,7 +278,7 @@ export function useRegisterBlocksuiteEditorCommands(
         preconditionStrategy,
         category: `editor:${mode}`,
         icon: mode === 'page' ? <PageIcon /> : <EdgelessIcon />,
-        label: t['Export to Markdown'](),
+        label: () => t['Export to Markdown'](),
         async run() {
           track.$.cmdk.editor.export({
             type: 'markdown',
@@ -294,7 +295,7 @@ export function useRegisterBlocksuiteEditorCommands(
         preconditionStrategy,
         category: `editor:${mode}`,
         icon: mode === 'page' ? <PageIcon /> : <EdgelessIcon />,
-        label: t['Export to Snapshot'](),
+        label: () => t['com.affine.cmdk.affine.editor.export-snapshot'](),
         async run() {
           track.$.cmdk.editor.export({
             type: 'snapshot',
@@ -311,7 +312,7 @@ export function useRegisterBlocksuiteEditorCommands(
         preconditionStrategy,
         category: `editor:${mode}`,
         icon: mode === 'page' ? <PageIcon /> : <EdgelessIcon />,
-        label: t['com.affine.moveToTrash.title'](),
+        label: () => t['com.affine.moveToTrash.title'](),
         run() {
           track.$.cmdk.editor.deleteDoc();
 
@@ -327,7 +328,7 @@ export function useRegisterBlocksuiteEditorCommands(
           PreconditionStrategy.InPaperOrEdgeless && trash,
         category: `editor:${mode}`,
         icon: mode === 'page' ? <PageIcon /> : <EdgelessIcon />,
-        label: t['com.affine.cmdk.affine.editor.restore-from-trash'](),
+        label: () => t['com.affine.cmdk.affine.editor.restore-from-trash'](),
         async run() {
           const canRestore = await guardService.can('Doc_Restore', docId);
           if (!canRestore) {
@@ -347,7 +348,8 @@ export function useRegisterBlocksuiteEditorCommands(
           id: `editor:${mode}-page-history`,
           category: `editor:${mode}`,
           icon: <HistoryIcon />,
-          label: t['com.affine.cmdk.affine.editor.reveal-page-history-modal'](),
+          label: () =>
+            t['com.affine.cmdk.affine.editor.reveal-page-history-modal'](),
           run() {
             track.$.cmdk.docHistory.open();
 
@@ -363,7 +365,7 @@ export function useRegisterBlocksuiteEditorCommands(
           id: 'editor:open-in-app',
           category: `editor:${mode}`,
           icon: <LocalWorkspaceIcon />,
-          label: t['com.affine.header.option.open-in-desktop'](),
+          label: () => t['com.affine.header.option.open-in-desktop'](),
           run() {
             openInAppService?.showOpenInAppPage();
           },

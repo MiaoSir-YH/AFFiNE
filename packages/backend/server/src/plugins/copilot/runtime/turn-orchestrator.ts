@@ -37,6 +37,7 @@ export class TurnOrchestrator {
     query: Record<string, string | string[]>,
     selection: {
       responseMode: 'text' | 'object' | 'image';
+      allowChatGPTSubscription?: boolean;
     }
   ) {
     const prepared = await this.conversations.prepareTurn(
@@ -81,6 +82,7 @@ export class TurnOrchestrator {
           billingUnitId: prepared.latestTurn?.id,
           builtInRouteId: prepared.session.config.promptName,
           managedTargetId: routeTargetId,
+          allowChatGPTSubscription: selection.allowChatGPTSubscription,
           quotaBackedRoutesAllowed: prepared.quotaBackedRoutesAllowed,
           retrievalScope: prepared.latestTurn?.scopeSnapshot?.retrieval,
           featureKind:
@@ -105,11 +107,13 @@ export class TurnOrchestrator {
     sessionId: string,
     query: Record<string, string | string[]>,
     signal?: AbortSignal,
-    wasAborted: () => boolean = () => false
+    wasAborted: () => boolean = () => false,
+    allowChatGPTSubscription = false
   ) {
     const { prepared, finalMessage, selection } =
       await this.prepareChatSelection(userId, sessionId, query, {
         responseMode: 'text',
+        allowChatGPTSubscription,
       });
 
     const stream = this.streamTextResult(
@@ -155,11 +159,13 @@ export class TurnOrchestrator {
     sessionId: string,
     query: Record<string, string | string[]>,
     signal?: AbortSignal,
-    wasAborted: () => boolean = () => false
+    wasAborted: () => boolean = () => false,
+    allowChatGPTSubscription = false
   ) {
     const { prepared, finalMessage, selection } =
       await this.prepareChatSelection(userId, sessionId, query, {
         responseMode: 'object',
+        allowChatGPTSubscription,
       });
 
     return {

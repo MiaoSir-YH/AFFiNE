@@ -1,5 +1,6 @@
 import { shallowEqual } from '@affine/component';
 import type { TranscriptionBlockProps } from '@affine/core/blocksuite/ai/blocks/transcription-block/model';
+import { desktopAI } from '@affine/core/blocksuite/ai/runtime/request/desktop-copilot';
 import { RealtimeLiveQuery } from '@affine/core/modules/cloud/realtime/live-query';
 import { DebugLogger } from '@affine/debug';
 import { UserFriendlyError } from '@affine/error';
@@ -142,6 +143,22 @@ export class AudioTranscriptionJob extends Entity<{
     }
 
     try {
+      const desktop = desktopAI();
+      if (desktop && (await desktop.status()).mode !== 'affine') {
+        this._status$.value = { status: 'started' };
+        const { files } = await this.props.getAudioTranscriptionInput();
+        const result = await desktop.transcribe(
+          await Promise.all(
+            files.map(async file => ({
+              bytes: new Uint8Array(await file.arrayBuffer()),
+              name: file.name,
+              type: file.type,
+            }))
+          )
+        );
+        if (!this.disposed) this._status$.value = { status: 'settled', result };
+        return this.status$.value;
+      }
       // firstly check if there is a job already
       logger.debug('Checking for existing transcription job', {
         blobId: this.props.blobId,

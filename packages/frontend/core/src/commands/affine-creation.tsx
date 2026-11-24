@@ -21,7 +21,7 @@ export function registerAffineCreationCommands({
     registerAffineCommand({
       id: 'affine:new-page',
       category: 'affine:creation',
-      label: t['com.affine.cmdk.affine.new-page'](),
+      label: () => t['com.affine.cmdk.affine.new-page'](),
       icon: <PlusIcon />,
       keyBinding: BUILD_CONFIG.isElectron
         ? {
@@ -42,7 +42,7 @@ export function registerAffineCreationCommands({
       id: 'affine:new-edgeless-page',
       category: 'affine:creation',
       icon: <PlusIcon />,
-      label: t['com.affine.cmdk.affine.new-edgeless-page'](),
+      label: () => t['com.affine.cmdk.affine.new-edgeless-page'](),
       run() {
         track.$.cmdk.creation.createDoc({
           mode: 'edgeless',
@@ -59,7 +59,7 @@ export function registerAffineCreationCommands({
         id: 'affine:new-workspace',
         category: 'affine:creation',
         icon: <PlusIcon />,
-        label: t['com.affine.cmdk.affine.new-workspace'](),
+        label: () => t['com.affine.cmdk.affine.new-workspace'](),
         run() {
           track.$.cmdk.workspace.createWorkspace();
 
@@ -73,7 +73,7 @@ export function registerAffineCreationCommands({
       id: 'affine:import-workspace',
       category: 'affine:creation',
       icon: <ImportIcon />,
-      label: t['com.affine.cmdk.affine.import-workspace'](),
+      label: () => t['com.affine.cmdk.affine.import-workspace'](),
       preconditionStrategy: () => {
         return BUILD_CONFIG.isElectron;
       },

@@ -9,6 +9,7 @@ import type {
 } from '@affine/core/modules/cloud';
 import type { FeatureFlagService } from '@affine/core/modules/feature-flag';
 import type { CopilotChatHistoryFragment } from '@affine/graphql';
+import { getOrCreateI18n, I18n } from '@affine/i18n';
 import track, { type EventArgs } from '@affine/track';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
@@ -446,6 +447,11 @@ export class AIChatInput extends SignalWatcher(
   override connectedCallback() {
     super.connectedCallback();
 
+    const i18n = getOrCreateI18n();
+    const update = () => this.requestUpdate();
+    i18n.on('languageChanged', update);
+    this._disposables.add(() => i18n.off('languageChanged', update));
+
     this._disposables.add(
       AIAppEvents.requestSendWithChat.subscribe(
         (params: AISendParams | null) => {
@@ -625,7 +631,7 @@ export class AIChatInput extends SignalWatcher(
       }
       <textarea
         rows="1"
-        placeholder="What are your thoughts?"
+        placeholder=${I18n['com.affine.ai.menu.input-placeholder']()}
         @input=${this._handleInput}
         @keydown=${this._handleKeyDown}
         @focus=${() => {
@@ -687,7 +693,11 @@ export class AIChatInput extends SignalWatcher(
   }
 
   private get isSendDisabled() {
-    if (this.isPreparing || this.isInputEmpty) {
+    if (
+      this.isPreparing ||
+      this.isInputEmpty ||
+      this.aiModelService?.chatGPT?.changingPreference.value
+    ) {
       return true;
     }
 

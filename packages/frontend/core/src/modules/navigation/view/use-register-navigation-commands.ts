@@ -2,6 +2,7 @@ import {
   PreconditionStrategy,
   registerAffineCommand,
 } from '@affine/core/commands';
+import { I18n } from '@affine/i18n';
 import { track } from '@affine/track';
 import { useService } from '@toeverything/infra';
 import { useEffect } from 'react';
@@ -19,7 +20,7 @@ export function useRegisterNavigationCommands() {
         category: 'affine:general',
         preconditionStrategy: PreconditionStrategy.Never,
         icon: 'none',
-        label: 'go back',
+        label: () => I18n['com.affine.keyboardShortcuts.goBack'](),
         keyBinding: {
           binding: '$mod+[',
         },
@@ -36,7 +37,7 @@ export function useRegisterNavigationCommands() {
         category: 'affine:general',
         preconditionStrategy: PreconditionStrategy.Never,
         icon: 'none',
-        label: 'go forward',
+        label: () => I18n['com.affine.keyboardShortcuts.goForward'](),
         keyBinding: {
           binding: '$mod+]',
         },

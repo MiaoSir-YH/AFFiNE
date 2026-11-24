@@ -2,6 +2,7 @@ import { notify } from '@affine/component';
 import { DebugLogger } from '@affine/debug';
 import {
   getOrCreateI18n,
+  I18n as translate,
   i18nCompletenesses,
   type Language,
   SUPPORTED_LANGUAGES,
@@ -72,6 +73,10 @@ export class I18n extends Entity {
     document.documentElement.dir = SUPPORTED_LANGUAGES[language]?.rtl
       ? 'rtl'
       : 'ltr';
+    document.documentElement.style.setProperty(
+      '--affine-doc-title-placeholder',
+      JSON.stringify(this.i18n.t('Title', { lng: language }))
+    );
   }
 
   changeLanguage = effect(
@@ -80,8 +85,9 @@ export class I18n extends Entity {
         catchError(error => {
           notify({
             theme: 'error',
-            title: 'Failed to change language',
-            message: 'Error occurs when loading language files',
+            title: translate['com.affine.language.change-error.title'](),
+            message:
+              translate['com.affine.language.change-error.description'](),
           });
 
           logger.error('Failed to change language', error);

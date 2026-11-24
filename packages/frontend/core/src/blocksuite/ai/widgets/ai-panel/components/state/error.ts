@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import type { EditorHost } from '@blocksuite/affine/std';
 import { baseTheme } from '@toeverything/theme';
@@ -146,14 +147,16 @@ export class AIPanelError extends WithDisposable(LitElement) {
           AIErrorType.Unauthorized,
           () =>
             html` <div class="error-info">
-                You need to login to AFFiNE Cloud to continue using AFFiNE AI.
+                ${I18n['com.affine.ai.login-required.dialog-content']()}
               </div>
               <div class="action-button-group">
                 <div @click=${this.config.cancel} class="action-button">
-                  <span>Cancel</span>
+                  <span>${I18n.Cancel()}</span>
                 </div>
                 <div @click=${this.config.login} class="action-button primary">
-                  <span>Login</span>
+                  <span
+                    >${I18n['com.affine.ai.login-required.dialog-confirm']()}</span
+                  >
                 </div>
               </div>`,
         ],
@@ -161,19 +164,17 @@ export class AIPanelError extends WithDisposable(LitElement) {
           AIErrorType.PaymentRequired,
           () =>
             html` <div class="error-info">
-                You've reached the current usage cap for AFFiNE AI. You can
-                subscribe to AFFiNE AI(with free 7-day-trial) to continue the AI
-                experience!
+                ${I18n['com.affine.ai.error.usage-limit']()}
               </div>
               <div class="action-button-group">
                 <div @click=${this.config.cancel} class="action-button">
-                  <span>Cancel</span>
+                  <span>${I18n.Cancel()}</span>
                 </div>
                 <div
                   @click=${this.config.upgrade}
                   class="action-button primary"
                 >
-                  <span>Upgrade</span>
+                  <span>${I18n['com.affine.payment.upgrade']()}</span>
                 </div>
               </div>`,
         ],
@@ -181,14 +182,15 @@ export class AIPanelError extends WithDisposable(LitElement) {
       // default error handler
       () => {
         const tip = this.config.error?.message;
+        const title = I18n['com.affine.ai.error.generic-title']();
         const error = tip
           ? html`<span class="error-tip">
-              An error occurred
+              ${title}
               <affine-tooltip tip-position="bottom-start">
                 ${tip}
               </affine-tooltip>
             </span>`
-          : 'An error occurred';
+          : title;
         return html`
           <style>
             .error-tip {
@@ -196,8 +198,7 @@ export class AIPanelError extends WithDisposable(LitElement) {
             }
           </style>
           <div class="error-info">
-            ${error}. Please try again later. If this issue persists, please let
-            us know at
+            ${error}${I18n['com.affine.ai.error.generic-help']()}
             <a href="mailto:support@toeverything.info">
               support@toeverything.info
             </a>
@@ -209,7 +210,7 @@ export class AIPanelError extends WithDisposable(LitElement) {
     return html`
       <div class="error" data-testid="ai-error">
         <div class="answer-tip">
-          <div class="answer-label">Answer</div>
+          <div class="answer-label">${I18n['com.affine.ai.answer']()}</div>
           <slot></slot>
         </div>
         ${errorTemplate}

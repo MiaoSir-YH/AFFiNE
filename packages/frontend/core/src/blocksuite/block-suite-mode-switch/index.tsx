@@ -76,7 +76,7 @@ export const EditorModeSwitch = () => {
     return registerAffineCommand({
       id: 'affine:doc-mode-switch',
       category: 'editor:page',
-      label:
+      label: () =>
         currentMode === 'page'
           ? t['com.affine.cmdk.switch-to-edgeless']()
           : t['com.affine.cmdk.switch-to-page'](),

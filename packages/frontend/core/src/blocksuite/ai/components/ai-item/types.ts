@@ -4,12 +4,14 @@ import type { TemplateResult } from 'lit';
 
 export interface AIItemGroupConfig {
   name?: string;
+  label?: () => string;
   testId?: string;
   items: AIItemConfig[];
 }
 
 export interface AIItemConfig {
   name: string;
+  label?: () => string;
   testId: string;
   icon: TemplateResult | (() => HTMLElement);
   showWhen?: (
@@ -25,6 +27,7 @@ export interface AIItemConfig {
 
 export interface AISubItemConfig {
   type: string;
+  label?: () => string;
   testId?: string;
   handler?: (host: EditorHost) => void;
 }

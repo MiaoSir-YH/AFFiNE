@@ -1,3 +1,4 @@
+import { I18n } from '@affine/i18n';
 import { CodeBlockPreviewIdentifier } from '@blocksuite/affine/blocks/code';
 import { addImages } from '@blocksuite/affine/blocks/image';
 import { getSurfaceBlock } from '@blocksuite/affine/blocks/surface';
@@ -83,6 +84,7 @@ export function discard(
 ): AIItemConfig {
   return {
     name: 'Discard',
+    label: I18n['com.affine.ai.response.discard'],
     icon: DeleteIcon(),
     testId: 'answer-discard',
     showWhen: () => !!panel.answer,
@@ -95,6 +97,7 @@ export function discard(
 export function retry(panel: AffineAIPanelWidget): AIItemConfig {
   return {
     name: 'Retry',
+    label: I18n['com.affine.ai.error.retry'],
     icon: ResetIcon(),
     testId: 'answer-retry',
     handler: () => {

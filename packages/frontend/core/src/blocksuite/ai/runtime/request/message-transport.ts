@@ -4,6 +4,7 @@ import { partition } from 'lodash-es';
 import { toTextStream } from '../../provider/event-source';
 import { createWorkspaceByokLocalLease } from './byok-local-lease';
 import { type CopilotClient, Endpoint } from './copilot-client';
+import { isDesktopSession } from './desktop-copilot';
 
 const TIMEOUT = 50000;
 
@@ -174,10 +175,9 @@ export function textToText({
         if (signal?.aborted) {
           return;
         }
-        const byokLeaseId = await createWorkspaceByokLocalLease(
-          client,
-          workspaceId
-        );
+        const byokLeaseId = isDesktopSession(sessionId)
+          ? undefined
+          : await createWorkspaceByokLocalLease(client, workspaceId);
         if (signal?.aborted) {
           return;
         }
@@ -244,10 +244,9 @@ export function textToText({
       if (signal?.aborted) {
         return '';
       }
-      const byokLeaseId = await createWorkspaceByokLocalLease(
-        client,
-        workspaceId
-      );
+      const byokLeaseId = isDesktopSession(sessionId)
+        ? undefined
+        : await createWorkspaceByokLocalLease(client, workspaceId);
       if (signal?.aborted) {
         return '';
       }
@@ -336,10 +335,9 @@ export function toImage({
       if (signal?.aborted) {
         return;
       }
-      const byokLeaseId = await createWorkspaceByokLocalLease(
-        client,
-        workspaceId
-      );
+      const byokLeaseId = isDesktopSession(sessionId)
+        ? undefined
+        : await createWorkspaceByokLocalLease(client, workspaceId);
       if (signal?.aborted) {
         return;
       }

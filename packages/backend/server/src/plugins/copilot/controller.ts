@@ -1,8 +1,13 @@
 import {
   BeforeApplicationShutdown,
+  Body,
   Controller,
+  Delete,
   Get,
+  Header,
   Param,
+  Post,
+  Put,
   Query,
   Req,
   Res,
@@ -24,8 +29,10 @@ import {
   take,
   takeUntil,
 } from 'rxjs';
+import { z } from 'zod';
 
 import {
+  BadRequest,
   CallMetric,
   Config,
   mapSseError,
@@ -33,6 +40,10 @@ import {
   UnsplashIsNotConfigured,
 } from '../../base';
 import { CurrentUser } from '../../core/auth';
+import {
+  allowsChatGPTSubscription,
+  ChatGPTSubscription,
+} from './chatgpt/subscription';
 import { CopilotEnabled } from './feature';
 import {
   ActionStreamHost,
@@ -48,6 +59,10 @@ export interface ChatEvent {
 }
 
 const PING_INTERVAL = 5000;
+const ChatGPTPreferenceSchema = z.object({
+  modelId: z.string().min(1).max(512).nullable(),
+  effort: z.string().min(1).max(32).optional(),
+});
 
 @CopilotEnabled()
 @Controller('/api/copilot')
@@ -57,8 +72,51 @@ export class CopilotController implements BeforeApplicationShutdown {
   constructor(
     private readonly config: Config,
     private readonly orchestrator: TurnOrchestrator,
-    private readonly actionStreams: ActionStreamHost
+    private readonly actionStreams: ActionStreamHost,
+    private readonly chatGPT: ChatGPTSubscription
   ) {}
+
+  @Get('/chatgpt')
+  @Header('Cache-Control', 'no-store')
+  chatGPTStatus(@CurrentUser() user: CurrentUser, @Req() req: Request) {
+    return this.chatGPT.status(user.id, req);
+  }
+
+  @Post('/chatgpt/connect')
+  @Header('Cache-Control', 'no-store')
+  connectChatGPT(
+    @CurrentUser() user: CurrentUser,
+    @Req() req: Request,
+    @Body('language') language: unknown
+  ) {
+    return this.chatGPT.start(user.id, req, language === 'zh-Hans');
+  }
+
+  @Get('/chatgpt/models')
+  @Header('Cache-Control', 'no-store')
+  chatGPTModels(@CurrentUser() user: CurrentUser, @Req() req: Request) {
+    return this.chatGPT.listModels(user.id, req);
+  }
+
+  @Put('/chatgpt/preference')
+  @Header('Cache-Control', 'no-store')
+  setChatGPTPreference(
+    @CurrentUser() user: CurrentUser,
+    @Req() req: Request,
+    @Body() body: unknown
+  ) {
+    const preference = ChatGPTPreferenceSchema.safeParse(body);
+    if (!preference.success) {
+      throw new BadRequest('Invalid ChatGPT preference');
+    }
+    return this.chatGPT.setPreference(user.id, req, preference.data);
+  }
+
+  @Delete('/chatgpt')
+  @Header('Cache-Control', 'no-store')
+  disconnectChatGPT(@CurrentUser() user: CurrentUser, @Req() req: Request) {
+    return this.chatGPT.disconnect(user.id, req);
+  }
 
   async beforeApplicationShutdown() {
     await lastValueFrom(
@@ -113,7 +171,8 @@ export class CopilotController implements BeforeApplicationShutdown {
         sessionId,
         query,
         signal,
-        () => endBeforePromiseResolve
+        () => endBeforePromiseResolve,
+        allowsChatGPTSubscription(req)
       );
 
       metrics.ai.counter('chat_stream_calls').add(1);
@@ -159,7 +218,8 @@ export class CopilotController implements BeforeApplicationShutdown {
         sessionId,
         query,
         signal,
-        () => endBeforePromiseResolve
+        () => endBeforePromiseResolve,
+        allowsChatGPTSubscription(req)
       );
 
       metrics.ai.counter('chat_object_stream_calls').add(1);
@@ -208,7 +268,8 @@ export class CopilotController implements BeforeApplicationShutdown {
         user.id,
         sessionId,
         query,
-        signal
+        signal,
+        allowsChatGPTSubscription(req)
       );
       metrics.ai.counter('action_stream_calls').add(1);
       this.ongoingStreamCount$.next(this.ongoingStreamCount$.value + 1);

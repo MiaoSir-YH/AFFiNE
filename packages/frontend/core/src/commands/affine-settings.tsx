@@ -29,9 +29,8 @@ export function registerAffineSettingsCommands({
   unsubs.push(
     registerAffineCommand({
       id: 'affine:change-color-mode-to-auto',
-      label: `${t['com.affine.cmdk.affine.color-mode.to']()} ${t[
-        'com.affine.themeSettings.system'
-      ]()}`,
+      label: () =>
+        `${t['com.affine.cmdk.affine.color-mode.to']()} ${t['com.affine.themeSettings.system']()}`,
       category: 'affine:settings',
       icon: <SettingsIcon />,
       preconditionStrategy: () => theme.theme !== 'system',
@@ -47,9 +46,8 @@ export function registerAffineSettingsCommands({
   unsubs.push(
     registerAffineCommand({
       id: 'affine:change-color-mode-to-dark',
-      label: `${t['com.affine.cmdk.affine.color-mode.to']()} ${t[
-        'com.affine.themeSettings.dark'
-      ]()}`,
+      label: () =>
+        `${t['com.affine.cmdk.affine.color-mode.to']()} ${t['com.affine.themeSettings.dark']()}`,
       category: 'affine:settings',
       icon: <SettingsIcon />,
       preconditionStrategy: () => theme.theme !== 'dark',
@@ -66,9 +64,8 @@ export function registerAffineSettingsCommands({
   unsubs.push(
     registerAffineCommand({
       id: 'affine:change-color-mode-to-light',
-      label: `${t['com.affine.cmdk.affine.color-mode.to']()} ${t[
-        'com.affine.themeSettings.light'
-      ]()}`,
+      label: () =>
+        `${t['com.affine.cmdk.affine.color-mode.to']()} ${t['com.affine.themeSettings.light']()}`,
       category: 'affine:settings',
       icon: <SettingsIcon />,
       preconditionStrategy: () => theme.theme !== 'light',
@@ -87,9 +84,8 @@ export function registerAffineSettingsCommands({
   unsubs.push(
     registerAffineCommand({
       id: 'affine:change-font-style-to-sans',
-      label: `${t['com.affine.cmdk.affine.font-style.to']()} ${t[
-        'com.affine.appearanceSettings.fontStyle.sans'
-      ]()}`,
+      label: () =>
+        `${t['com.affine.cmdk.affine.font-style.to']()} ${t['com.affine.appearanceSettings.fontStyle.sans']()}`,
       category: 'affine:settings',
       icon: <SettingsIcon />,
       preconditionStrategy: () => settings$.value.fontFamily !== 'Sans',
@@ -107,9 +103,8 @@ export function registerAffineSettingsCommands({
   unsubs.push(
     registerAffineCommand({
       id: 'affine:change-font-style-to-serif',
-      label: `${t['com.affine.cmdk.affine.font-style.to']()} ${t[
-        'com.affine.appearanceSettings.fontStyle.serif'
-      ]()}`,
+      label: () =>
+        `${t['com.affine.cmdk.affine.font-style.to']()} ${t['com.affine.appearanceSettings.fontStyle.serif']()}`,
       category: 'affine:settings',
       icon: <SettingsIcon />,
       preconditionStrategy: () => settings$.value.fontFamily !== 'Serif',
@@ -127,9 +122,8 @@ export function registerAffineSettingsCommands({
   unsubs.push(
     registerAffineCommand({
       id: 'affine:change-font-style-to-mono',
-      label: `${t['com.affine.cmdk.affine.font-style.to']()} ${t[
-        'com.affine.appearanceSettings.fontStyle.mono'
-      ]()}`,
+      label: () =>
+        `${t['com.affine.cmdk.affine.font-style.to']()} ${t['com.affine.appearanceSettings.fontStyle.mono']()}`,
       category: 'affine:settings',
       icon: <SettingsIcon />,
       preconditionStrategy: () => settings$.value.fontFamily !== 'Mono',

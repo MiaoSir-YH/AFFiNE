@@ -1,3 +1,4 @@
+import { createRequire } from 'node:module';
 import path from 'node:path';
 
 import { buildForge } from 'app-builder-lib';
@@ -17,6 +18,9 @@ import {
 } from './make-env.js';
 
 const log = debug('affine:make-nsis');
+const { version: electronVersion } = createRequire(import.meta.url)(
+  'electron/package.json'
+) as { version: string };
 
 async function make() {
   const appName = productName;
@@ -50,6 +54,7 @@ async function make() {
         appId: appIdMap[buildType],
         productName,
         executableName: productName,
+        electronVersion,
         icon: iconPngPath,
         extraMetadata: {
           // do not use package.json's name
@@ -91,4 +96,5 @@ async function make() {
 
 make().catch(e => {
   console.error(e);
+  process.exitCode = 1;
 });

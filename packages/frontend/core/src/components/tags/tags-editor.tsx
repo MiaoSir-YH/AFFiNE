@@ -278,7 +278,7 @@ export const TagsEditor = ({
             onEnter={onEnter}
             autoFocus
             className={styles.searchInput}
-            placeholder="Type here ..."
+            placeholder={t['com.affine.selector-tag.search.placeholder']()}
           />
         </InlineTagList>
 

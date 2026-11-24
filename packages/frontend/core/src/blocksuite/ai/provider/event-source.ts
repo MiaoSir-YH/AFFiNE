@@ -76,7 +76,8 @@ export function toTextStream(
 
       try {
         while (
-          eventSource.readyState !== EventSource.CLOSED &&
+          (eventSource.readyState !== EventSource.CLOSED ||
+            messageQueue.length > 0) &&
           !signal?.aborted
         ) {
           if (messageQueue.length === 0) {

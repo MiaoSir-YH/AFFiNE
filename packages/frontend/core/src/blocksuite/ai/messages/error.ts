@@ -208,16 +208,16 @@ export class AIErrorWrapper extends SignalWatcher(WithDisposable(LitElement)) {
 
 const PaymentRequiredErrorRenderer = (host?: EditorHost | null) => html`
   <ai-error-wrapper
-    .text=${"You've reached the current usage cap for AFFiNE AI. You can subscribe to AFFiNE AI(with free 7-day-trial) to continue the AI experience!"}
-    .actionText=${'Upgrade'}
+    .text=${I18n['com.affine.ai.error.usage-limit']()}
+    .actionText=${I18n['com.affine.payment.upgrade']()}
     .onClick=${() => AIAppEvents.requestUpgradePlan.next({ host })}
   ></ai-error-wrapper>
 `;
 
 const LoginRequiredErrorRenderer = (host?: EditorHost | null) => html`
   <ai-error-wrapper
-    .text=${'You need to login to AFFiNE Cloud to continue using AFFiNE AI.'}
-    .actionText=${'Login'}
+    .text=${I18n['com.affine.ai.login-required.dialog-content']()}
+    .actionText=${I18n['com.affine.ai.login-required.dialog-confirm']()}
     .onClick=${() => AIAppEvents.requestLogin.next({ host })}
   ></ai-error-wrapper>
 `;
@@ -231,19 +231,16 @@ type ErrorProps = {
   showAction?: boolean;
 };
 
-const generalErrorText =
-  'An error occurred, If this issue persists please let us know.';
-
 const GeneralErrorRenderer = (props: ErrorProps = {}) => {
   const contactSupport = () => {
     window.open('mailto:support@toeverything.info', '_blank');
   };
 
   return html`<ai-error-wrapper
-    .text=${props.text ?? generalErrorText}
+    .text=${props.text ?? I18n['com.affine.ai.error.contact-support']()}
     .errorMessage=${props.errorMessage ?? ''}
     .showDetailPanel=${!!props.errorMessage}
-    .actionText=${props.actionText ?? 'Contact us'}
+    .actionText=${props.actionText ?? I18n['com.affine.helpIsland.contactUs']()}
     .actionTooltip=${props.actionTooltip ?? 'support@toeverything.info'}
     .onClick=${props.onClick ?? contactSupport}
     .showAction=${props.showAction ?? true}

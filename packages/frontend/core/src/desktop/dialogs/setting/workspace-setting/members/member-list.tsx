@@ -174,7 +174,7 @@ const MemberItem = ({
       })
       .catch(error => {
         notify.error({
-          title: 'Operation failed',
+          title: t['com.affine.settings.workspace.members.action-failed'](),
           message: error.message,
         });
       });

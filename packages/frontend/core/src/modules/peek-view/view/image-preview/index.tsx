@@ -1,6 +1,7 @@
 import { Divider, Loading, toast } from '@affine/component';
 import { Button, IconButton } from '@affine/component/ui/button';
 import { useAsyncCallback } from '@affine/core/components/hooks/affine-async-hooks';
+import { useI18n } from '@affine/i18n';
 import type { ImageBlockModel } from '@blocksuite/affine/model';
 import type { BlockModel, Workspace } from '@blocksuite/affine/store';
 import {
@@ -86,6 +87,7 @@ export const GenericImagePreviewModal = ({
   onClose,
   blobId,
 }: ImagePreviewProps): ReactElement => {
+  const t = useI18n();
   const zoomRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
   const {
@@ -207,19 +209,19 @@ export const GenericImagePreviewModal = ({
           <Divider size="thinner" orientation="vertical" />
           <IconButton
             data-testid="fit-to-screen-button"
-            tooltip="Fit to screen"
+            tooltip={t['com.affine.image-preview.fit-to-screen']()}
             icon={<ViewBarIcon />}
             onClick={() => resetZoom()}
           />
           <IconButton
             data-testid="zoom-out-button"
-            tooltip="Zoom out"
+            tooltip={t['Zoom out']()}
             icon={<MinusIcon />}
             onClick={zoomOut}
           />
           <Button
             data-testid="reset-scale-button"
-            tooltip="Reset scale"
+            tooltip={t['com.affine.image-preview.reset-scale']()}
             onClick={resetScale}
             variant="plain"
           >
@@ -227,7 +229,7 @@ export const GenericImagePreviewModal = ({
           </Button>
           <IconButton
             data-testid="zoom-in-button"
-            tooltip="Zoom in"
+            tooltip={t['Zoom in']()}
             icon={<PlusIcon />}
             onClick={zoomIn}
           />
@@ -240,7 +242,7 @@ export const GenericImagePreviewModal = ({
           />
           <IconButton
             data-testid="copy-to-clipboard-button"
-            tooltip="Copy to clipboard"
+            tooltip={t['com.affine.image-preview.copy-to-clipboard']()}
             icon={<CopyIcon />}
             onClick={copyHandler}
           />

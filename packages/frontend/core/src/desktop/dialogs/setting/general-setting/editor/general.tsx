@@ -155,6 +155,7 @@ const Scroller = forwardRef<
 Scroller.displayName = 'Scroller';
 
 const FontMenuItems = ({ onSelect }: { onSelect: (font: string) => void }) => {
+  const t = useI18n();
   const { systemFontFamilyService, editorSettingService } = useServices({
     SystemFontFamilyService,
     EditorSettingService,
@@ -198,7 +199,9 @@ const FontMenuItems = ({ onSelect }: { onSelect: (font: string) => void }) => {
           onKeyDown={onInputKeyDown}
           autoFocus
           className={styles.searchInput}
-          placeholder="Fonts"
+          placeholder={t[
+            'com.affine.settings.editorSettings.general.font-family.search'
+          ]()}
         />
       </div>
       <MenuSeparator />
@@ -223,7 +226,11 @@ const FontMenuItems = ({ onSelect }: { onSelect: (font: string) => void }) => {
                 )}
               />
             ) : (
-              <div className={styles.notFound}>No results found.</div>
+              <div className={styles.notFound}>
+                {t[
+                  'com.affine.settings.editorSettings.general.font-family.no-results'
+                ]()}
+              </div>
             )}
           </Scrollable.Viewport>
           <Scrollable.Scrollbar />

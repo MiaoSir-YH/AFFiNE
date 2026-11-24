@@ -96,16 +96,26 @@ test.each([undefined, 'server-revision'])(
       />
     );
     try {
-      expect(await screen.findByText('Upload paused')).toBeTruthy();
-      const status = screen.getByRole('button', { name: 'Sync status' });
+      expect(
+        await screen.findByText('com.affine.workspace.status.upload-paused')
+      ).toBeTruthy();
+      const status = screen.getByRole('button', {
+        name: 'com.affine.workspace.status.sync-label',
+      });
       status.focus();
       expect(document.activeElement).toBe(status);
       fireEvent.click(status);
       expect(
-        await screen.findByText(/workspace index needs attention/)
+        await screen.findByText(
+          'com.affine.workspace.status.index-needs-attention'
+        )
       ).toBeTruthy();
-      expect(screen.queryByText(/Synced with/)).toBeNull();
-      fireEvent.click(screen.getByText('Copy diagnostics'));
+      expect(
+        screen.queryByText('com.affine.workspace.status.synced-with')
+      ).toBeNull();
+      fireEvent.click(
+        screen.getByText('com.affine.workspace.status.copy-diagnostics')
+      );
       await waitFor(() => expect(mocks.copy).toHaveBeenCalledTimes(1));
       const diagnostics = JSON.parse(mocks.copy.mock.calls[0][0]);
       expect(diagnostics).toEqual({
@@ -115,14 +125,18 @@ test.each([undefined, 'server-revision'])(
         ...(sourceRevision ? { sourceRevision } : {}),
       });
       if (sourceRevision) {
-        fireEvent.click(screen.getByText('Open Quick Export'));
+        fireEvent.click(
+          screen.getByText('com.affine.workspace.status.open-quick-export')
+        );
         await waitFor(() =>
           expect(mocks.navigate).toHaveBeenCalledWith('workspace-source', {
             tab: 'workspace:storage',
           })
         );
       } else {
-        expect(screen.queryByText('Open Quick Export')).toBeNull();
+        expect(
+          screen.queryByText('com.affine.workspace.status.open-quick-export')
+        ).toBeNull();
       }
     } finally {
       view.unmount();

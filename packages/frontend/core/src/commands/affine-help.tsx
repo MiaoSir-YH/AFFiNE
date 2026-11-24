@@ -21,7 +21,7 @@ export function registerAffineHelpCommands({
       id: 'affine:help-whats-new',
       category: 'affine:help',
       icon: <NewIcon />,
-      label: t['com.affine.cmdk.affine.whats-new'](),
+      label: () => t['com.affine.cmdk.affine.whats-new'](),
       run() {
         track.$.cmdk.help.openChangelog();
         urlService.openPopupWindow(BUILD_CONFIG.changelogUrl);
@@ -33,7 +33,7 @@ export function registerAffineHelpCommands({
       id: 'affine:help-contact-us',
       category: 'affine:help',
       icon: <ContactWithUsIcon />,
-      label: t['com.affine.cmdk.affine.contact-us'](),
+      label: () => t['com.affine.cmdk.affine.contact-us'](),
       run() {
         track.$.cmdk.help.contactUs();
         workspaceDialogService.open('setting', {

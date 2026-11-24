@@ -11,6 +11,7 @@ import {
   type Member,
   MemberSearchService,
 } from '@affine/core/modules/permissions';
+import { useI18n } from '@affine/i18n';
 import { DoneIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService } from '@toeverything/infra';
 import clsx from 'clsx';
@@ -73,6 +74,7 @@ export const MemberSelector = ({
   onChange,
   style,
 }: MemberSelectorProps) => {
+  const t = useI18n();
   const [inputValue, setInputValue] = useState('');
   const memberSearchService = useService(MemberSearchService);
 
@@ -233,7 +235,7 @@ export const MemberSelector = ({
             onEnter={onEnter}
             autoFocus
             className={styles.searchInput}
-            placeholder="Type here ..."
+            placeholder={t['com.affine.member-selector.search-placeholder']()}
           />
         </InlineMemberList>
         {BUILD_CONFIG.isMobileEdition ? null : (

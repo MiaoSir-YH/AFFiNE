@@ -9,6 +9,7 @@ import { Entity, LiveData } from '@toeverything/infra';
 import Fuse from 'fuse.js';
 
 import type { GlobalContextService } from '../../global-context';
+import type { I18nService } from '../../i18n';
 import type { QuickSearchSession } from '../providers/quick-search-provider';
 import type { QuickSearchGroup } from '../types/group';
 import type { QuickSearchItem } from '../types/item';
@@ -136,7 +137,10 @@ export class CommandsQuickSearchSession
   extends Entity
   implements QuickSearchSession<'commands', AffineCommand>
 {
-  constructor(private readonly contextService: GlobalContextService) {
+  constructor(
+    private readonly contextService: GlobalContextService,
+    private readonly i18nService: I18nService
+  ) {
     super();
   }
 
@@ -144,6 +148,7 @@ export class CommandsQuickSearchSession
 
   items$ = LiveData.computed(get => {
     const query = get(this.query$);
+    get(this.i18nService.i18n.currentLanguageKey$);
     const docMode =
       get(this.contextService.globalContext.docMode.$) ?? undefined;
     const commands = getAllCommand({ docMode });

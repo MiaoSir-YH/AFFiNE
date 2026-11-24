@@ -35,6 +35,7 @@ import {
 } from '@affine/core/modules/cloud';
 import { WorkspaceDialogService } from '@affine/core/modules/dialogs';
 import { useSignalValue } from '@affine/core/modules/doc-info/utils';
+import { DocsSearchService } from '@affine/core/modules/docs-search';
 import { FeatureFlagService } from '@affine/core/modules/feature-flag';
 import { PeekViewService } from '@affine/core/modules/peek-view';
 import { NbstoreService } from '@affine/core/modules/storage';
@@ -76,6 +77,7 @@ export const EditorChatPanel = ({
   onLoad,
 }: SidebarTabProps) => {
   const framework = useFramework();
+  const docsSearch = useService(DocsSearchService);
   const graphqlService = useService(GraphQLService);
   const eventSourceService = useService(EventSourceService);
   const nbstoreService = useService(NbstoreService);
@@ -121,13 +123,15 @@ export const EditorChatPanel = ({
               workspace.engine.doc.waitForSynced(docId)
             )
           );
-        }
+        },
+        docsSearch
       ),
     [
       eventSourceService.eventSource,
       graphqlService.gql,
       nbstoreService,
       workspace,
+      docsSearch,
     ]
   );
 

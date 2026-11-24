@@ -22,6 +22,7 @@ import {
   WorkspaceDialogService,
 } from '@affine/core/modules/dialogs';
 import { DocsService } from '@affine/core/modules/doc';
+import { DocsSearchService } from '@affine/core/modules/docs-search';
 import { EditorSettingService } from '@affine/core/modules/editor-setting';
 import { useRegisterNavigationCommands } from '@affine/core/modules/navigation/view/use-register-navigation-commands';
 import { QuickSearchContainer } from '@affine/core/modules/quicksearch';
@@ -144,6 +145,7 @@ export const WorkspaceSideEffects = () => {
   const eventSourceService = useService(EventSourceService);
   const authService = useService(AuthService);
   const nbstoreService = useService(NbstoreService);
+  const docsSearch = useService(DocsSearchService);
   const realtimeConnectionError = useLiveData(
     useService(RealtimeService).connectionError$
   );
@@ -181,7 +183,8 @@ export const WorkspaceSideEffects = () => {
               currentWorkspace.engine.doc.waitForSynced(docId)
             )
           );
-        }
+        },
+        docsSearch
       ),
       globalDialogService,
       authService
@@ -195,6 +198,7 @@ export const WorkspaceSideEffects = () => {
     eventSourceService,
     nbstoreService,
     graphqlService,
+    docsSearch,
     globalDialogService,
     authService,
   ]);

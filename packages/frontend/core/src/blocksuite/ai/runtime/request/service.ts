@@ -1,3 +1,4 @@
+import type { DocsSearchService } from '@affine/core/modules/docs-search';
 import type { NbstoreService } from '@affine/core/modules/storage';
 import {
   type CopilotChatHistoryFragment,
@@ -22,6 +23,13 @@ import {
   CopilotClient,
   type CopilotClient as CopilotClientType,
 } from './copilot-client';
+import {
+  desktopAI,
+  isDesktopSession,
+  routeDesktopEvents,
+  routeDesktopQueries,
+} from './desktop-copilot';
+import { resolveDesktopSources } from './desktop-sources';
 import { textToText, toImage } from './message-transport';
 
 type CreateSessionOptions = BlockSuitePresets.AICreateSessionOptions;
@@ -56,10 +64,13 @@ export class AIRequestService {
 
   constructor(
     readonly client: CopilotClientType,
-    private readonly syncSelectedSources?: (docIds: string[]) => Promise<void>
+    private readonly syncSelectedSources?: (docIds: string[]) => Promise<void>,
+    private readonly docsSearch?: DocsSearchService
   ) {}
 
   async waitForSelectedSources(docIds: string[]) {
+    const desktop = desktopAI();
+    if (desktop && (await desktop.status()).mode !== 'affine') return;
     if (!this.syncSelectedSources) {
       throw new Error('Selected sources cannot be synchronized');
     }
@@ -333,12 +344,17 @@ export class AIRequestService {
       definition.actionVersion,
       options
     );
+    const params = definition.buildParams?.(options);
+    const desktopSources =
+      isDesktopSession(sessionId) && id === 'chat' && this.docsSearch
+        ? await resolveDesktopSources(this.docsSearch, options)
+        : undefined;
     const transportOptions = {
       ...options,
       client: this.client,
       sessionId,
       content: definition.buildContent?.(options) ?? options.input,
-      params: definition.buildParams?.(options),
+      params: desktopSources?.length ? { ...params, desktopSources } : params,
       timeout: definition.timeout,
       endpoint: definition.endpoint,
       actionId,
@@ -362,10 +378,16 @@ export function createAIRequestService(
     eventSourceInitDict?: EventSourceInit
   ) => EventSource,
   realtime: Pick<NbstoreService['realtime'], 'request'>,
-  syncSelectedSources?: (docIds: string[]) => Promise<void>
+  syncSelectedSources?: (docIds: string[]) => Promise<void>,
+  docsSearch?: DocsSearchService
 ) {
   return new AIRequestService(
-    new CopilotClient(gql, eventSource, realtime),
-    syncSelectedSources
+    new CopilotClient(
+      routeDesktopQueries(gql),
+      routeDesktopEvents(eventSource),
+      realtime
+    ),
+    syncSelectedSources,
+    docsSearch
   );
 }

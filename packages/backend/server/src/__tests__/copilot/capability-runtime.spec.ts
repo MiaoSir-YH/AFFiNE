@@ -10,6 +10,7 @@ import type { DocReader } from '../../core/doc';
 import { StorageRuntimeProvider } from '../../core/storage-runtime';
 import type { Models } from '../../models';
 import type { ByokEntitlementPolicy } from '../../plugins/copilot/byok';
+import type { ChatGPTSubscription } from '../../plugins/copilot/chatgpt/subscription';
 import type { ConversationPolicy } from '../../plugins/copilot/conversation/policy';
 import { CapabilityRuntime } from '../../plugins/copilot/runtime/capability-runtime';
 import { CopilotRuntimeEventConsumer } from '../../plugins/copilot/runtime/copilot-runtime-event-consumer';
@@ -18,6 +19,7 @@ import { AttachmentMaterializer } from '../../plugins/copilot/runtime/hosts/atta
 import { executeToolCall } from '../../plugins/copilot/runtime/tool/bridge';
 import type { ToolRuntime } from '../../plugins/copilot/runtime/tool-runtime';
 import { CopilotStorage } from '../../plugins/copilot/storage';
+import { defineTool } from '../../plugins/copilot/tools/tool';
 
 const test = ava;
 
@@ -27,7 +29,15 @@ async function collect<T>(source: AsyncIterable<T>) {
   return values;
 }
 
-function runtimeFixture(streamError?: string, enabled = true) {
+function runtimeFixture(
+  streamError?: string,
+  enabled = true,
+  overrides: {
+    selectSubscription?: ChatGPTSubscription['select'];
+    getTools?: ToolRuntime['getTools'];
+    hasQuota?: ConversationPolicy['hasQuota'];
+  } = {}
+) {
   const calls: Array<{
     slot: string;
     request?: unknown;
@@ -94,9 +104,11 @@ function runtimeFixture(streamError?: string, enabled = true) {
     hasAiPlan: async () => false,
   } as unknown as ByokEntitlementPolicy;
   const conversation = {
-    hasQuota: async () => true,
+    hasQuota: overrides.hasQuota ?? (async () => true),
   } as unknown as ConversationPolicy;
-  const tools = { getTools: async () => ({}) } as unknown as ToolRuntime;
+  const tools = {
+    getTools: overrides.getTools ?? (async () => ({})),
+  } as unknown as ToolRuntime;
   const consumer = {
     consume: async () => {},
   } as unknown as CopilotRuntimeEventConsumer;
@@ -127,10 +139,115 @@ function runtimeFixture(streamError?: string, enabled = true) {
       tools,
       consumer,
       new AttachmentAdmissionHost(materializer, storage),
-      { getDocIdAliases: async () => new Map() } as unknown as DocReader
+      { getDocIdAliases: async () => new Map() } as unknown as DocReader,
+      {
+        select: overrides.selectSubscription ?? (() => undefined),
+      } as unknown as ChatGPTSubscription
     ),
   };
 }
+
+test.serial(
+  'ChatGPT subscription passes the account model, effort and tools while explicit BYOK keeps its native route',
+  async t => {
+    const modelId = 'account-model';
+    const effort = 'xhigh';
+    const hasQuota = Sinon.stub().resolves(false);
+    const selectSubscription = Sinon.stub().returns({
+      modelId,
+      effort,
+      getAccessToken: async () => 'example-token',
+    });
+    const getTools = Sinon.stub().resolves({
+      echo: defineTool({
+        description: 'Echo the supplied value',
+        inputSchema: z.object({ value: z.string() }),
+        execute: async ({ value }) => ({ value }),
+      }),
+    });
+    const { runtime, calls } = runtimeFixture(undefined, true, {
+      selectSubscription,
+      hasQuota,
+      getTools,
+    });
+    const requests: Array<Record<string, unknown>> = [];
+    const toolCall = {
+      type: 'function_call',
+      call_id: 'call-1',
+      name: 'echo',
+      namespace: 'affine',
+      arguments: '{"value":"ok"}',
+    };
+    const fetch = Sinon.stub(globalThis, 'fetch').callsFake(
+      async (_url, init) => {
+        t.is(
+          new Headers(init?.headers).get('Authorization'),
+          'Bearer example-token'
+        );
+        requests.push(JSON.parse(String(init?.body)));
+        const output =
+          requests.length === 1
+            ? [toolCall]
+            : [
+                {
+                  type: 'message',
+                  content: [{ type: 'output_text', text: 'done' }],
+                },
+              ];
+        const event = {
+          type: 'response.completed',
+          response: { id: `resp-${requests.length}`, model: modelId, output },
+        };
+        return new Response(`data: ${JSON.stringify(event)}\n\n`);
+      }
+    );
+    t.teardown(() => fetch.restore());
+
+    const messages = [{ role: 'user' as const, content: 'Say hello' }];
+    const options = {
+      allowChatGPTSubscription: true,
+      user: 'user-1',
+      workspace: 'workspace-1',
+    };
+    const events = await collect(runtime.streamObject({}, messages, options));
+
+    t.deepEqual(calls, []);
+    t.false(hasQuota.called);
+    t.true(selectSubscription.calledOnceWithExactly('user-1'));
+    t.like(getTools.firstCall.args[0], { allowChatGPTSubscription: true });
+    t.is(getTools.firstCall.args[1], modelId);
+    t.like(requests[0], {
+      model: modelId,
+      reasoning: { effort },
+      tools: [{ type: 'namespace', name: 'affine', tools: [{ name: 'echo' }] }],
+    });
+    t.deepEqual(requests[1].input, [
+      { role: 'user', content: 'Say hello' },
+      toolCall,
+      {
+        type: 'function_call_output',
+        call_id: 'call-1',
+        output: '{"value":"ok"}',
+      },
+    ]);
+    t.deepEqual(
+      events.map(event => event.type),
+      ['tool-call', 'tool-result', 'text-delta']
+    );
+    t.like(events[1], { toolCallId: 'call-1', result: { value: 'ok' } });
+
+    const byok = { profileId: 'byok-profile', modelId: 'byok-model' };
+    t.deepEqual(await collect(runtime.streamText(byok, messages, options)), [
+      'hello',
+    ]);
+    t.is(fetch.callCount, 2);
+    t.is(selectSubscription.callCount, 1);
+    t.like(getTools.lastCall.args[0], { allowChatGPTSubscription: false });
+    t.true(hasQuota.calledOnceWithExactly('user-1'));
+    t.is(calls.length, 1);
+    t.like(calls[0], { slot: 'chat.default', targetOverride: byok });
+  }
+);
 
 test('disabled copilot rejects native execution before route access', async t => {
   const { runtime, calls, materializer } = runtimeFixture(undefined, false);

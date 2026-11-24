@@ -375,22 +375,22 @@ export class AIChatRuntime {
       const focusSelectors = this.snapshot.composer.focus.items
         .map(item => this.selectorInput(item))
         .filter(selector => selector !== null);
+      const selectedDocIds = [
+        ...this.snapshot.composer.scopeSelection.items,
+        ...this.snapshot.composer.focus.items,
+      ].flatMap(item => {
+        switch (item.kind) {
+          case 'doc':
+            return [item.docId];
+          case 'tag':
+          case 'collection':
+            return item.docIds;
+          default:
+            return [];
+        }
+      });
       if (scopeSelectors.length || focusSelectors.length) {
         this.updateScopeSelection({ syncing: true, error: null });
-        const selectedDocIds = [
-          ...this.snapshot.composer.scopeSelection.items,
-          ...this.snapshot.composer.focus.items,
-        ].flatMap(item => {
-          switch (item.kind) {
-            case 'doc':
-              return [item.docId];
-            case 'tag':
-            case 'collection':
-              return item.docIds;
-            default:
-              return [];
-          }
-        });
         await this.options.request.waitForSelectedSources([
           ...new Set(selectedDocIds),
         ]);
@@ -409,6 +409,7 @@ export class AIChatRuntime {
         contexts: options.contexts,
         scopeSelectors,
         focusSelectors,
+        ...(selectedDocIds.length ? { desktopSourceIds: selectedDocIds } : {}),
         liveEditorContext,
         attachments: [
           ...this.snapshot.composer.attachments,

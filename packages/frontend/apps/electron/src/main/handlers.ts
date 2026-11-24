@@ -6,6 +6,7 @@ import { authHandlers } from './auth/handlers';
 import { byokStorageHandlers } from './byok-storage/handlers';
 import { clipboardHandlers } from './clipboard';
 import { configStorageHandlers } from './config-storage';
+import { desktopAIHandlers } from './desktop-ai/handlers';
 import { findInPageHandlers } from './find-in-page';
 import { importHandlers } from './import';
 import { getLogFilePath, logger, revealLogFile } from './logger';
@@ -47,6 +48,7 @@ export const allHandlers = {
   popup: popupHandlers,
   i18n: i18nHandlers,
   byokStorage: byokStorageHandlers,
+  desktopAI: desktopAIHandlers,
   auth: authHandlers,
 };
 

@@ -1938,7 +1938,8 @@ test('controller projects successful streams and preparation failures to SSE eve
   const controller = new CopilotController(
     { copilot: { unsplash: {} } } as Config,
     orchestrator,
-    actions
+    actions,
+    {} as never
   );
 
   t.deepEqual(

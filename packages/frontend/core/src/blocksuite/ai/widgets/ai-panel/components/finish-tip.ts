@@ -1,3 +1,4 @@
+import { getOrCreateI18n, I18n } from '@affine/i18n';
 import {
   AIDoneIcon,
   CopyIcon,
@@ -67,10 +68,18 @@ export class AIFinishTip extends WithDisposable(LitElement) {
     }
   `;
 
+  override connectedCallback() {
+    super.connectedCallback();
+    const i18n = getOrCreateI18n();
+    const update = () => this.requestUpdate();
+    i18n.on('languageChanged', update);
+    this._disposables.add(() => i18n.off('languageChanged', update));
+  }
+
   override render() {
     return html`<div class="finish-tip">
       ${WarningIcon}
-      <div class="text">AI outputs can be misleading or wrong</div>
+      <div class="text">${I18n['com.affine.ai.output-disclaimer']()}</div>
       ${
         this.copy?.allowed
           ? html`<div class="right">
@@ -87,12 +96,12 @@ export class AIFinishTip extends WithDisposable(LitElement) {
                         if (this.copied) {
                           this.host.std
                             .getOptional(NotificationProvider)
-                            ?.toast('Copied to clipboard');
+                            ?.toast(I18n['Copied to clipboard']());
                         }
                       }}
                     >
                       ${CopyIcon}
-                      <affine-tooltip>Copy</affine-tooltip>
+                      <affine-tooltip>${I18n.Copy()}</affine-tooltip>
                     </div>`
               }
             </div>`

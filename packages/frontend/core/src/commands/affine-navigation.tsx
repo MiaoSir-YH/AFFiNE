@@ -27,7 +27,7 @@ export function registerAffineNavigationCommands({
       id: 'affine:goto-all-pages',
       category: 'affine:navigation',
       icon: <ArrowRightBigIcon />,
-      label: t['com.affine.cmdk.affine.navigation.goto-all-pages'](),
+      label: () => t['com.affine.cmdk.affine.navigation.goto-all-pages'](),
       run() {
         track.$.cmdk.navigation.navigate({
           to: 'allDocs',
@@ -43,7 +43,7 @@ export function registerAffineNavigationCommands({
       id: 'affine:goto-collection-list',
       category: 'affine:navigation',
       icon: <ArrowRightBigIcon />,
-      label: 'Go to Collection List',
+      label: () => t['com.affine.cmdk.affine.navigation.goto-collections'](),
       run() {
         track.$.cmdk.navigation.navigate({
           to: 'collectionList',
@@ -59,7 +59,7 @@ export function registerAffineNavigationCommands({
       id: 'affine:goto-tag-list',
       category: 'affine:navigation',
       icon: <ArrowRightBigIcon />,
-      label: 'Go to Tag List',
+      label: () => t['com.affine.cmdk.affine.navigation.goto-tags'](),
       run() {
         track.$.cmdk.navigation.navigate({
           to: 'tagList',
@@ -75,7 +75,7 @@ export function registerAffineNavigationCommands({
       id: 'affine:goto-workspace',
       category: 'affine:navigation',
       icon: <ArrowRightBigIcon />,
-      label: t['com.affine.cmdk.affine.navigation.goto-workspace'](),
+      label: () => t['com.affine.cmdk.affine.navigation.goto-workspace'](),
       run() {
         track.$.cmdk.navigation.navigate({
           to: 'workspace',
@@ -91,7 +91,7 @@ export function registerAffineNavigationCommands({
       id: 'affine:open-settings',
       category: 'affine:navigation',
       icon: <ArrowRightBigIcon />,
-      label: t['com.affine.cmdk.affine.navigation.open-settings'](),
+      label: () => t['com.affine.cmdk.affine.navigation.open-settings'](),
       keyBinding: '$mod+,',
       run() {
         track.$.cmdk.settings.openSettings();
@@ -107,7 +107,8 @@ export function registerAffineNavigationCommands({
       id: 'affine:open-account',
       category: 'affine:navigation',
       icon: <ArrowRightBigIcon />,
-      label: t['com.affine.cmdk.affine.navigation.open-account-settings'](),
+      label: () =>
+        t['com.affine.cmdk.affine.navigation.open-account-settings'](),
       run() {
         track.$.cmdk.settings.openSettings({ to: 'account' });
         workspaceDialogService.open('setting', {
@@ -122,7 +123,7 @@ export function registerAffineNavigationCommands({
       id: 'affine:goto-trash',
       category: 'affine:navigation',
       icon: <ArrowRightBigIcon />,
-      label: t['com.affine.cmdk.affine.navigation.goto-trash'](),
+      label: () => t['com.affine.cmdk.affine.navigation.goto-trash'](),
       run() {
         track.$.cmdk.navigation.navigate({
           to: 'trash',

@@ -74,7 +74,7 @@ export class AISubItemList extends WithDisposable(LitElement) {
             class="menu-item"
             @click=${() => this._handleClick(subItem)}
           >
-            <div class="item-name">${subItem.type}</div>
+            <div class="item-name">${subItem.label?.() ?? subItem.type}</div>
             <span class="enter-icon">${EnterIcon}</span>
           </div>`
       )}

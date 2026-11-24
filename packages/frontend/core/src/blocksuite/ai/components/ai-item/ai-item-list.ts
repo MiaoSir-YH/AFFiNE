@@ -118,7 +118,7 @@ export class AIItemList extends WithDisposable(LitElement) {
         ${
           group.name
             ? html`<div class="group-name">
-                ${group.name.toLocaleUpperCase()}
+                ${(group.label?.() ?? group.name).toLocaleUpperCase()}
               </div>`
             : nothing
         }

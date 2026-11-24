@@ -11,6 +11,7 @@ import type {
 } from '@affine/core/modules/cloud';
 import type { WorkspaceDialogService } from '@affine/core/modules/dialogs';
 import type { CopilotChatHistoryFragment } from '@affine/graphql';
+import { getOrCreateI18n, I18n } from '@affine/i18n';
 import { SignalWatcher, WithDisposable } from '@blocksuite/affine/global/lit';
 import type { EditorHost } from '@blocksuite/affine/std';
 import { ShadowlessElement } from '@blocksuite/affine/std';
@@ -190,9 +191,7 @@ export class AIChatComposer extends SignalWatcher(
       ></ai-chat-input>
       <div class="chat-panel-footer">
         <ai-chat-composer-tip
-          .tips=${[
-            html`<span>AI outputs can be misleading or wrong</span>`,
-          ].filter(Boolean)}
+          .tips=${[html`<span>${I18n['com.affine.ai.output-disclaimer']()}</span>`]}
           .loop=${false}
         ></ai-chat-composer-tip>
       </div>
@@ -201,6 +200,10 @@ export class AIChatComposer extends SignalWatcher(
 
   override connectedCallback() {
     super.connectedCallback();
+    const i18n = getOrCreateI18n();
+    const update = () => this.requestUpdate();
+    i18n.on('languageChanged', update);
+    this._disposables.add(() => i18n.off('languageChanged', update));
     this._disposables.add(
       AIAppEvents.requestOpenWithChat.subscribe(this.beforeChatSourceSend)
     );

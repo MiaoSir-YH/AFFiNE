@@ -10,13 +10,14 @@ import { useSignOut } from '@affine/core/components/hooks/affine/use-sign-out';
 import { useAsyncCallback } from '@affine/core/components/hooks/affine-async-hooks';
 import { useCatchEventCallback } from '@affine/core/components/hooks/use-catch-event-hook';
 import { Upload } from '@affine/core/components/pure/file-upload';
+import { AIModelService } from '@affine/core/modules/ai-button';
 import { GlobalDialogService } from '@affine/core/modules/dialogs';
 import { SubscriptionPlan } from '@affine/graphql';
 import { useI18n } from '@affine/i18n';
 import { track } from '@affine/track';
 import { ArrowRightSmallIcon, CameraIcon } from '@blocksuite/icons/rc';
 import { useLiveData, useService, useServices } from '@toeverything/infra';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useSyncExternalStore } from 'react';
 
 import {
   AuthService,
@@ -26,6 +27,7 @@ import {
 import type { SettingState } from '../types';
 import { AIUsagePanel } from './ai-usage-panel';
 import { DeleteAccount } from './delete-account';
+import { DesktopAISetting } from './desktop-ai';
 import { IntegrationsPanel } from './integrations-panel';
 import { StorageProgress } from './storage-progress';
 import * as styles from './style.css';
@@ -40,16 +42,17 @@ export const UserAvatar = () => {
       try {
         track.$.settingsPanel.accountSettings.uploadAvatar();
         await session.uploadAvatar(file);
-        notify.success({ title: 'Update user avatar success' });
+        notify.success({
+          title: t['com.affine.settings.profile.avatar-updated'](),
+        });
       } catch (e) {
-        // TODO(@catsjuice): i18n
         notify.error({
-          title: 'Update user avatar failed',
+          title: t['com.affine.settings.profile.avatar-update-failed'](),
           message: String(e),
         });
       }
     },
-    [session]
+    [session, t]
   );
 
   const handleRemoveUserAvatar = useCatchEventCallback(async () => {
@@ -100,11 +103,11 @@ export const AvatarAndName = () => {
       await session.updateLabel(input);
     } catch (e) {
       notify.error({
-        title: 'Failed to update user name.',
+        title: t['com.affine.settings.profile.name-update-failed'](),
         message: String(e),
       });
     }
-  }, [account, allowUpdate, session, input]);
+  }, [account, allowUpdate, session, input, t]);
 
   return (
     <SettingRow
@@ -282,6 +285,52 @@ const DevicesPanel = () => {
   );
 };
 
+const ChatGPTSubscriptionPanel = ({
+  client,
+}: {
+  client: NonNullable<AIModelService['chatGPT']>;
+}) => {
+  const t = useI18n();
+  const status = useSyncExternalStore(
+    useCallback(onChange => client.connection.subscribe(onChange), [client]),
+    () => client.connection.value.status
+  );
+  const busy = useSyncExternalStore(
+    useCallback(onChange => client.busy.subscribe(onChange), [client]),
+    () => client.busy.value
+  );
+  const notifyFailure = useCallback(() => {
+    notify.error({ title: t['com.affine.ai.chatgpt.request-failed']() });
+  }, [t]);
+
+  useEffect(() => {
+    client.refresh().catch(notifyFailure);
+  }, [client, notifyFailure]);
+
+  const disconnect = useCallback(async () => {
+    try {
+      await client.disconnect();
+      if (client.connection.value.status === 'error') notifyFailure();
+    } catch {
+      notifyFailure();
+    }
+  }, [client, notifyFailure]);
+
+  if (status !== 'connected') return null;
+
+  return (
+    <SettingRow name={t['com.affine.ai.chatgpt.provider']()}>
+      <Button
+        data-testid="chatgpt-subscription-disconnect"
+        disabled={busy}
+        onClick={() => void disconnect()}
+      >
+        {t['com.affine.ai.chatgpt.disconnect']()}
+      </Button>
+    </SettingRow>
+  );
+};
+
 export const AccountSetting = ({
   onChangeSettingState,
 }: {
@@ -292,6 +341,7 @@ export const AccountSetting = ({
     ServerService,
     GlobalDialogService,
   });
+  const { chatGPT } = useService(AIModelService);
   const serverFeatures = useLiveData(serverService.server.features$);
   const t = useI18n();
   const session = authService.session;
@@ -361,6 +411,8 @@ export const AccountSetting = ({
         {serverFeatures?.copilot && (
           <AIUsagePanel onChangeSettingState={onChangeSettingState} />
         )}
+        {chatGPT ? <ChatGPTSubscriptionPanel client={chatGPT} /> : null}
+        <DesktopAISetting />
         <IntegrationsPanel onChangeSettingState={onChangeSettingState} />
         <SettingRow
           name={t[`Sign out`]()}

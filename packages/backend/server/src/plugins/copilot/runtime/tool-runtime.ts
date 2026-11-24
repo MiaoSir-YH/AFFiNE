@@ -84,6 +84,8 @@ export class ToolRuntime {
           billingUnitId: options.billingUnitId,
           quotaBackedRoutesAllowed: options.quotaBackedRoutesAllowed,
           featureKind: options.featureKind,
+          allowChatGPTSubscription: options.allowChatGPTSubscription,
+          signal: options.signal,
         },
       });
 

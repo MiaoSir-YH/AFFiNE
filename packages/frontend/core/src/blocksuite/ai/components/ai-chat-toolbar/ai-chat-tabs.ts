@@ -1,4 +1,5 @@
 import type { CopilotChatHistoryFragment } from '@affine/graphql';
+import { I18n } from '@affine/i18n';
 import { WithDisposable } from '@blocksuite/affine/global/lit';
 import { unsafeCSSVarV2 } from '@blocksuite/affine/shared/theme';
 import { ShadowlessElement } from '@blocksuite/affine/std';
@@ -9,7 +10,6 @@ import { repeat } from 'lit/directives/repeat.js';
 
 import type { AIChatRuntime, AIChatSnapshot } from '../../runtime/chat';
 
-const DEFAULT_TAB_TITLE = 'New chat';
 const TITLE_MAX_LENGTH = 28;
 
 type RenderTabItem =
@@ -26,7 +26,7 @@ function deriveTabTitle(session: CopilotChatHistoryFragment): string {
   if (explicit) return truncate(explicit);
   const firstUserMessage = session.messages?.find(m => m.role === 'user');
   const raw = firstUserMessage?.content?.trim();
-  if (!raw) return DEFAULT_TAB_TITLE;
+  if (!raw) return I18n['com.affine.ai.chat-panel.session.new']();
   const newlineIdx = raw.indexOf('\n');
   return truncate(newlineIdx === -1 ? raw : raw.slice(0, newlineIdx));
 }
@@ -198,7 +198,7 @@ export class AIChatTabs extends WithDisposable(ShadowlessElement) {
         <button
           class="tab-close"
           data-testid="ai-chat-tab-close"
-          aria-label="Close tab"
+          aria-label=${I18n['com.affine.ai.chat-panel.session.close-tab']()}
           @click=${(e: Event) => this._handleClose(e, session.sessionId)}
         >
           ${CloseIcon()}
@@ -209,15 +209,16 @@ export class AIChatTabs extends WithDisposable(ShadowlessElement) {
 
   private _renderDraftTab() {
     const active = this.runtimeSnapshot?.activeTabId?.startsWith('draft:');
+    const title = I18n['com.affine.ai.chat-panel.session.new']();
     return html`
       <div
         class="tab"
         data-kind="draft"
         data-active=${active}
         data-testid="ai-chat-draft-tab"
-        title=${DEFAULT_TAB_TITLE}
+        title=${title}
       >
-        <span class="tab-title">${DEFAULT_TAB_TITLE}</span>
+        <span class="tab-title">${title}</span>
       </div>
     `;
   }

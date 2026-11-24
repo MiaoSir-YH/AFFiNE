@@ -35,7 +35,11 @@ export const CloudUsage = () => {
 
   if (percent === null) {
     if (quotaError) {
-      return <ErrorMessage>Failed to load quota</ErrorMessage>;
+      return (
+        <ErrorMessage>
+          {t['com.affine.user-info.usage.load-error']()}
+        </ErrorMessage>
+      );
     }
     return (
       <div>

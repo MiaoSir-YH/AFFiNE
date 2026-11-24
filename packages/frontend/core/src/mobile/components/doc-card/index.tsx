@@ -8,6 +8,7 @@ import {
   WorkbenchLink,
   type WorkbenchLinkProps,
 } from '@affine/core/modules/workbench';
+import { useI18n } from '@affine/i18n';
 import type { DocMeta } from '@blocksuite/affine/store';
 import { useLiveData, useService } from '@toeverything/infra';
 import clsx from 'clsx';
@@ -39,6 +40,7 @@ export const DocCard = forwardRef<HTMLAnchorElement, DocCardProps>(
     { showTags = true, meta, className, autoHeightById, ...attrs },
     outerRef
   ) {
+    const t = useI18n();
     const containerRef = useRef<HTMLAnchorElement | null>(null);
     const favAdapter = useService(CompatibleFavoriteItemsAdapter);
     const docDisplayService = useService(DocDisplayMetaService);
@@ -78,7 +80,11 @@ export const DocCard = forwardRef<HTMLAnchorElement, DocCardProps>(
         <header className={styles.head} data-testid="doc-card-header">
           <h3 className={styles.title}>{title}</h3>
           <IconButton
-            aria-label="favorite"
+            aria-label={t[
+              favorited
+                ? 'com.affine.rootAppSidebar.organize.folder-rm-favorite'
+                : 'com.affine.rootAppSidebar.organize.folder-add-favorite'
+            ]()}
             icon={
               <IsFavoriteIcon onClick={toggleFavorite} favorite={favorited} />
             }
@@ -93,7 +99,11 @@ export const DocCard = forwardRef<HTMLAnchorElement, DocCardProps>(
               </>
             }
             pageId={meta.id}
-            emptyFallback={<div className={styles.contentEmpty}>Empty</div>}
+            emptyFallback={
+              <div className={styles.contentEmpty}>
+                {t['com.affine.mobile.doc-card.empty']()}
+              </div>
+            }
           />
         </main>
         {showTags ? <DocCardTags docId={meta.id} rows={2} /> : null}

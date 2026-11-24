@@ -22,6 +22,11 @@ import {
 import { assertCopilotEnabled } from '../availability';
 import { ByokEntitlementPolicy } from '../byok/policy';
 import type { ByokFeatureKind } from '../byok/types';
+import {
+  generateChatGPTStructured,
+  streamChatGPTResponses,
+} from '../chatgpt/responses';
+import { ChatGPTSubscription } from '../chatgpt/subscription';
 import { ConversationPolicy } from '../conversation/policy';
 import { ValidatedStructuredValueSchema } from '../core/types';
 import {
@@ -84,8 +89,14 @@ export class CapabilityRuntime {
     private readonly tools: ToolRuntime,
     private readonly events: CopilotRuntimeEventConsumer,
     private readonly attachments: AttachmentAdmissionHost,
-    private readonly docReader: DocReader
+    private readonly docReader: DocReader,
+    private readonly chatGPT: ChatGPTSubscription
   ) {}
+
+  private subscriptionFor(cond: ModelConditions, options: RuntimeOptions) {
+    if (!options.allowChatGPTSubscription || cond.profileId) return undefined;
+    return this.chatGPT.select(options.user);
+  }
 
   private async documentFootnotes(documents: DocSource[]) {
     const aliases = new Map(
@@ -222,17 +233,28 @@ export class CapabilityRuntime {
 
   private async prepareChat(
     messages: PromptMessage[],
-    options: RuntimeOptions
+    options: RuntimeOptions,
+    subscription?: ReturnType<ChatGPTSubscription['select']>
   ) {
-    const toolSet = await this.tools.getTools(options, '');
+    const toolSet = await this.tools.getTools(
+      { ...options, allowChatGPTSubscription: !!subscription },
+      subscription?.modelId ?? ''
+    );
     const { request } = await buildCanonicalNativeRequest({
-      model: 'route-selected',
+      model: subscription?.modelId ?? 'route-selected',
       messages: await this.prepareMessages(messages, options),
       options,
       toolContracts: buildToolContracts(toolSet),
       attachmentCapability,
-      include: options.reasoning ? ['reasoning'] : undefined,
-      reasoning: options.reasoning ? { effort: 'medium' } : undefined,
+      include:
+        options.reasoning || subscription?.effort ? ['reasoning'] : undefined,
+      reasoning: subscription
+        ? subscription.effort
+          ? { effort: subscription.effort }
+          : undefined
+        : options.reasoning
+          ? { effort: 'medium' }
+          : undefined,
     });
     return { request: { ...request, stream: true }, toolSet };
   }
@@ -243,35 +265,49 @@ export class CapabilityRuntime {
     messages: PromptMessage[],
     options: RuntimeOptions
   ) {
-    const { request, toolSet } = await this.prepareChat(messages, options);
-    const runId = randomUUID();
-    const rawStream = this.backend.streamCopilot<
-      LlmToolLoopStreamEvent | CopilotRuntimeEvent
-    >(
-      {
-        slot,
-        builtInRouteId: options.builtInRouteId,
-        workspaceId: options.workspace,
-        userId: options.user,
-        localLeaseId: options.byokLeaseId,
-        access: await this.access(options),
-        managedTargetId: options.managedTargetId,
-        targetOverride: this.targetOverride(cond),
-        request,
-      },
-      async requestJson => {
-        const toolRequest = JSON.parse(requestJson) as LlmToolCallbackRequest;
-        return JSON.stringify(
-          await executeToolCall(toolSet, toolRequest, {
-            signal: options.signal,
-            messages,
-            runId,
-            toolCallId: toolRequest.callId,
-          })
-        );
-      },
-      { maxSteps: 20, signal: options.signal }
+    const subscription = this.subscriptionFor(cond, options);
+    const { request, toolSet } = await this.prepareChat(
+      messages,
+      options,
+      subscription
     );
+    const runId = randomUUID();
+    const executeTool = (toolRequest: LlmToolCallbackRequest) =>
+      executeToolCall(toolSet, toolRequest, {
+        signal: options.signal,
+        messages,
+        runId,
+        toolCallId: toolRequest.callId,
+      });
+    const streamOptions = { maxSteps: 20, signal: options.signal };
+    const rawStream = subscription
+      ? streamChatGPTResponses(request, {
+          ...streamOptions,
+          getAccessToken: subscription.getAccessToken,
+          executeTool,
+        })
+      : this.backend.streamCopilot<
+          LlmToolLoopStreamEvent | CopilotRuntimeEvent
+        >(
+          {
+            slot,
+            builtInRouteId: options.builtInRouteId,
+            workspaceId: options.workspace,
+            userId: options.user,
+            localLeaseId: options.byokLeaseId,
+            access: await this.access(options),
+            managedTargetId: options.managedTargetId,
+            targetOverride: this.targetOverride(cond),
+            request,
+          },
+          async requestJson =>
+            JSON.stringify(
+              await executeTool(
+                JSON.parse(requestJson) as LlmToolCallbackRequest
+              )
+            ),
+          streamOptions
+        );
     const runtimeEvents = this.events;
     const eventContext = this.eventContext(options);
     async function* productEvents() {
@@ -342,14 +378,25 @@ export class CapabilityRuntime {
     if (!contract) {
       throw new CopilotPromptInvalid('Structured schema contract is required');
     }
+    const subscription = this.subscriptionFor(cond, options ?? {});
     const { request } = await buildCanonicalNativeStructuredRequest({
-      model: 'route-selected',
+      model: subscription?.modelId ?? 'route-selected',
       messages: await this.prepareMessages(messages, options),
       options,
+      reasoning: subscription?.effort
+        ? { effort: subscription.effort }
+        : undefined,
       responseContract: contract,
       attachmentCapability,
     });
-    const result = (await this.execute(slot, request, cond, options)) as {
+    const result = (
+      subscription
+        ? await generateChatGPTStructured(request, {
+            signal: options.signal,
+            getAccessToken: subscription.getAccessToken,
+          })
+        : await this.execute(slot, request, cond, options)
+    ) as {
       output_json?: unknown;
       output_text: string;
     };

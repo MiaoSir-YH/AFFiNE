@@ -71,9 +71,14 @@ function frontendReadPreview(result: unknown) {
     .slice(0, 4)
     .join('\n');
   if (preview) return preview;
-  return typeof value.mode === 'string'
-    ? I18n['com.affine.ai.chat-panel.tool.live.mode']({ mode: value.mode })
-    : undefined;
+  if (typeof value.mode !== 'string') return undefined;
+  const mode =
+    value.mode === 'page' || value.mode === 'edgeless'
+      ? I18n[`com.affine.pageMode.${value.mode}`]()
+      : value.mode;
+  return I18n['com.affine.ai.chat-panel.tool.live.mode']({
+    mode,
+  });
 }
 
 function frontendReadError(result: Record<string, unknown>) {

@@ -43,25 +43,28 @@ import * as styles from './styles.css';
 export { PureWorkspaceCard } from './pure-workspace-card';
 
 const RemoteWorkspaceStatus = ({ selfHosted }: { selfHosted?: boolean }) => {
+  const t = useI18n();
   const Icon = selfHosted ? SelfhostIcon : CloudWorkspaceIcon;
   return (
     <>
       <Icon />
-      {selfHosted ? 'AFFiNE' : 'Cloud'}
+      {selfHosted ? 'AFFiNE' : t['com.affine.workspace.status.cloud']()}
     </>
   );
 };
 
 const SyncingWorkspaceStatus = ({ progress }: { progress?: number }) => {
+  const t = useI18n();
   return (
     <>
       <Loading progress={progress} speed={0} />
-      Syncing...
+      {t['com.affine.syncing']()}
     </>
   );
 };
 
 const LocalWorkspaceStatus = () => {
+  const t = useI18n();
   return (
     <>
       {!BUILD_CONFIG.isElectron ? (
@@ -69,21 +72,23 @@ const LocalWorkspaceStatus = () => {
       ) : (
         <LocalWorkspaceIcon />
       )}
-      Local
+      {t['com.affine.workspace.status.local']()}
     </>
   );
 };
 
 const OfflineStatus = () => {
+  const t = useI18n();
   return (
     <>
       <NoNetworkIcon />
-      Offline
+      {t['com.affine.workspace.status.offline']()}
     </>
   );
 };
 
 const useSyncEngineSyncProgress = (meta: WorkspaceMetadata) => {
+  const t = useI18n();
   const isOnline = useSystemOnline();
   const workspace = useWorkspace(meta);
   const serversService = useService(ServersService);
@@ -140,36 +145,43 @@ const useSyncEngineSyncProgress = (meta: WorkspaceMetadata) => {
     : undefined;
 
   let content;
-  // TODO(@eyhn): add i18n
   if (workspace.flavour === 'local') {
-    if (!BUILD_CONFIG.isElectron) {
-      content = 'This is a local demo workspace.';
-    } else {
-      content = 'Saved locally';
-    }
+    content =
+      t[
+        BUILD_CONFIG.isElectron
+          ? 'com.affine.workspace.status.saved-locally'
+          : 'com.affine.workspace.status.local-demo'
+      ]();
   } else if (!isOnline) {
-    content = 'Disconnected, please check your network connection';
+    content = t['com.affine.workspace.status.disconnected']();
   } else if (paused) {
     content =
-      error?.name === 'DOC_ROOT_SOURCE_INVALID'
-        ? 'The workspace index needs attention. Your local data is preserved, and existing documents can continue syncing.'
-        : 'Some changes could not be uploaded. Your local data is preserved.';
+      t[
+        error?.name === 'DOC_ROOT_SOURCE_INVALID'
+          ? 'com.affine.workspace.status.index-needs-attention'
+          : 'com.affine.workspace.status.upload-failed'
+      ]();
   } else if (engineState.syncRetrying && engineState.syncErrorMessage) {
-    content = `${engineState.syncErrorMessage}, reconnecting.`;
+    content = t['com.affine.workspace.status.reconnecting-with-reason']({
+      reason: engineState.syncErrorMessage,
+    });
   } else if (engineState.syncRetrying) {
-    content = 'Sync disconnected due to unexpected issues, reconnecting.';
+    content = t['com.affine.workspace.status.reconnecting']();
   } else if (syncing) {
-    content =
-      `Syncing with ${syncTarget}` +
-      (progress ? ` (${Math.floor(progress * 100)}%)` : '');
+    content = t['com.affine.workspace.status.syncing-with']({
+      target: syncTarget,
+      progress: progress ? ` (${Math.floor(progress * 100)}%)` : '',
+    });
   } else {
-    content = `Synced with ${syncTarget}`;
+    content = t['com.affine.workspace.status.synced-with']({
+      target: syncTarget,
+    });
   }
 
   const cloudIcon = paused ? (
     <>
       <UnsyncIcon />
-      Upload paused
+      {t['com.affine.workspace.status.upload-paused']()}
     </>
   ) : syncing ? (
     <SyncingWorkspaceStatus
@@ -227,6 +239,7 @@ const WorkspaceSyncInfo = ({
   workspaceProfile: WorkspaceProfileInfo;
   dense?: boolean;
 }) => {
+  const t = useI18n();
   const syncStatus = useSyncEngineSyncProgress(workspaceMetadata);
   const navigate = useNavigateHelper();
   const copyDiagnostics = useAsyncCallback(
@@ -234,10 +247,17 @@ const WorkspaceSyncInfo = ({
       event.stopPropagation();
       if (!syncStatus?.diagnostics) return;
       const copied = await copyTextToClipboard(syncStatus.diagnostics);
-      if (copied) notify.success({ title: 'Diagnostics copied' });
-      else notify.error({ title: 'Could not copy diagnostics' });
+      if (copied) {
+        notify.success({
+          title: t['com.affine.workspace.status.diagnostics-copied'](),
+        });
+      } else {
+        notify.error({
+          title: t['com.affine.workspace.status.diagnostics-copy-failed'](),
+        });
+      }
     },
-    [syncStatus?.diagnostics]
+    [syncStatus?.diagnostics, t]
   );
   const openExport = useCallback(
     (event: MouseEvent) => {
@@ -322,11 +342,11 @@ const WorkspaceSyncInfo = ({
                   {syncStatus.diagnostics && (
                     <>
                       <Button variant="plain" onClick={copyDiagnostics}>
-                        Copy diagnostics
+                        {t['com.affine.workspace.status.copy-diagnostics']()}
                       </Button>
                       {BUILD_CONFIG.isElectron && (
                         <Button variant="plain" onClick={openExport}>
-                          Open Quick Export
+                          {t['com.affine.workspace.status.open-quick-export']()}
                         </Button>
                       )}
                     </>
@@ -338,7 +358,7 @@ const WorkspaceSyncInfo = ({
               <Button
                 variant="plain"
                 size="custom"
-                aria-label="Sync status"
+                aria-label={t['com.affine.workspace.status.sync-label']()}
                 className={styles.workspaceActiveStatus}
                 contentClassName={styles.workspaceActiveStatusContent}
                 onClick={event => event.stopPropagation()}
@@ -459,7 +479,9 @@ export const WorkspaceCard = forwardRef<
             )}
           </div>
           {information?.isEmpty && information.isOwner ? (
-            <Button onClick={onRemoveWorkspace}>Remove</Button>
+            <Button onClick={onRemoveWorkspace}>
+              {t['com.affine.workspace.status.remove-workspace']()}
+            </Button>
           ) : null}
           <div className={styles.showOnCardHover}>
             {onClickEnableCloud && workspaceMetadata.flavour === 'local' ? (
@@ -467,7 +489,7 @@ export const WorkspaceCard = forwardRef<
                 className={styles.enableCloudButton}
                 onClick={onEnableCloud}
               >
-                Enable Cloud
+                {t['com.affine.workspace.status.enable-cloud']()}
               </Button>
             ) : null}
 

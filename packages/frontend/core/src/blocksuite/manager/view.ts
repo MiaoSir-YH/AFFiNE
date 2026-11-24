@@ -24,6 +24,7 @@ import { AffineThemeViewExtension } from '@affine/core/blocksuite/view-extension
 import { TurboRendererViewExtension } from '@affine/core/blocksuite/view-extensions/turbo-renderer';
 import { PeekViewService } from '@affine/core/modules/peek-view';
 import { DebugLogger } from '@affine/debug';
+import { I18n } from '@affine/i18n';
 import { tracker } from '@affine/track';
 import { DatabaseViewExtension } from '@blocksuite/affine/blocks/database/view';
 import { ParagraphViewExtension } from '@blocksuite/affine/blocks/paragraph/view';
@@ -248,39 +249,24 @@ class ViewProvider {
   };
 
   private readonly _configureParagraph = (enableAI?: boolean) => {
-    if (BUILD_CONFIG.isMobileEdition) {
-      this._manager.configure(ParagraphViewExtension, {
-        getPlaceholder: model => {
-          const placeholders = {
-            text: '',
-            h1: 'Heading 1',
-            h2: 'Heading 2',
-            h3: 'Heading 3',
-            h4: 'Heading 4',
-            h5: 'Heading 5',
-            h6: 'Heading 6',
-            quote: '',
-          };
-          return placeholders[model.props.type] ?? '';
-        },
-      });
-    } else if (enableAI) {
-      this._manager.configure(ParagraphViewExtension, {
-        getPlaceholder: model => {
-          const placeholders = {
-            text: "Type '/' for commands, 'space' for AI",
-            h1: 'Heading 1',
-            h2: 'Heading 2',
-            h3: 'Heading 3',
-            h4: 'Heading 4',
-            h5: 'Heading 5',
-            h6: 'Heading 6',
-            quote: '',
-          };
-          return placeholders[model.props.type] ?? '';
-        },
-      });
-    }
+    this._manager.configure(ParagraphViewExtension, {
+      getPlaceholder: model => {
+        const { type } = model.props;
+        if (type === 'text' && !BUILD_CONFIG.isMobileEdition) {
+          return I18n.t(
+            enableAI
+              ? 'com.affine.editor.paragraph.placeholder.command-with-ai'
+              : 'com.affine.editor.paragraph.placeholder.command'
+          );
+        }
+        if (type.startsWith('h')) {
+          return I18n.t('com.affine.editor.paragraph.placeholder.heading', {
+            level: type.slice(1),
+          });
+        }
+        return '';
+      },
+    });
     return this.config;
   };
 

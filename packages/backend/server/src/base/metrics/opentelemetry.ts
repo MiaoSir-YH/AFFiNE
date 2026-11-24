@@ -28,6 +28,7 @@ import {
 } from '@opentelemetry/semantic-conventions/incubating';
 import { PrismaInstrumentation } from '@prisma/instrumentation';
 
+import { isChatGPTCallbackRequest } from '../../plugins/copilot/chatgpt/callback';
 import { Config } from '../config';
 import { OnEvent } from '../event/def';
 import { registerCustomMetrics } from './metrics';
@@ -43,7 +44,10 @@ export abstract class BaseOpentelemetryOptionsFactory {
       new IORedisInstrumentation(),
       new SocketIoInstrumentation({ traceReserved: true }),
       new GraphQLInstrumentation({ mergeItems: true }),
-      new HttpInstrumentation(),
+      new HttpInstrumentation({
+        // OAuth callback query strings contain a one-time authorization code.
+        ignoreIncomingRequestHook: isChatGPTCallbackRequest,
+      }),
       new PrismaInstrumentation(),
     ];
   }

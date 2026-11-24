@@ -161,7 +161,10 @@ function getRspackBundleConfigs(pkg: Package): MultiRspackOptions {
     }
     case '@affine/server': {
       return [
-        createRspackNodeTargetConfig(pkg, pkg.srcPath.join('index.ts').value),
+        createRspackNodeTargetConfig(pkg, pkg.srcPath.join('index.ts').value, {
+          forceExternal:
+            process.platform === 'win32' ? ['@affine/server-native'] : [],
+        }),
       ] as MultiRspackOptions;
     }
     case '@affine/reader': {

@@ -29,6 +29,7 @@ import {
   SubscriptionService,
 } from '@affine/core/modules/cloud';
 import { WorkspaceDialogService } from '@affine/core/modules/dialogs';
+import { DocsSearchService } from '@affine/core/modules/docs-search';
 import { FeatureFlagService } from '@affine/core/modules/feature-flag';
 import { PeekViewService } from '@affine/core/modules/peek-view';
 import { NbstoreService } from '@affine/core/modules/storage';
@@ -57,6 +58,7 @@ function useAIRequestService() {
   const graphqlService = useService(GraphQLService);
   const eventSourceService = useService(EventSourceService);
   const nbstoreService = useService(NbstoreService);
+  const docsSearch = useService(DocsSearchService);
   const workspace = useService(WorkspaceService).workspace;
 
   return useMemo(
@@ -71,9 +73,10 @@ function useAIRequestService() {
               workspace.engine.doc.waitForSynced(docId)
             )
           );
-        }
+        },
+        docsSearch
       ),
-    [graphqlService, eventSourceService, nbstoreService, workspace]
+    [graphqlService, eventSourceService, nbstoreService, workspace, docsSearch]
   );
 }
 
